@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6936FC5E222B724C002B9A19 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC5D222B724C002B9A19 /* MainViewController.swift */; };
+		6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC5F222B7284002B9A19 /* HomeTableViewController.swift */; };
+		6936FC62222B7294002B9A19 /* MassageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC61222B7294002B9A19 /* MassageTableViewController.swift */; };
+		6936FC64222B72A1002B9A19 /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC63222B72A1002B9A19 /* DiscoverTableViewController.swift */; };
+		6936FC66222B72B2002B9A19 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC65222B72B2002B9A19 /* ProfileTableViewController.swift */; };
 		69E59F4522296D1C00497ECF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E59F4422296D1C00497ECF /* AppDelegate.swift */; };
-		69E59F4722296D1C00497ECF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E59F4622296D1C00497ECF /* ViewController.swift */; };
 		69E59F5A22296D1D00497ECF /* ____Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E59F5922296D1D00497ECF /* ____Tests.swift */; };
 		69E59F6522296D1D00497ECF /* ____UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E59F6422296D1D00497ECF /* ____UITests.swift */; };
 		69E59F752229790800497ECF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69E59F742229790800497ECF /* Assets.xcassets */; };
@@ -32,9 +36,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6936FC5D222B724C002B9A19 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		6936FC5F222B7284002B9A19 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		6936FC61222B7294002B9A19 /* MassageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassageTableViewController.swift; sourceTree = "<group>"; };
+		6936FC63222B72A1002B9A19 /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
+		6936FC65222B72B2002B9A19 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		69E59F4122296D1B00497ECF /* 新浪微博.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69E59F4422296D1C00497ECF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		69E59F4622296D1C00497ECF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		69E59F5022296D1C00497ECF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69E59F5522296D1D00497ECF /* 新浪微博Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "新浪微博Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69E59F5922296D1D00497ECF /* ____Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "____Tests.swift"; sourceTree = "<group>"; };
@@ -70,6 +78,90 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6936FC53222B705C002B9A19 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6936FC57222B7074002B9A19 /* View */,
+				6936FC56222B7072002B9A19 /* ViewModel */,
+				6936FC55222B706F002B9A19 /* Model */,
+				6936FC54222B7066002B9A19 /* Tools */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		6936FC54222B7066002B9A19 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		6936FC55222B706F002B9A19 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6936FC56222B7072002B9A19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6936FC57222B7074002B9A19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6936FC5B222B70A9002B9A19 /* Main */,
+				6936FC5C222B70CD002B9A19 /* Home */,
+				6936FC59222B70A4002B9A19 /* Massage */,
+				6936FC5A222B70A6002B9A19 /* Discover */,
+				6936FC58222B70A1002B9A19 /* Profile */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6936FC58222B70A1002B9A19 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				6936FC65222B72B2002B9A19 /* ProfileTableViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		6936FC59222B70A4002B9A19 /* Massage */ = {
+			isa = PBXGroup;
+			children = (
+				6936FC61222B7294002B9A19 /* MassageTableViewController.swift */,
+			);
+			path = Massage;
+			sourceTree = "<group>";
+		};
+		6936FC5A222B70A6002B9A19 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				6936FC63222B72A1002B9A19 /* DiscoverTableViewController.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		6936FC5B222B70A9002B9A19 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				6936FC5D222B724C002B9A19 /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		6936FC5C222B70CD002B9A19 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6936FC5F222B7284002B9A19 /* HomeTableViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		69E59F3822296D1B00497ECF = {
 			isa = PBXGroup;
 			children = (
@@ -93,8 +185,8 @@
 		69E59F4322296D1B00497ECF /* 新浪微博 */ = {
 			isa = PBXGroup;
 			children = (
+				6936FC53222B705C002B9A19 /* Classes */,
 				69E59F4422296D1C00497ECF /* AppDelegate.swift */,
-				69E59F4622296D1C00497ECF /* ViewController.swift */,
 				69E59F742229790800497ECF /* Assets.xcassets */,
 				69E59F5022296D1C00497ECF /* Info.plist */,
 			);
@@ -248,8 +340,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69E59F4722296D1C00497ECF /* ViewController.swift in Sources */,
+				6936FC66222B72B2002B9A19 /* ProfileTableViewController.swift in Sources */,
+				6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */,
 				69E59F4522296D1C00497ECF /* AppDelegate.swift in Sources */,
+				6936FC62222B7294002B9A19 /* MassageTableViewController.swift in Sources */,
+				6936FC64222B72A1002B9A19 /* DiscoverTableViewController.swift in Sources */,
+				6936FC5E222B724C002B9A19 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
