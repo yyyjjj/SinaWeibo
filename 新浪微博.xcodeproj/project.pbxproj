@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6929BD78222CB16200EE13FA /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD77222CB16200EE13FA /* UIButton+Extension.swift */; };
+		6929BD7A222CC9B300EE13FA /* VisitorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD79222CC9B300EE13FA /* VisitorTableViewController.swift */; };
+		6929BD7D222CD00E00EE13FA /* VisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD7C222CD00E00EE13FA /* VisitorView.swift */; };
+		6929BD7F222CE5E900EE13FA /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD7E222CE5E900EE13FA /* UILabel+Extension.swift */; };
 		6936FC5E222B724C002B9A19 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC5D222B724C002B9A19 /* MainViewController.swift */; };
 		6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC5F222B7284002B9A19 /* HomeTableViewController.swift */; };
 		6936FC62222B7294002B9A19 /* MassageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC61222B7294002B9A19 /* MassageTableViewController.swift */; };
@@ -36,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6929BD77222CB16200EE13FA /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		6929BD79222CC9B300EE13FA /* VisitorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorTableViewController.swift; sourceTree = "<group>"; };
+		6929BD7C222CD00E00EE13FA /* VisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorView.swift; sourceTree = "<group>"; };
+		6929BD7E222CE5E900EE13FA /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		6936FC5D222B724C002B9A19 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		6936FC5F222B7284002B9A19 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		6936FC61222B7294002B9A19 /* MassageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassageTableViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +86,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6929BD76222CAEA800EE13FA /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6929BD77222CB16200EE13FA /* UIButton+Extension.swift */,
+				6929BD7E222CE5E900EE13FA /* UILabel+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		6929BD7B222CC9B900EE13FA /* Visitor */ = {
+			isa = PBXGroup;
+			children = (
+				6929BD79222CC9B300EE13FA /* VisitorTableViewController.swift */,
+				6929BD7C222CD00E00EE13FA /* VisitorView.swift */,
+			);
+			path = Visitor;
+			sourceTree = "<group>";
+		};
 		6936FC53222B705C002B9A19 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +118,7 @@
 		6936FC54222B7066002B9A19 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				6929BD76222CAEA800EE13FA /* Extension */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -149,6 +176,7 @@
 		6936FC5B222B70A9002B9A19 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				6929BD7B222CC9B900EE13FA /* Visitor */,
 				6936FC5D222B724C002B9A19 /* MainViewController.swift */,
 			);
 			path = Main;
@@ -342,10 +370,14 @@
 			files = (
 				6936FC66222B72B2002B9A19 /* ProfileTableViewController.swift in Sources */,
 				6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */,
+				6929BD7F222CE5E900EE13FA /* UILabel+Extension.swift in Sources */,
 				69E59F4522296D1C00497ECF /* AppDelegate.swift in Sources */,
 				6936FC62222B7294002B9A19 /* MassageTableViewController.swift in Sources */,
+				6929BD7A222CC9B300EE13FA /* VisitorTableViewController.swift in Sources */,
 				6936FC64222B72A1002B9A19 /* DiscoverTableViewController.swift in Sources */,
+				6929BD7D222CD00E00EE13FA /* VisitorView.swift in Sources */,
 				6936FC5E222B724C002B9A19 /* MainViewController.swift in Sources */,
+				6929BD78222CB16200EE13FA /* UIButton+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
