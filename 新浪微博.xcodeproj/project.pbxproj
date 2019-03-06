@@ -7,19 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36120BE336EEDC0130F2051B /* Pods_____Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A0779D95FF6B5E311FB7B2 /* Pods_____Tests.framework */; };
 		6929BD78222CB16200EE13FA /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD77222CB16200EE13FA /* UIButton+Extension.swift */; };
 		6929BD7A222CC9B300EE13FA /* VisitorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD79222CC9B300EE13FA /* VisitorTableViewController.swift */; };
 		6929BD7D222CD00E00EE13FA /* VisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD7C222CD00E00EE13FA /* VisitorView.swift */; };
 		6929BD7F222CE5E900EE13FA /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD7E222CE5E900EE13FA /* UILabel+Extension.swift */; };
+		6929BD81222D541400EE13FA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD80222D541400EE13FA /* Common.swift */; };
+		6931F234222F6A07008B4948 /* OAuthLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931F233222F6A07008B4948 /* OAuthLoginViewController.swift */; };
+		6931F237222FB335008B4948 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931F236222FB335008B4948 /* String+Extension.swift */; };
 		6936FC5E222B724C002B9A19 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC5D222B724C002B9A19 /* MainViewController.swift */; };
 		6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC5F222B7284002B9A19 /* HomeTableViewController.swift */; };
 		6936FC62222B7294002B9A19 /* MassageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC61222B7294002B9A19 /* MassageTableViewController.swift */; };
 		6936FC64222B72A1002B9A19 /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC63222B72A1002B9A19 /* DiscoverTableViewController.swift */; };
 		6936FC66222B72B2002B9A19 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC65222B72B2002B9A19 /* ProfileTableViewController.swift */; };
+		69836DD9222E9281008472F5 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69836DD8222E9281008472F5 /* AFNetworking.framework */; };
+		69B0B3DC222EB3290020014B /* AFNetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B0B3DB222EB3290020014B /* AFNetworkTool.swift */; };
 		69E59F4522296D1C00497ECF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E59F4422296D1C00497ECF /* AppDelegate.swift */; };
 		69E59F5A22296D1D00497ECF /* ____Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E59F5922296D1D00497ECF /* ____Tests.swift */; };
 		69E59F6522296D1D00497ECF /* ____UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E59F6422296D1D00497ECF /* ____UITests.swift */; };
 		69E59F752229790800497ECF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69E59F742229790800497ECF /* Assets.xcassets */; };
+		8F2F617E96678F0037A21779 /* Pods_____UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D2C38E88F2AC02CFB5EDE8 /* Pods_____UITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,15 +47,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		57BE8FF9ACD0C183D4453DB3 /* Pods-新浪微博.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-新浪微博.debug.xcconfig"; path = "Pods/Target Support Files/Pods-新浪微博/Pods-新浪微博.debug.xcconfig"; sourceTree = "<group>"; };
 		6929BD77222CB16200EE13FA /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		6929BD79222CC9B300EE13FA /* VisitorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorTableViewController.swift; sourceTree = "<group>"; };
 		6929BD7C222CD00E00EE13FA /* VisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorView.swift; sourceTree = "<group>"; };
 		6929BD7E222CE5E900EE13FA /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		6929BD80222D541400EE13FA /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		6931F233222F6A07008B4948 /* OAuthLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthLoginViewController.swift; sourceTree = "<group>"; };
+		6931F236222FB335008B4948 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		6936FC5D222B724C002B9A19 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		6936FC5F222B7284002B9A19 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		6936FC61222B7294002B9A19 /* MassageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassageTableViewController.swift; sourceTree = "<group>"; };
 		6936FC63222B72A1002B9A19 /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
 		6936FC65222B72B2002B9A19 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		69836DD8222E9281008472F5 /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		69B0B3DB222EB3290020014B /* AFNetworkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFNetworkTool.swift; sourceTree = "<group>"; };
 		69E59F4122296D1B00497ECF /* 新浪微博.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69E59F4422296D1C00497ECF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69E59F5022296D1C00497ECF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -59,6 +72,14 @@
 		69E59F6422296D1D00497ECF /* ____UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "____UITests.swift"; sourceTree = "<group>"; };
 		69E59F6622296D1D00497ECF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69E59F742229790800497ECF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../../../Downloads/WB_Sina_OC-master/Weibo_Object-C/Weibo_Object-C/SupportingFIles/Assets.xcassets"; sourceTree = "<group>"; };
+		77A0779D95FF6B5E311FB7B2 /* Pods_____Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Pods_____Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D505B365D38A306291B6AD5 /* Pods_____.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Pods_____.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93D2C38E88F2AC02CFB5EDE8 /* Pods_____UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Pods_____UITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7FB410EDD8C80CAB2324CB8 /* Pods-新浪微博.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-新浪微博.release.xcconfig"; path = "Pods/Target Support Files/Pods-新浪微博/Pods-新浪微博.release.xcconfig"; sourceTree = "<group>"; };
+		BC56D22369D0824BEE545505 /* Pods-新浪微博Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-新浪微博Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-新浪微博Tests/Pods-新浪微博Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		CEB944DD4454E1BDAB30EA06 /* Pods-新浪微博UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-新浪微博UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-新浪微博UITests/Pods-新浪微博UITests.debug.xcconfig"; sourceTree = "<group>"; };
+		EBBD468EAF8887B62B004CD4 /* Pods-新浪微博Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-新浪微博Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-新浪微博Tests/Pods-新浪微博Tests.release.xcconfig"; sourceTree = "<group>"; };
+		F0846DA478CA845DFED42F2A /* Pods-新浪微博UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-新浪微博UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-新浪微博UITests/Pods-新浪微博UITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69836DD9222E9281008472F5 /* AFNetworking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36120BE336EEDC0130F2051B /* Pods_____Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,17 +103,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F2F617E96678F0037A21779 /* Pods_____UITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4210C259D91CBD42A09CC072 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69836DD8222E9281008472F5 /* AFNetworking.framework */,
+				8D505B365D38A306291B6AD5 /* Pods_____.framework */,
+				77A0779D95FF6B5E311FB7B2 /* Pods_____Tests.framework */,
+				93D2C38E88F2AC02CFB5EDE8 /* Pods_____UITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6929BD76222CAEA800EE13FA /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				6929BD77222CB16200EE13FA /* UIButton+Extension.swift */,
 				6929BD7E222CE5E900EE13FA /* UILabel+Extension.swift */,
+				6931F236222FB335008B4948 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -102,6 +138,14 @@
 				6929BD7C222CD00E00EE13FA /* VisitorView.swift */,
 			);
 			path = Visitor;
+			sourceTree = "<group>";
+		};
+		6931F235222F6A16008B4948 /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				6931F233222F6A07008B4948 /* OAuthLoginViewController.swift */,
+			);
+			path = OAuth;
 			sourceTree = "<group>";
 		};
 		6936FC53222B705C002B9A19 /* Classes */ = {
@@ -119,6 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				6929BD76222CAEA800EE13FA /* Extension */,
+				6929BD80222D541400EE13FA /* Common.swift */,
+				69B0B3DB222EB3290020014B /* AFNetworkTool.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -140,6 +186,7 @@
 		6936FC57222B7074002B9A19 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6931F235222F6A16008B4948 /* OAuth */,
 				6936FC5B222B70A9002B9A19 /* Main */,
 				6936FC5C222B70CD002B9A19 /* Home */,
 				6936FC59222B70A4002B9A19 /* Massage */,
@@ -197,6 +244,8 @@
 				69E59F5822296D1D00497ECF /* 新浪微博Tests */,
 				69E59F6322296D1D00497ECF /* 新浪微博UITests */,
 				69E59F4222296D1B00497ECF /* Products */,
+				4210C259D91CBD42A09CC072 /* Frameworks */,
+				8C17DFCDC7441D149BC945A9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -239,6 +288,19 @@
 			path = "新浪微博UITests";
 			sourceTree = "<group>";
 		};
+		8C17DFCDC7441D149BC945A9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				57BE8FF9ACD0C183D4453DB3 /* Pods-新浪微博.debug.xcconfig */,
+				B7FB410EDD8C80CAB2324CB8 /* Pods-新浪微博.release.xcconfig */,
+				BC56D22369D0824BEE545505 /* Pods-新浪微博Tests.debug.xcconfig */,
+				EBBD468EAF8887B62B004CD4 /* Pods-新浪微博Tests.release.xcconfig */,
+				CEB944DD4454E1BDAB30EA06 /* Pods-新浪微博UITests.debug.xcconfig */,
+				F0846DA478CA845DFED42F2A /* Pods-新浪微博UITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -246,9 +308,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69E59F6922296D1D00497ECF /* Build configuration list for PBXNativeTarget "新浪微博" */;
 			buildPhases = (
+				D01D58729F65A57504F920D7 /* [CP] Check Pods Manifest.lock */,
 				69E59F3D22296D1B00497ECF /* Sources */,
 				69E59F3E22296D1B00497ECF /* Frameworks */,
 				69E59F3F22296D1B00497ECF /* Resources */,
+				46425275A3DE9EC0EB64DA14 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -263,6 +327,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69E59F6C22296D1D00497ECF /* Build configuration list for PBXNativeTarget "新浪微博Tests" */;
 			buildPhases = (
+				18C550124B560802633981EE /* [CP] Check Pods Manifest.lock */,
 				69E59F5122296D1D00497ECF /* Sources */,
 				69E59F5222296D1D00497ECF /* Frameworks */,
 				69E59F5322296D1D00497ECF /* Resources */,
@@ -281,6 +346,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69E59F6F22296D1D00497ECF /* Build configuration list for PBXNativeTarget "新浪微博UITests" */;
 			buildPhases = (
+				EE43683FEB8684DC5C9C8983 /* [CP] Check Pods Manifest.lock */,
 				69E59F5C22296D1D00497ECF /* Sources */,
 				69E59F5D22296D1D00497ECF /* Frameworks */,
 				69E59F5E22296D1D00497ECF /* Resources */,
@@ -307,6 +373,7 @@
 				TargetAttributes = {
 					69E59F4022296D1B00497ECF = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					69E59F5422296D1D00497ECF = {
 						CreatedOnToolsVersion = 10.1;
@@ -363,16 +430,111 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		18C550124B560802633981EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-新浪微博Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		46425275A3DE9EC0EB64DA14 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-新浪微博/Pods-新浪微博-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-新浪微博/Pods-新浪微博-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D01D58729F65A57504F920D7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-新浪微博-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE43683FEB8684DC5C9C8983 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-新浪微博UITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		69E59F3D22296D1B00497ECF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6931F234222F6A07008B4948 /* OAuthLoginViewController.swift in Sources */,
 				6936FC66222B72B2002B9A19 /* ProfileTableViewController.swift in Sources */,
 				6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */,
 				6929BD7F222CE5E900EE13FA /* UILabel+Extension.swift in Sources */,
 				69E59F4522296D1C00497ECF /* AppDelegate.swift in Sources */,
+				6929BD81222D541400EE13FA /* Common.swift in Sources */,
+				69B0B3DC222EB3290020014B /* AFNetworkTool.swift in Sources */,
 				6936FC62222B7294002B9A19 /* MassageTableViewController.swift in Sources */,
+				6931F237222FB335008B4948 /* String+Extension.swift in Sources */,
 				6929BD7A222CC9B300EE13FA /* VisitorTableViewController.swift in Sources */,
 				6936FC64222B72A1002B9A19 /* DiscoverTableViewController.swift in Sources */,
 				6929BD7D222CD00E00EE13FA /* VisitorView.swift in Sources */,
@@ -531,9 +693,11 @@
 		};
 		69E59F6A22296D1D00497ECF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57BE8FF9ACD0C183D4453DB3 /* Pods-新浪微博.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "新浪微博/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -542,6 +706,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lhj.----";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -549,9 +714,11 @@
 		};
 		69E59F6B22296D1D00497ECF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B7FB410EDD8C80CAB2324CB8 /* Pods-新浪微博.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "新浪微博/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -567,6 +734,7 @@
 		};
 		69E59F6D22296D1D00497ECF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC56D22369D0824BEE545505 /* Pods-新浪微博Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -587,6 +755,7 @@
 		};
 		69E59F6E22296D1D00497ECF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EBBD468EAF8887B62B004CD4 /* Pods-新浪微博Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -607,6 +776,7 @@
 		};
 		69E59F7022296D1D00497ECF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB944DD4454E1BDAB30EA06 /* Pods-新浪微博UITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -626,6 +796,7 @@
 		};
 		69E59F7122296D1D00497ECF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0846DA478CA845DFED42F2A /* Pods-新浪微博UITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
