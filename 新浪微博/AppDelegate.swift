@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.backgroundColor = UIColor.white
         
-        window?.rootViewController = MainViewController()//NewFeatureCollectionViewController()
+        window?.rootViewController = //MainViewController()
+        NewFeatureCollectionViewController()
         
         window?.makeKeyAndVisible()
         
