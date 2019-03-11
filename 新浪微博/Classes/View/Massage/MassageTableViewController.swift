@@ -8,11 +8,12 @@
 
 import UIKit
 
-class MassageTableViewController: UITableViewController {
+class MassageTableViewController: VisitorTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        visitorview?.SetUpInfo(imagename: "visitordiscover_image_message", text: "登录后，别人评论你的微博，发给你的消息，都会在这里收到通知。")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
