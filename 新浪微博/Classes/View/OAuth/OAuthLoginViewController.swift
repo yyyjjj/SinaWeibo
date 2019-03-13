@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 import WebKit
 class OAuthLoginViewController: UIViewController {
     ///加载WebView界面
@@ -21,7 +22,9 @@ class OAuthLoginViewController: UIViewController {
     }
     ///关闭页面
     @objc func Close(){
-        dismiss(animated: true, completion: nil)
+        SVProgressHUD.dismiss()
+        navigationController?.popViewController(animated: true)
+//        self.dismiss(animated: true, completion: nil)
     }
     ///自动填充
     @objc func AutoFill(){
@@ -44,9 +47,10 @@ class OAuthLoginViewController: UIViewController {
     }
     
 }
-// MARK: -WKNavigationDelegate方法 拦截webView跳转
+// MARK: -WKNavigationDelegate方法
 extension OAuthLoginViewController : WKNavigationDelegate
 {
+    //拦截webView跳转界面(baidu)
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         
         guard let url = navigationResponse.response.url else{
@@ -60,6 +64,8 @@ extension OAuthLoginViewController : WKNavigationDelegate
             return
         }
         guard let query = url.query , query.hasPrefix("code=") else{
+            //取消授权
+            self.Close()
             decisionHandler(.cancel)
             return
         }
@@ -68,14 +74,28 @@ extension OAuthLoginViewController : WKNavigationDelegate
         
         UserAccountViewModel.shared.loadAccessToken(code: code) { (isSuccess) in
             if isSuccess{
-                print("account = \(UserAccountViewModel.shared.account?.avatar_large)")
+
+                    NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: WBSwitchVCControllerNotification), object: nil)
+//                print("account = \(UserAccountViewModel.shared.account?.expiresDate)")
             }else{
-                print("没有加载到用户错误")
+                
+                SVProgressHUD.showInfo(withStatus: "你的网络不给力")
+                
+                DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+                    self.Close()
+                })
             }
         }
         
         decisionHandler(.cancel)
         
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        SVProgressHUD.dismiss()
+    }
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        SVProgressHUD.show()
     }
 }
 

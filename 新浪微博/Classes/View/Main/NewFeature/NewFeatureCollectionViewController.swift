@@ -127,12 +127,15 @@ private class NewFeatureCell : UICollectionViewCell{
 extension NewFeatureCell
 {
     @objc func clickStartButton(){
-        print("点击了")
+        //nil Object说明发送notificationname
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: WBSwitchVCControllerNotification), object: nil)
     }
     func showButtonAnimation() {
         
         startbutton.isHidden = false
+        
         startbutton.transform = CGAffineTransform.init(scaleX: 0, y: 0)
+        
         startbutton.isUserInteractionEnabled = false
         
         UIView.animate(withDuration: 1.8,           //动画时长

@@ -26,28 +26,41 @@ class UserAccountViewModel {
         return account?.access_token != nil && !isExpired
     }
     
-    private var accountPath : URL{
+     var accountPath : URL{
         let path = URL.init(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)
         return path.appendingPathComponent("account.plist")
     }
     
+     var avatar_largeURL : URL {
+
+        if account != nil && !isExpired{
+            return URL.init(string: account!.avatar_large!)!
+        }
+        return URL(string:"")!
+    }
+    
     private var isExpired : Bool{
-        print("account?.expires_date = \(String(describing: account?.expiresDate)) Date() = \(Date())")
+//        print("\(account?.expiresDate) + \(Date())")
         return account?.expiresDate?.compare(Date()) == .orderedDescending ? false : true
     }
     
     private init() {
         
-        print(accountPath.absoluteString)
+//        print(accountPath.absoluteString)
         
         do {
+
             let data = try Data.init(contentsOf: accountPath)
+
             do{
-                account = try NSKeyedUnarchiver.unarchivedObject(ofClass: UserAccount.self, from: data)
+// NSKeyedArchiver.archivedData(withRootObject: account, requiringSecureCoding: false)与下面方法配套使用
+                 account = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UserAccount
+                
                 if isExpired{
                     print("access_token 过期啦")
                     account = nil
                 }
+
             }
             catch{
                 assert(true, "用户数据解档失败")
@@ -78,7 +91,9 @@ extension UserAccountViewModel {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .secondsSince1970
             let json = try! JSONSerialization.data(withJSONObject: data!, options: [])
-            self.account = try! decoder.decode(UserAccount.self, from: json )
+            
+            self.account = try! decoder.decode(UserAccount.self, from: json)
+            self.account?.expiresDate = Date(timeIntervalSinceNow:self.account!.expires_in)
             self.loadUserInfo(access_token: (self.account?.access_token)!, uid: (self.account?.uid)!, finished: finished)
         }
         
@@ -104,18 +119,21 @@ extension UserAccountViewModel {
             
             account.screen_name = dict["screen_name"] as? String
             account.avatar_large = dict["avatar_large"] as? String
+            print("userAountpath=\(self.accountPath)")
            //把数据写入沙盒
+            //NSKeyedArchiver.archiveRootObject(account, toFile: self.accountPath.absoluteString)
+            
             do {
                 let data = try NSKeyedArchiver.archivedData(withRootObject: account, requiringSecureCoding: false)
                 do{
                     try data.write(to: self.accountPath)
-                    print(self.accountPath)
+                    print("catch====\(self.accountPath)")
                 }
                 catch{
                     assert(true, "无法把account写入path")
                 }
             }catch{
-                assert(true, "无法生成归档数据")
+                    assert(true, "无法生成归档数据")
             }
             finished(true)
         }

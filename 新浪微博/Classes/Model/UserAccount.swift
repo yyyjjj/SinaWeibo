@@ -14,13 +14,11 @@ import UIKit
     //用户信息码
     var uid : String?
     //access_token距离现在的过期时间，保护用户安全,秒为单位
+    //使用监听属性的话，写入时候不能起到监听作用，expiresDate就会变成nil
     var expires_in : TimeInterval = 0
     ///过期日期
-    var expiresDate : Date?{
-        get{
-            return Date(timeIntervalSinceNow:expires_in )
-        }
-    }
+    //计算性属性不能在ivar中拿到
+    var expiresDate : Date?
     ///用户大头像地址
     var avatar_large : String?
     ///用户名称
@@ -28,33 +26,33 @@ import UIKit
     //是否是真名
     var isRealName : String?
     ///归档数据写入沙盒
-//    func saveToSandBox() {
-//
-//        var path = URL.init(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! )
-//
-//        path = path.appendingPathComponent("account.plist")
-//
-//        print(path.absoluteString )
-//        //该解析方法已经过时
-//        //        do {
-//        //            try NSKeyedArchiver.archiveRootObject(self, toFile: path!.absoluteString)}
-//        //
-//        //        catch{
-//        //            assert(true, "无法把account写入path");
-//        //        }
-//        do {
-//            let data = try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
-//            do{
-//                try data.write(to: path)
-//            }
-//            catch{
-//                assert(true, "无法把account写入path")
-//            }
-//        }catch{
-//            assert(true, "无法生成归档数据")
-//        }
-//    }
-//
+    //    func saveToSandBox() {
+    //
+    //        var path = URL.init(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! )
+    //
+    //        path = path.appendingPathComponent("account.plist")
+    //
+    //        print(path.absoluteString )
+    //        //该解析方法已经过时
+    //        //        do {
+    //        //            try NSKeyedArchiver.archiveRootObject(self, toFile: path!.absoluteString)}
+    //        //
+    //        //        catch{
+    //        //            assert(true, "无法把account写入path");
+    //        //        }
+    //        do {
+    //            let data = try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
+    //            do{
+    //                try data.write(to: path)
+    //            }
+    //            catch{
+    //                assert(true, "无法把account写入path")
+    //            }
+    //        }catch{
+    //            assert(true, "无法生成归档数据")
+    //        }
+    //    }
+    //
     func getPropertyNameList() -> [String] {
         
         var count : UInt32 = 0
@@ -85,10 +83,10 @@ import UIKit
         
         let propertyList = getPropertyNameList()
         
-//        print(propertyList)
+                print(propertyList)
         
         propertyList.forEach { (p_name) in
-//            print("\(p_name) + \(String(describing: value(forKey: p_name)))")
+            print("\(p_name) + \(String(describing: value(forKey: p_name)))")
             aCoder.encode(value(forKey: p_name), forKey: p_name)
         }
         
@@ -99,18 +97,20 @@ import UIKit
         //        aCoder.encode(avatar_large, forKey: "avatar_large")
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         
         super.init()
         
-        let propertyList = getPropertyNameList()
+        var propertyList = getPropertyNameList()
+        
+        print(propertyList)
         
         propertyList.forEach { (p_name) in
             let value = aDecoder.decodeObject(forKey: p_name)
+                        print("\(p_name) + \(String(describing: value))")
             setValue(value, forKey: p_name)
         }
-        //        access_token = aDecoder.decodeObject(forKey: "access_token") as? String
+        //access_token = aDecoder.decodeObject(forKey: "access_token") as? String
         //        expiresDate = aDecoder.decodeObject(forKey: "expiresDate") as? Date
         //        uid = aDecoder.decodeObject(forKey: "uid") as? String
         //        screen_name = aDecoder.decodeObject(forKey: "screen_name") as? String

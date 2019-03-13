@@ -14,18 +14,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+            
         SetUpAppearence()
         // Override point for customization after application launch.
         window = UIWindow.init(frame: UIScreen.main.bounds)
         
         window?.backgroundColor = UIColor.white
         
-        window?.rootViewController = //MainViewController()
-        NewFeatureCollectionViewController()
+        window?.rootViewController = defaultViewController
         
         window?.makeKeyAndVisible()
         
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: WBSwitchVCControllerNotification), object: nil, queue: nil) {
+            [weak self] (notification) in
+            
+            self!.window?.rootViewController = MainViewController()
+            
+        }
+        
         return true
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self,name: NSNotification.Name(rawValue: WBSwitchVCControllerNotification), object: nil)
     }
     //一般全局渲染的设置都放在Appdelegate,要在控件创建前设置,否则修改无效
     func SetUpAppearence() {
@@ -60,4 +70,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
 }
+//MARK: -界面切换代码
+extension AppDelegate
+{
+    
+    var defaultViewController : UIViewController{
+        if UserAccountViewModel.shared.userLoginStatus{
+            return isNewVersion ? NewFeatureCollectionViewController() : WelcomeViewController()
+        }
+        return MainViewController()
+    }
+    
+    
+    var isNewVersion : Bool {
+        
+       let currentversion = Double( Bundle.main.infoDictionary!["CFBundleShortVersionString"] as!  String )!
+        
+        let oldversionkey = "sandboxVersionKey"
 
+       let oldversion = UserDefaults.standard.double(forKey: oldversionkey)
+        
+        UserDefaults.standard.set(currentversion, forKey: oldversionkey)
+        
+        return oldversion < currentversion
+    }
+}

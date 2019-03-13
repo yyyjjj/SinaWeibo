@@ -7,6 +7,8 @@
 //
 //类似与OC的pch文件
 import UIKit
+//window切换MainVC通知
+let WBSwitchVCControllerNotification = "WBSwitchVCControllerNotification"
 //设置全局颜色
 let appearenceColor = UIColor.orange
 

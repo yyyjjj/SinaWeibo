@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+ platform :ios, '9.0'
 
 target '新浪微博' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -7,6 +7,8 @@ target '新浪微博' do
   
 pod 'AFNetworking'
 pod 'SnapKit'
+pod 'SDWebImage', '~> 4.0'
+pod 'SVProgressHUD'
   # Pods for 新浪微博
 
   target '新浪微博Tests' do

@@ -53,7 +53,6 @@ extension AFNetworkTool
             success(result, nil)
          }
         
-        
     }
 }
 
