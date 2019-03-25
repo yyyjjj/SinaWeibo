@@ -74,7 +74,8 @@ extension OAuthLoginViewController : WKNavigationDelegate
         
         UserAccountViewModel.shared.loadAccessToken(code: code) { (isSuccess) in
             if isSuccess{
-
+                //停止指示器 否则不会被销毁
+                SVProgressHUD.dismiss();
                     NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: WBSwitchVCControllerNotification), object: nil)
 //                print("account = \(UserAccountViewModel.shared.account?.expiresDate)")
             }else{

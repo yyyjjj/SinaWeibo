@@ -83,10 +83,10 @@ import UIKit
         
         let propertyList = getPropertyNameList()
         
-                print(propertyList)
+//                print(propertyList)
         
         propertyList.forEach { (p_name) in
-            print("\(p_name) + \(String(describing: value(forKey: p_name)))")
+//            print("\(p_name) + \(String(describing: value(forKey: p_name)))")
             aCoder.encode(value(forKey: p_name), forKey: p_name)
         }
         
@@ -101,13 +101,13 @@ import UIKit
         
         super.init()
         
-        var propertyList = getPropertyNameList()
+        let propertyList = getPropertyNameList()
         
-        print(propertyList)
+//        print(propertyList)
         
         propertyList.forEach { (p_name) in
             let value = aDecoder.decodeObject(forKey: p_name)
-                        print("\(p_name) + \(String(describing: value))")
+//                        print("\(p_name) + \(String(describing: value))")
             setValue(value, forKey: p_name)
         }
         //access_token = aDecoder.decodeObject(forKey: "access_token") as? String

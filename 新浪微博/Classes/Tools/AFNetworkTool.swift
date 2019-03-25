@@ -25,6 +25,14 @@ class AFNetworkTool : AFHTTPSessionManager
     
     typealias completion = (Any?,Error?)->Void
     
+    private static var tokenDict : [String:Any]?
+    {
+        guard let token = UserAccountViewModel.shared.accessToken else {
+            return nil
+        }
+        return ["access_token":token]
+    }
+    
     static var sharedTool : AFNetworkTool = {
         let tool = AFNetworkTool()
         return tool
@@ -38,13 +46,16 @@ class AFNetworkTool : AFHTTPSessionManager
 //MARK: -获取用户信息
 extension AFNetworkTool
 {
-    func LoadUserInfo(access:String,uid:String,success:@escaping completion)  {
+    func LoadUserInfo(uid:String,success:@escaping completion)  {
+        
+        guard var params = AFNetworkTool.tokenDict else{
+            success(nil, NSError(domain:"cn.itcast.error",code:-1001,userInfo:["message":"token 为空"]))
+            return
+        }
         
         let urlStrings = "https://api.weibo.com/2/users/show.json"
         
-        let params = ["uid":uid,
-                      "access_token":access
-                      ]
+         params["uid"] = uid
         
         request(RequestMethod: .GET, URLString: urlStrings, parameters: params, progress: nil) { (result, error) -> (Void) in
             if error != nil{
@@ -54,6 +65,21 @@ extension AFNetworkTool
          }
         
     }
+}
+//MARK: -获取用户关注的动态
+extension AFNetworkTool{
+    
+    func LoadStatus(finished:@escaping completion){
+        guard var params = AFNetworkTool.tokenDict else{
+            finished(nil, NSError(domain:"cn.itcast.error",code:-1001,userInfo:["message":"token 为空"]))
+            return
+        }
+        
+        let urlStrings = "https://api.weibo.com/2/statuses/home_timeline.json"
+        
+        request(RequestMethod: .GET, URLString: urlStrings, parameters: params, progress: nil, finished: finished)
+    }
+    
 }
 
 //MARK: -获取accesst_token
@@ -75,7 +101,6 @@ extension AFNetworkTool
 
 //MARK: -封装AFNetwork请求方法
 extension AFNetworkTool{
-    
     /// 网络请求
     ///
     /// - Parameters:
@@ -87,7 +112,9 @@ extension AFNetworkTool{
     func request(RequestMethod : HttpRequestMethod,URLString : String, parameters :  Any? , progress :((Progress)->Void)? , finished : @escaping (completion)){
         //成功闭包
         let success = { (_ result: URLSessionDataTask?,_ responseobject: Any?) ->Void in
+            
             finished(responseobject,nil)
+            
         }
         //失败闭包
         let failture = { (_ result: URLSessionDataTask?,_ error: Error?) ->Void in

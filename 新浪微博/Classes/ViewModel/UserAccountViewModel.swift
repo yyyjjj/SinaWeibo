@@ -26,6 +26,14 @@ class UserAccountViewModel {
         return account?.access_token != nil && !isExpired
     }
     
+    var accessToken : String?{
+        if !isExpired {
+            return account?.access_token
+        }
+        return nil
+    }
+    
+    
      var accountPath : URL{
         let path = URL.init(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)
         return path.appendingPathComponent("account.plist")
@@ -46,14 +54,14 @@ class UserAccountViewModel {
     
     private init() {
         
-//        print(accountPath.absoluteString)
+        //print(accountPath.absoluteString)
         
         do {
 
             let data = try Data.init(contentsOf: accountPath)
 
             do{
-// NSKeyedArchiver.archivedData(withRootObject: account, requiringSecureCoding: false)与下面方法配套使用
+                // NSKeyedArchiver.archivedData(withRootObject: account, requiringSecureCoding: false)与下面方法配套使用
                  account = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UserAccount
                 
                 if isExpired{
@@ -94,13 +102,13 @@ extension UserAccountViewModel {
             
             self.account = try! decoder.decode(UserAccount.self, from: json)
             self.account?.expiresDate = Date(timeIntervalSinceNow:self.account!.expires_in)
-            self.loadUserInfo(access_token: (self.account?.access_token)!, uid: (self.account?.uid)!, finished: finished)
+            self.loadUserInfo(uid: (self.account?.uid)!, finished: finished)
         }
         
     }
     
-    private func loadUserInfo(access_token:String,uid:String,finished : @escaping (_ isSuccess : Bool)->())  {
-        AFNetworkTool.sharedTool.LoadUserInfo(access:access_token, uid: uid){ (data, error) in
+    private func loadUserInfo(uid:String,finished : @escaping (_ isSuccess : Bool)->())  {
+        AFNetworkTool.sharedTool.LoadUserInfo( uid: uid){ (data, error) in
             if error != nil
             {
                 finished(false)

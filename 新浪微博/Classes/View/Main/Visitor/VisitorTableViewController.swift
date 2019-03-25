@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+///注意 这里的tableview数据源和代理方法不能实现，不然子类的会被覆盖
 class VisitorTableViewController: UITableViewController {
     
     // MARK: -用户登录状态
@@ -37,24 +37,9 @@ class VisitorTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         //        print(visitorview)
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-    
-    
 }
 extension VisitorTableViewController : VisitorViewDelegate{
     @objc func ClickRegisteButton() {
