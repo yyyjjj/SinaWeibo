@@ -13,7 +13,7 @@ private let StatusCellID = "StatusCellID"
 
 class HomeTableViewController: VisitorTableViewController {
     
-    var statusvm = StatusViewModel.share
+    var statusvm = StatusListViewModel.share
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class HomeTableViewController: VisitorTableViewController {
     }
 
     func LoadStatus(){
-        StatusViewModel.share.LoadStatus(){ (isSuccess) in
+        StatusListViewModel.share.LoadStatus(){ (isSuccess) in
             if isSuccess == false
             {
                 SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
@@ -38,7 +38,9 @@ class HomeTableViewController: VisitorTableViewController {
     ///注册cell
     func prepareforTableView()
     {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: StatusCellID)
+        tableView.register(StatusCell.self, forCellReuseIdentifier: StatusCellID)
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableView.automaticDimension
     }
 }
 //MARK :-数据源方法
@@ -53,12 +55,9 @@ extension HomeTableViewController
 {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        guard
-        let cell = tableView.dequeueReusableCell(withIdentifier: StatusCellID, for: indexPath)
-//        else{
-//            assert(true, "没有得到cell")
-//        }
-        cell.textLabel?.text = statusvm.StatusList?[indexPath.row].user?.screen_name!
+         let cell = tableView.dequeueReusableCell(withIdentifier: StatusCellID, for: indexPath) as! StatusCell
+        
+        cell.viewModel = statusvm.StatusList?[indexPath.row]
         
         return cell
     }

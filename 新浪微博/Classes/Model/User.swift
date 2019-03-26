@@ -18,7 +18,7 @@ class User: NSObject {
     ///认证类型 -1：没有认证 0：认证用户 2，3，4：企业用户 220：达人
     @objc var verified_type : Int = 0
     ///会员等级 0-6
-    @objc var mbrank:Int = 0
+    @objc var mbrank : Int = 0
     
     init(dict:[String:AnyObject]) {
         super.init()

@@ -73,9 +73,7 @@ import UIKit
             if let key = String.init(cString: char_b, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) as String?{
                 names.append(key)
             }
-            
         }
-        
         return names
     }
     ///归档数据存储到磁盘

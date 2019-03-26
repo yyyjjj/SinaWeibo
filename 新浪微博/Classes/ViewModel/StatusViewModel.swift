@@ -8,35 +8,42 @@
 
 import UIKit
 
-class StatusViewModel {
-
-    static var share = StatusViewModel()
-    var StatusList : [Status]?
-}
-//MARK :-封装网络获取发布的动态
-extension StatusViewModel{
-    func LoadStatus(finished:@escaping (_ isSuccess : Bool) -> Void)
-   {
-    AFNetworkTool.sharedTool.LoadStatus { (result, error) in
-        if error != nil{
-            finished(false)
-            assert(true, "加载错误")
-        }
-        //拿到status下的字典
-        guard let result = result as? [String:AnyObject], let statuses = result["statuses"] as? [[String:AnyObject]] else
-        {
-            assert(true, "数据格式错误")
-            return
-        }
-        
-        var List = [Status]()
-        
-        statuses.forEach({
-            List.append(Status.init(dict: $0))
-        })
-        
-        self.StatusList = List
-        finished(true)
+class StatusViewModel: NSObject {
+    var status : Status
+    ///用户头像URL
+    var profileURL : URL {
+        return URL(string: status.user?.profile_image_url! ?? "")!
     }
+    ///用户默认头像
+    var defaultProfile : UIImage {
+        return UIImage.init(named: "avatar_default")!
     }
+    ///用户会员图标
+    var memberImage : UIImage?{
+        let mbrank = status.user!.mbrank
+        if mbrank > 0 && mbrank < 7 {
+            return UIImage.init(named: "common_icon_membership_level\(mbrank)")
+        }
+        return nil
+    }
+    
+    ///用户认证图标
+    ///认证类型 -1：没有认证 0：认证用户 2，3，4：企业用户 220：达人
+    var verifiedImage : UIImage? {
+        switch status.user?.verified_type ?? -1 {
+        case 0: return UIImage.init(named: "avatar_vip")
+            break;
+        case 2,3,4: return UIImage.init(named: "avatar_enterprise_vip")
+            
+        case 220: return UIImage.init(named: "avatar_grassroot")
+            
+        default:
+            return nil
+        }
+    }
+    
+    init(status:Status) {
+        self.status = status
+    }
+    
 }

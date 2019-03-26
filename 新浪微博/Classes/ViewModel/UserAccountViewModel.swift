@@ -33,7 +33,6 @@ class UserAccountViewModel {
         return nil
     }
     
-    
      var accountPath : URL{
         let path = URL.init(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)
         return path.appendingPathComponent("account.plist")
@@ -94,17 +93,15 @@ extension UserAccountViewModel {
             //                return
             //            }
             //            let account = UserAccount.init(dict: dict)
-            
+    
             //codable方法
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .secondsSince1970
             let json = try! JSONSerialization.data(withJSONObject: data!, options: [])
-            
             self.account = try! decoder.decode(UserAccount.self, from: json)
             self.account?.expiresDate = Date(timeIntervalSinceNow:self.account!.expires_in)
             self.loadUserInfo(uid: (self.account?.uid)!, finished: finished)
         }
-        
     }
     
     private func loadUserInfo(uid:String,finished : @escaping (_ isSuccess : Bool)->())  {
