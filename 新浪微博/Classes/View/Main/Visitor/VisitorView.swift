@@ -36,7 +36,7 @@ class VisitorView: UIView {
     
     private lazy var maskview = UIImageView.init(image: UIImage.init(named:"visitordiscover_feed_mask_smallicon"))
     
-    private lazy var messagelabel : UILabel = UILabel(content: "关注一些人，回这里看看有什么惊喜", textStyle: .center, color: .gray, size: 14)
+    private lazy var messagelabel : UILabel = UILabel(content: "关注一些人，回这里看看有什么惊喜", color: .gray, size: 14)
     
     private lazy var registerButton : UIButton = UIButton.init(text: "注册", textColor: .orange, backImage: "common_button_white_disable",highlight : nil)
     

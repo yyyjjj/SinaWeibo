@@ -10,9 +10,8 @@ import UIKit
 
 class StatusListViewModel
 {
-    static var share = StatusListViewModel()
     ///StatusViewModel的数组
-    var StatusList : [StatusViewModel]?
+    var StatusList = [StatusViewModel]()
 }
 //MARK :-封装网络获取发布的动态
 extension StatusListViewModel{
@@ -36,7 +35,9 @@ extension StatusListViewModel{
         statuses.forEach({
             List.append(StatusViewModel.init(status: Status.init(dict: $0) ))
         })
+        
         self.StatusList = List
+        
         finished(true)
     }
     }

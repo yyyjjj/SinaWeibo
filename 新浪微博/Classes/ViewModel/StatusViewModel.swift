@@ -41,9 +41,25 @@ class StatusViewModel: NSObject {
             return nil
         }
     }
+    ///用户配图数组
+     var thumbnails : [URL]?
+    //缓存行高
+    lazy var rowHeight : CGFloat = {
+//        print("计算了rowHeight")
+        //类对象 引用类型
+        let cell = StatusCell.init(style: .default, reuseIdentifier: StatusCellID)
+        return cell.RowHeight(statusVM: self)
+    }()
     
     init(status:Status) {
         self.status = status
-    }
+        super.init()
+        thumbnails = [URL]()
+        if status.pic_urls!.count>0 {
+        status.pic_urls?.forEach({
+            thumbnails!.append(URL.init(string: $0["thumbnail_pic"]!)!)
+        })
+        }
+     }
     
 }

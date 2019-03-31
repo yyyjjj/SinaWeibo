@@ -47,7 +47,6 @@ extension StatusBottomView {
         }
         
         likeButton.snp.makeConstraints { (make) in
-            
             make.top.equalTo(commentButton.snp.top)
             make.left.equalTo(commentButton.snp.right)
             make.width.equalTo(commentButton.snp.width)

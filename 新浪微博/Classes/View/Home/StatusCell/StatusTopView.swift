@@ -17,7 +17,6 @@ class StatusTopView: UIView {
             iconView.sd_setImage(with: viewModel?.profileURL, placeholderImage: viewModel?.defaultProfile, options: [], completed: nil)
             memberIconView.image = viewModel?.memberImage
             vipIconView.image = viewModel?.verifiedImage
-            
         }
     }
     
@@ -32,15 +31,15 @@ class StatusTopView: UIView {
     ///用户头像
     private lazy var iconView : UIImageView = UIImageView.init(image: UIImage.init(named: "avatar_default"))
     ///用户名称
-    private lazy var nameLabel : UILabel = UILabel.init(content: "梁华建", textStyle: .left, size: 14)
+    private lazy var nameLabel : UILabel = UILabel.init(content: "梁华建", size: 14)
     ///会员图标 大
     private lazy var memberIconView : UIImageView = UIImageView.init(image:UIImage.init(named: "common_icon_membership_level1"))
     ///认证图标 小
     private lazy var vipIconView : UIImageView = UIImageView.init(image: UIImage.init(named: "avatar_vip"))
     ///时间标签
-    private lazy var timeLabel : UILabel = UILabel.init(content: "现在", textStyle: .left, size:11)
+    private lazy var timeLabel : UILabel = UILabel.init(content: "现在", size:11)
     ///来源标签
-    private lazy var sourceLabel : UILabel = UILabel.init(content: "来源", textStyle: .left, size: 11)
+    private lazy var sourceLabel : UILabel = UILabel.init(content: "来源", size: 11)
     
 }
 
@@ -49,6 +48,9 @@ extension StatusTopView
    func setupUI(){
 //    self.backgroundColor = UIColor.gray
     //1,添加子控件
+    let sepView = UIView()
+    sepView.backgroundColor = UIColor.gray
+    self.addSubview(sepView)
     self.addSubview(iconView)
     self.addSubview(nameLabel)
     self.addSubview(memberIconView)
@@ -56,8 +58,15 @@ extension StatusTopView
     self.addSubview(timeLabel)
     self.addSubview(sourceLabel)
     //2,布局
+    sepView.snp.makeConstraints { (make) in
+        make.top.equalTo(self.snp.top)
+        make.left.equalTo(self.snp.left)
+        make.right.equalTo(self.snp.right)
+        make.height.equalTo(StatusCellMargins)
+    }
+    
     iconView.snp.makeConstraints { (make) in
-        make.top.equalTo(self.snp.top).offset(StatusCellMargins)
+        make.top.equalTo(sepView.snp.bottom).offset(StatusCellMargins)
         make.left.equalTo(self.snp.left).offset(StatusCellMargins)
         make.height.equalTo(StatusCellIconWidth)
         make.width.equalTo(StatusCellIconWidth)

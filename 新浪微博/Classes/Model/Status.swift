@@ -17,7 +17,9 @@ class Status: NSObject {
     @objc var created_at : String?
     //来源
     @objc var source : String?
-    
+    //图片数组
+    @objc var pic_urls : [[String:String]]?
+    //用户的个人信息
     @objc var user : User?
     
     init(dict:[String:AnyObject]) {
@@ -34,6 +36,7 @@ class Status: NSObject {
             }
             return
         }
+       
         super.setValue(value, forKey: key)
     }
     

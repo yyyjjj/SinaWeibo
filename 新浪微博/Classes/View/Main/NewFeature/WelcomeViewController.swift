@@ -45,7 +45,7 @@ class WelcomeViewController: UIViewController {
         
     }()
     
-    private lazy var welcomeLabel : UILabel = UILabel(content: "欢迎归来", textStyle: .center, color: .gray, size: 18)
+    private lazy var welcomeLabel : UILabel = UILabel(content: "欢迎归来", color: .gray, size: 18)
     
     //MARK: -icon动画
     func StartAnimation(){
