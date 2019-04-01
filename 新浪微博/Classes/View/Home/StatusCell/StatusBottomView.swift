@@ -75,7 +75,7 @@ extension StatusBottomView {
     }
     //分割线
     func sepLine() -> UIView{
-        var line = UIView()
+        let line = UIView()
         line.backgroundColor = UIColor.gray
         return line
     }

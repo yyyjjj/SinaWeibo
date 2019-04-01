@@ -58,6 +58,7 @@ extension HomeTableViewController
 extension HomeTableViewController
 {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let vm = statuslistviewModel.StatusList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell

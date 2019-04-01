@@ -58,22 +58,27 @@ extension StatusPictureView
         
         layout.itemSize = CGSize.init(width: itemwidth, height: itemwidth)
         
-        //一张图片的时候特殊处理
+        //1,一张图片的时候特殊处理
         if count == 1 {
-            let size = CGSize.init(width: 150, height: 120)
+            var size = CGSize.init(width: 150, height: 120)
+            //key是URL的绝对地址 使用MD5加密
+            if let url = viewModel?.thumbnails?.first?.absoluteString {
+                let image = SDWebImageManager.shared().imageCache?.imageFromCache(forKey: url)
+                size = image!.size
+            }
             layout.itemSize = size
             return size
         }
         
         let row = CGFloat((count - 1)/Int(column) + 1)
         
-        //4张图片的时候显示上下各两个pic
+        //2,4张图片的时候显示上下各两个pic
         if count == 4 {
             let w = itemwidth*2+pictureMargins
             return CGSize.init(width: w, height: w)
         }
         
-        //其他count
+        //3,其他count
         
         let h = row * itemwidth + (row-1)*pictureMargins
         

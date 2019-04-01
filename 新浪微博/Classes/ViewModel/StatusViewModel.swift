@@ -74,7 +74,7 @@ class StatusViewModel: NSObject {
             cell = RetweetedStatusCell.init(style: .default, reuseIdentifier: RetweeetedStatusCellID)
         }else{
             //原创cell
-            cell = RetweetedStatusCell.init(style: .default, reuseIdentifier: OriginStatusCellID)
+            cell = OriginStatusCell.init(style: .default, reuseIdentifier: OriginStatusCellID)
         }
         //类对象 引用类型
         return cell.RowHeight(statusVM: self)

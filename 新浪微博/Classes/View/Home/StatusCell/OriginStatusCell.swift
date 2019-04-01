@@ -9,19 +9,19 @@
 import UIKit
 ///原创微博
 class OriginStatusCell: StatusCell {
-
+    
     override var viewModel: StatusViewModel?
-    {
+        {
         didSet
         {
-            pictureView.snp.updateConstraints{ (make) in
-                make.height.equalTo(pictureView.bounds.height)
-                make.width.equalTo(pictureView.bounds.width)
-                let topofs = (viewModel?.thumbnails?.count)! > 0 ? StatusCellMargins : 0
-                make.top.equalTo(contentLabel.snp.bottom).offset(topofs)
+            pictureView.snp.updateConstraints
+                { (make) in
+                    make.height.equalTo(pictureView.bounds.height)
+                    make.width.equalTo(pictureView.bounds.width)
+                    let topofs = (viewModel?.thumbnails?.count)! > 0 ? StatusCellMargins : 0
+                    make.top.equalTo(contentLabel.snp.bottom).offset(topofs)
             }
         }
-        
     }
     
     override func SetUpUI() {
@@ -33,6 +33,6 @@ class OriginStatusCell: StatusCell {
             make.height.equalTo(300)
             make.width.equalTo(90)
         }
-        }
     }
-    
+}
+

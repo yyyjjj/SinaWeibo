@@ -35,7 +35,7 @@ class RetweetedStatusCell: StatusCell {
         return button
     }()
     ///转发微博的文字
-    lazy var retweetlabel : UILabel = UILabel.init(content: "转发微博转发微博转发微博转发微博转发微博转发微博转发微博转发微博转发微博转发微博",
+    lazy var retweetlabel : UILabel = UILabel.init(content: "",
                                                    color: UIColor.darkGray,
                                                    size: 14,
                                                    screenInset: StatusCellMargins)
