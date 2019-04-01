@@ -15,23 +15,28 @@ class StatusCell: UITableViewCell {
     {
         didSet
         {
+//            SetUpUI()
             //print("count = \(viewModel?.thumbnails?.count)")
             topView.viewModel = viewModel
             contentLabel.text = viewModel?.status.text
-            SetUpUI()
             pictureView.viewModel = viewModel
 //            print("pictureView.bounds.height = \(pictureView.bounds.height) " + "pictureView.bounds.width = \(pictureView.bounds.width)")
             //contentView.layoutIfNeeded()
-            pictureView.snp.remakeConstraints{ (make) in
-                make.top.equalTo(contentLabel.snp.bottom).offset(StatusCellMargins)
-                make.left.equalTo(contentLabel.snp.left)
-                make.height.equalTo(pictureView.bounds.height)
-                make.width.equalTo(pictureView.bounds.width)
-            }
-//            pictureView.snp.updateConstraints{ (make) in
+           
+//            pictureView.snp.remakeConstraints{ (make) in
+//                //在没有配图的时候，顶部不需要添加间距
+//
+//                make.left.equalTo(contentLabel.snp.left)
 //                make.height.equalTo(pictureView.bounds.height)
 //                make.width.equalTo(pictureView.bounds.width)
+//                make.top.equalTo(contentLabel.snp.bottom).offset(StatusCellMargins)
 //            }
+            pictureView.snp.updateConstraints{ (make) in
+                make.height.equalTo(pictureView.bounds.height)
+                make.width.equalTo(pictureView.bounds.width)
+                let topofs = (viewModel?.thumbnails?.count)! > 0 ? StatusCellMargins : 0
+                make.top.equalTo(contentLabel.snp.bottom).offset(topofs)
+            }
         }
     }
     
@@ -89,7 +94,8 @@ extension StatusCell{
         pictureView.snp.makeConstraints { (make) in
             make.top.equalTo(contentLabel.snp.bottom).offset(StatusCellMargins)
             make.left.equalTo(contentLabel.snp.left)
-            
+            make.height.equalTo(300)
+            make.width.equalTo(90)
         }
         
         bottomView.snp.makeConstraints { (make) in

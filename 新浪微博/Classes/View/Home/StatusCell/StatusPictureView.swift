@@ -79,7 +79,7 @@ extension StatusPictureView
         
         let w = column * itemwidth + (column-1)*pictureMargins
         
-//        print("H = \(h) ----------------------------------- W = \(w)")
+        //        print("H = \(h) ----------------------------------- W = \(w)")
         
         return CGSize.init(width: w, height: h)
         
@@ -130,7 +130,14 @@ private class PictrueViewCell: UICollectionViewCell {
             make.edges.equalTo(contentView.snp.edges)
         }
     }
-    
-   private lazy var iconView = UIImageView()
+    //懒加载要指明类型，否则其他地方调用不清楚其属性
+    private lazy var iconView : UIImageView = {
+        
+        let iv =  UIImageView()
+        //多出来的裁减掉，留中间
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        return iv
+    }()
     
 }

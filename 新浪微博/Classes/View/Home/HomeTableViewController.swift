@@ -78,7 +78,7 @@ extension HomeTableViewController
     //苹果建议：如果设置了TableView.rowHeight 就不要使用下面方法，两者互斥。
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+//        print("计算了rowHeight----第\(indexPath.row)行")
         return statuslistviewModel.StatusList[indexPath.row].rowHeight
     }
 }
