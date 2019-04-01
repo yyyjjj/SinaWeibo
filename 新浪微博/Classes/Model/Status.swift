@@ -11,16 +11,18 @@ import UIKit
 class Status: NSObject {
     //名字
     @objc var id : Int = 0;
-    //正文
+    ///正文
     @objc var text : String?
-    //创建时间
+    ///创建时间
     @objc var created_at : String?
-    //来源
+    ///来源
     @objc var source : String?
-    //图片数组
+    ///图片数组
     @objc var pic_urls : [[String:String]]?
-    //用户的个人信息
+    ///用户的个人信息
     @objc var user : User?
+    ///转发微博
+    @objc var retweeted_status : Status?
     
     init(dict:[String:AnyObject]) {
         super.init()
@@ -36,7 +38,16 @@ class Status: NSObject {
             }
             return
         }
-       
+        
+        if key == "retweeted_status"
+        {
+            if let dict = value as? [String:AnyObject]
+            {   //把转发微博的微博初始化,转发的微博本质也是一条微博
+                retweeted_status = Status.init(dict: dict)
+            }
+            return
+        }
+        
         super.setValue(value, forKey: key)
     }
     

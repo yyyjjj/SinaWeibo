@@ -32,7 +32,7 @@ class StatusViewModel: NSObject {
     var verifiedImage : UIImage? {
         switch status.user?.verified_type ?? -1 {
         case 0: return UIImage.init(named: "avatar_vip")
-            break;
+        break;
         case 2,3,4: return UIImage.init(named: "avatar_enterprise_vip")
             
         case 220: return UIImage.init(named: "avatar_grassroot")
@@ -42,10 +42,12 @@ class StatusViewModel: NSObject {
         }
     }
     ///用户配图数组
-     var thumbnails : [URL]?
+    ///原创微博：可以带图也可以不带图
+    ///转发微博：如果带图，原创微博一定没图
+    var thumbnails : [URL]?
     //缓存行高
     lazy var rowHeight : CGFloat = {
-//        print("计算了rowHeight")
+        //print("计算了rowHeight")
         //类对象 引用类型
         let cell = StatusCell.init(style: .default, reuseIdentifier: StatusCellID)
         return cell.RowHeight(statusVM: self)
@@ -54,12 +56,12 @@ class StatusViewModel: NSObject {
     init(status:Status) {
         self.status = status
         super.init()
-        thumbnails = [URL]()
-        if status.pic_urls!.count>0 {
-        status.pic_urls?.forEach({
-            thumbnails!.append(URL.init(string: $0["thumbnail_pic"]!)!)
-        })
+        //我们通过判断被转发的微博是否带图去控制图片来源
+        if let urls = status.retweeted_status?.pic_urls ?? status.pic_urls {
+            thumbnails = [URL]()
+            urls.forEach({
+                thumbnails!.append(URL.init(string: $0["thumbnail_pic"]!)!)
+            })
         }
-     }
-    
+    }
 }

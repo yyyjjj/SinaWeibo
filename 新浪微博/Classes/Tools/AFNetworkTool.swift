@@ -69,6 +69,10 @@ extension AFNetworkTool
 //MARK: -获取用户关注的动态
 extension AFNetworkTool{
     
+    /// 加载微博数据
+    ///
+    /// - Parameter finished: 成功与否
+    /// - [查看接口返回key详情](https://open.weibo.com/wiki/2/statuses/home_timeline)
     func LoadStatus(finished:@escaping completion){
         guard var params = AFNetworkTool.tokenDict else{
             finished(nil, NSError(domain:"cn.itcast.error",code:-1001,userInfo:["message":"token 为空"]))
