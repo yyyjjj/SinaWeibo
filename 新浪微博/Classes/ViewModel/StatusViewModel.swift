@@ -49,9 +49,20 @@ class StatusViewModel: NSObject {
     lazy var rowHeight : CGFloat = {
         //print("计算了rowHeight")
         //类对象 引用类型
-        let cell = StatusCell.init(style: .default, reuseIdentifier: StatusCellID)
+        let cell = RetweetedStatusCell.init(style: .default, reuseIdentifier: RetweeetedStatusCellID)
         return cell.RowHeight(statusVM: self)
     }()
+    
+    var retweetedStatusText : String?{
+        
+        guard let s = status.retweeted_status else {
+            return nil
+        }
+        let name = (s.user?.screen_name ?? "")
+        let text = (s.text ?? "")
+        return "@" + name + ":" + text
+    }
+    
     
     init(status:Status) {
         self.status = status

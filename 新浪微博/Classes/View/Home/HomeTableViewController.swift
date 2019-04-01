@@ -9,8 +9,8 @@
 import UIKit
 import SVProgressHUD
 
-let StatusCellID = "StatusCellID"
-
+let OriginStatusCellID = "StatusCellID"
+let RetweeetedStatusCellID = "RetweeetedStatusCellID"
 class HomeTableViewController: VisitorTableViewController {
     
     var statuslistviewModel = StatusListViewModel()
@@ -38,8 +38,8 @@ class HomeTableViewController: VisitorTableViewController {
     ///注册cell
     func prepareforTableView()
     {
-        tableView.register(StatusCell.self, forCellReuseIdentifier: StatusCellID)
-        
+        tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: RetweeetedStatusCellID)
+        tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 400
     }
 }
@@ -56,7 +56,7 @@ extension HomeTableViewController
 {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-         let cell = tableView.dequeueReusableCell(withIdentifier: StatusCellID, for: indexPath) as! StatusCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: RetweeetedStatusCellID, for: indexPath) as! StatusCell
         
         cell.viewModel = statuslistviewModel.StatusList[indexPath.row]
         
