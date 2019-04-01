@@ -27,12 +27,14 @@ class StatusViewModel: NSObject {
         return nil
     }
     
-    ///用户认证图标
+    //用户认证图标
     ///认证类型 -1：没有认证 0：认证用户 2，3，4：企业用户 220：达人
     var verifiedImage : UIImage? {
+        
         switch status.user?.verified_type ?? -1 {
+            
         case 0: return UIImage.init(named: "avatar_vip")
-        break;
+        
         case 2,3,4: return UIImage.init(named: "avatar_enterprise_vip")
             
         case 220: return UIImage.init(named: "avatar_grassroot")
@@ -40,19 +42,15 @@ class StatusViewModel: NSObject {
         default:
             return nil
         }
+        
     }
+
     ///用户配图数组
-    ///原创微博：可以带图也可以不带图
-    ///转发微博：如果带图，原创微博一定没图
+    /// 原创微博：可以带图也可以不带图
+    /// 转发微博：如果带图，原创微博一定没图
     var thumbnails : [URL]?
-    //缓存行高
-    lazy var rowHeight : CGFloat = {
-        //print("计算了rowHeight")
-        //类对象 引用类型
-        let cell = RetweetedStatusCell.init(style: .default, reuseIdentifier: RetweeetedStatusCellID)
-        return cell.RowHeight(statusVM: self)
-    }()
     
+    ///转发微博的正文
     var retweetedStatusText : String?{
         
         guard let s = status.retweeted_status else {
@@ -63,6 +61,24 @@ class StatusViewModel: NSObject {
         return "@" + name + ":" + text
     }
     
+    var cellID : String {
+        return status.retweeted_status != nil ? RetweeetedStatusCellID : OriginStatusCellID
+    }
+    
+    //缓存行高
+    lazy var rowHeight : CGFloat = {
+        //print("计算了rowHeight")
+        let cell : StatusCell
+        if status.retweeted_status != nil{
+            //转发cell
+            cell = RetweetedStatusCell.init(style: .default, reuseIdentifier: RetweeetedStatusCellID)
+        }else{
+            //原创cell
+            cell = RetweetedStatusCell.init(style: .default, reuseIdentifier: OriginStatusCellID)
+        }
+        //类对象 引用类型
+        return cell.RowHeight(statusVM: self)
+    }()
     
     init(status:Status) {
         self.status = status

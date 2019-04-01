@@ -13,6 +13,7 @@ import UIKit
  controller中的重用cellID
  行高中的cellID
  */
+///转发微博
 class RetweetedStatusCell: StatusCell {
     
     override var viewModel: StatusViewModel?{
@@ -43,7 +44,7 @@ class RetweetedStatusCell: StatusCell {
 extension RetweetedStatusCell{
      override func SetUpUI() {
         //我们的目的是在原有布局上面添加新的布局，改变不同view的位置
-        //先调用父类方法
+        //先调用父类方法 
         super.SetUpUI()
         //添加控件 注意转发微博要在图片下面
         contentView.insertSubview(backbutton, belowSubview: pictureView)

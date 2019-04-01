@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 
-let OriginStatusCellID = "StatusCellID"
+let OriginStatusCellID = "OriginStatusCellID"
 let RetweeetedStatusCellID = "RetweeetedStatusCellID"
 class HomeTableViewController: VisitorTableViewController {
     
@@ -24,7 +24,7 @@ class HomeTableViewController: VisitorTableViewController {
         prepareforTableView()
         LoadStatus()
     }
-
+    ///加载Status数据到ListViewModel并刷新tableView
     func LoadStatus(){
         statuslistviewModel.LoadStatus(){ (isSuccess) in
             if isSuccess == false
@@ -35,9 +35,12 @@ class HomeTableViewController: VisitorTableViewController {
             self.tableView.reloadData()
         }
     }
-    ///注册cell
+    ///注册原创和转发微博cell
+    ///设置预估高度
+    ///取消tableView的分割线
     func prepareforTableView()
     {
+        tableView.register(OriginStatusCell.self, forCellReuseIdentifier: OriginStatusCellID)
         tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: RetweeetedStatusCellID)
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 400
@@ -55,10 +58,11 @@ extension HomeTableViewController
 extension HomeTableViewController
 {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let vm = statuslistviewModel.StatusList[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: RetweeetedStatusCellID, for: indexPath) as! StatusCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
         
-        cell.viewModel = statuslistviewModel.StatusList[indexPath.row]
+        cell.viewModel = vm
         
         return cell
     }
