@@ -56,7 +56,7 @@ extension MainViewController{
         let count = children.count
         
         let w = (tabBar.bounds.size.width/CGFloat(count)) - 1
-       //dx正数，形成中间的view就越小
+        //dx正数，形成中间的view就越小
         composedButton.frame = tabBar.bounds.insetBy(dx: 2*w, dy: 0)
         
         composedButton.addTarget(self, action: #selector(ClickComposeButton), for: .touchUpInside)
@@ -67,7 +67,7 @@ extension MainViewController{
         
         addChild(childController: MassageTableViewController(), title: "消息", barImage:"tabbar_message_center", highLightImage: "tabbar_message_center_selected")
         
-         addChild(childController: UIViewController(), title: nil, barImage:nil, highLightImage: nil)
+        addChild(childController: UIViewController(), title: nil, barImage:"tabbar_compose_icon_add_highlighted", highLightImage: nil)
         
         addChild(childController: DiscoverTableViewController(), title: "发现", barImage:"tabbar_discover", highLightImage: "tabbar_discover_selected")
         

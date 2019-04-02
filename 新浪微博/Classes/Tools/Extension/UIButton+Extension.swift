@@ -11,7 +11,7 @@ import UIKit
 extension UIButton
 {
     ///方便构造函数：根据图片设置按钮大小
-    convenience init(image : String,backImage : String){
+    convenience init(image : String ,backImage : String){
         
         self.init()
         
@@ -19,9 +19,9 @@ extension UIButton
         
         setImage(UIImage.init(named: "\(image)_highlighted"), for: .selected)
         
-        setImage(UIImage.init(named: backImage), for: .normal)
+        setBackgroundImage(UIImage.init(named: backImage), for: .normal)
         
-        setImage(UIImage.init(named: "\(backImage)_highlighted"), for: .selected)
+        setBackgroundImage(UIImage.init(named: "\(backImage)_highlighted"), for: .selected)
         //根据背景图片条件调整按钮大小
         sizeToFit()
     }

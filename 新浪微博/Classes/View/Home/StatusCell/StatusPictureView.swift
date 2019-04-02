@@ -63,10 +63,21 @@ extension StatusPictureView
             var size = CGSize.init(width: 150, height: 120)
             //key是URL的绝对地址 使用MD5加密
             if let url = viewModel?.thumbnails?.first?.absoluteString {
-                let image = SDWebImageManager.shared().imageCache?.imageFromCache(forKey: url)
-                size = image!.size
+                if let image = SDWebImageManager.shared().imageCache?.imageFromCache(forKey: url)
+                {
+                size = image.size
+                }
+            }
+            //过窄图片
+            size.width = size.width < 40 ? 40 : size.width
+            //过宽图片
+            if size.width > 300{
+                let w : CGFloat = 300
+                let h = size.height * w / size.width
+                size = CGSize(width: w, height: h)
             }
             layout.itemSize = size
+            
             return size
         }
         

@@ -24,9 +24,30 @@ class HomeTableViewController: VisitorTableViewController {
         prepareforTableView()
         LoadStatus()
     }
+    
+    ///注册原创和转发微博cell
+    ///设置预估高度
+    ///取消tableView的分割线
+    func prepareforTableView()
+    {
+        tableView.register(OriginStatusCell.self, forCellReuseIdentifier: "OriginStatusCellID")
+        tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: "RetweeetedStatusCellID")
+        tableView.separatorStyle = .none
+        tableView.estimatedRowHeight = 400
+        refreshControl = RefreshControl()
+//        let v = UIView()
+//        v.backgroundColor = .red
+//        v.frame = CGRect.init(x: 0, y: 0, width: 30, height: 30)
+//        refreshControl?.addSubview(v)
+        refreshControl?.addTarget(self, action: #selector(LoadStatus), for: .valueChanged)
+    }
+    
     ///加载Status数据到ListViewModel并刷新tableView
-    func LoadStatus(){
+    @objc func LoadStatus(){
+        refreshControl?.beginRefreshing()
         statuslistviewModel.LoadStatus(){ (isSuccess) in
+            self.refreshControl?.endRefreshing()
+            self.refreshControl?.endRefreshing()
             if isSuccess == false
             {
                 SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
@@ -34,16 +55,6 @@ class HomeTableViewController: VisitorTableViewController {
             }
             self.tableView.reloadData()
         }
-    }
-    ///注册原创和转发微博cell
-    ///设置预估高度
-    ///取消tableView的分割线
-    func prepareforTableView()
-    {
-        tableView.register(OriginStatusCell.self, forCellReuseIdentifier: OriginStatusCellID)
-        tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: RetweeetedStatusCellID)
-        tableView.separatorStyle = .none
-        tableView.estimatedRowHeight = 400
     }
 }
 //MARK :-数据源方法
@@ -62,7 +73,7 @@ extension HomeTableViewController
         let vm = statuslistviewModel.StatusList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
-        
+        cell.selectionStyle = .none
         cell.viewModel = vm
         
         return cell
