@@ -15,6 +15,8 @@
 		6929BD81222D541400EE13FA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD80222D541400EE13FA /* Common.swift */; };
 		692A01592251A58500131A21 /* RetweetedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A01582251A58500131A21 /* RetweetedStatusCell.swift */; };
 		692A015D2251D8AD00131A21 /* OriginStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A015C2251D8AD00131A21 /* OriginStatusCell.swift */; };
+		692A01602252494500131A21 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A015F2252494500131A21 /* RefreshControl.swift */; };
+		692A01622252499600131A21 /* RefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 692A01612252499600131A21 /* RefreshView.xib */; };
 		6931F234222F6A07008B4948 /* OAuthLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931F233222F6A07008B4948 /* OAuthLoginViewController.swift */; };
 		6931F237222FB335008B4948 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931F236222FB335008B4948 /* String+Extension.swift */; };
 		6933AE412230F1B5003612CA /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6933AE402230F1B5003612CA /* UserAccount.swift */; };
@@ -72,6 +74,8 @@
 		6929BD80222D541400EE13FA /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		692A01582251A58500131A21 /* RetweetedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetweetedStatusCell.swift; sourceTree = "<group>"; };
 		692A015C2251D8AD00131A21 /* OriginStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginStatusCell.swift; sourceTree = "<group>"; };
+		692A015F2252494500131A21 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
+		692A01612252499600131A21 /* RefreshView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshView.xib; sourceTree = "<group>"; };
 		6931F233222F6A07008B4948 /* OAuthLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthLoginViewController.swift; sourceTree = "<group>"; };
 		6931F236222FB335008B4948 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		6933AE402230F1B5003612CA /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
@@ -180,6 +184,15 @@
 			path = Visitor;
 			sourceTree = "<group>";
 		};
+		692A015E2252490800131A21 /* RefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				692A015F2252494500131A21 /* RefreshControl.swift */,
+				692A01612252499600131A21 /* RefreshView.xib */,
+			);
+			path = RefreshControl;
+			sourceTree = "<group>";
+		};
 		6931F235222F6A16008B4948 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +292,7 @@
 		6936FC5C222B70CD002B9A19 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				692A015E2252490800131A21 /* RefreshControl */,
 				69396A7B2248F3A00005E981 /* StatusCell */,
 				6936FC5F222B7284002B9A19 /* HomeTableViewController.swift */,
 			);
@@ -480,6 +494,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				692A01622252499600131A21 /* RefreshView.xib in Resources */,
 				6938D1F522389523004390DE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,6 +634,7 @@
 				6976DA3C2236834D009E17EC /* WelcomeViewController.swift in Sources */,
 				6929BD7A222CC9B300EE13FA /* VisitorTableViewController.swift in Sources */,
 				69396A762248D5260005E981 /* User.swift in Sources */,
+				692A01602252494500131A21 /* RefreshControl.swift in Sources */,
 				6936FC64222B72A1002B9A19 /* DiscoverTableViewController.swift in Sources */,
 				6929BD7D222CD00E00EE13FA /* VisitorView.swift in Sources */,
 				6936FC5E222B724C002B9A19 /* MainViewController.swift in Sources */,
