@@ -15,6 +15,12 @@ class HomeTableViewController: VisitorTableViewController {
     
     var statuslistviewModel = StatusListViewModel()
     
+    lazy var indicator : UIActivityIndicatorView = {
+        let ind = UIActivityIndicatorView()
+        ind.style = .whiteLarge
+        ind.color = .gray
+        return ind
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         //没有登录才去设置
@@ -23,6 +29,7 @@ class HomeTableViewController: VisitorTableViewController {
         }
         prepareforTableView()
         LoadStatus()
+        
     }
     
     ///注册原创和转发微博cell
@@ -45,9 +52,13 @@ class HomeTableViewController: VisitorTableViewController {
     ///加载Status数据到ListViewModel并刷新tableView
     @objc func LoadStatus(){
         refreshControl?.beginRefreshing()
-        statuslistviewModel.LoadStatus(){ (isSuccess) in
+        statuslistviewModel.LoadStatus(isPullUp: indicator.isAnimating)
+        { (isSuccess) in
+            
             self.refreshControl?.endRefreshing()
-            self.refreshControl?.endRefreshing()
+            
+            self.indicator.stopAnimating()
+            
             if isSuccess == false
             {
                 SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
@@ -74,8 +85,13 @@ extension HomeTableViewController
         
         let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
         cell.selectionStyle = .none
+        
         cell.viewModel = vm
         
+        if indexPath.row == statuslistviewModel.StatusList.count-1 && !indicator.isAnimating{
+            indicator.startAnimating()
+            LoadStatus()
+        }
         return cell
     }
     //MARK: -TODORowHeight
@@ -96,5 +112,9 @@ extension HomeTableViewController
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        print("计算了rowHeight----第\(indexPath.row)行")
         return statuslistviewModel.StatusList[indexPath.row].rowHeight
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return indicator
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 class Status: NSObject {
-    //名字
+    ///微博的id，越新的id越大
     @objc var id : Int = 0;
     ///正文
     @objc var text : String?

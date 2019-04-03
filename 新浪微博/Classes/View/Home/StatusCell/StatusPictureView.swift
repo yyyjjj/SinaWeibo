@@ -12,6 +12,7 @@ let pictureMargins : CGFloat = 8
 let CollectionViewCellID = "CollectionViewCellID"
 
 class StatusPictureView: UICollectionView {
+    
     var viewModel : StatusViewModel?
     {
         didSet{
@@ -20,8 +21,10 @@ class StatusPictureView: UICollectionView {
             reloadData()
         }
     }
+    
     ///sizeToFits内部会调用
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize
+    {
         return caculateSize()
     }
     

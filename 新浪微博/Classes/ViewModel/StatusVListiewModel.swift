@@ -15,9 +15,15 @@ class StatusListViewModel
 }
 //MARK :-封装网络获取发布的动态
 extension StatusListViewModel{
-    func LoadStatus(finished:@escaping (_ isSuccess : Bool) -> Void)
+    func LoadStatus(isPullUp : Bool,finished:@escaping (_ isSuccess : Bool) -> Void)
     {
-        AFNetworkTool.sharedTool.LoadStatus { (result, error) in
+        //获得第一条数据的since_id 如果是下拉
+        let since_id = isPullUp ? 0 : (StatusList.first?.status.id ?? 0)
+        //获得最后一条数据的max_id 如果是上拉
+        let max_id = isPullUp ? (StatusList.last?.status.id ?? 0) : 0
+        
+        AFNetworkTool.sharedTool.LoadStatus(since_id: since_id, max_id: max_id)
+        { (result, error) in
             if error != nil
             {
                 finished(false)
@@ -35,8 +41,18 @@ extension StatusListViewModel{
             statuses.forEach({
                 List.append(StatusViewModel.init(status: Status.init(dict: $0) ))
             })
-            //3,赋值StatusList
-            self.StatusList = List + self.StatusList
+            
+            //3,赋值StatusList,刷新的数据直接拼接
+            if isPullUp {
+            //上拉获得旧的数据 尾部拼接
+            self.StatusList += List
+            }else{
+            //下拉获得新的数据 头部拼接
+               self.StatusList = List + self.StatusList
+            }
+            
+//            print("刷新了\(List.count)条微博 ，总微博为\(self.StatusList.count)")
+            
             //4,我们要保证finish闭包要在缓存完单图后
             self.cacheSinglePic(StatusList: List,finished: finished)
         }
@@ -57,29 +73,29 @@ extension StatusListViewModel{
         let group = DispatchGroup.init()
         //print("开始缓存")
         StatusList.forEach {
-        //拿到单张图片的微博，否则继续往下寻找
-        if $0.thumbnails?.count == 1 {
-        //进组
-        group.enter()
-//        print("开始缓存单图 : \($0.thumbnails![0].absoluteString)")
-        //缓存
-        SDWebImageManager.shared().loadImage(with: $0.thumbnails![0],
-        options: [SDWebImageOptions.refreshCached,SDWebImageOptions.retryFailed],
-        progress:nil,
-        completed: { (image, _, _, _, _, _) in
-            if let image = image ,
-                let data = UIImage.pngData(image)(){
-                dataLength += data.count
-            }
-            //出组
-            group.leave()
+            //拿到单张图片的微博，否则继续往下寻找
+            if $0.thumbnails?.count == 1 {
+                //进组
+                group.enter()
+                //        print("开始缓存单图 : \($0.thumbnails![0].absoluteString)")
+                //缓存
+                SDWebImageManager.shared().loadImage(with: $0.thumbnails![0],
+                                                     options: [SDWebImageOptions.refreshCached,SDWebImageOptions.retryFailed],
+                                                     progress:nil,
+                                                     completed: { (image, _, _, _, _, _) in
+                                                        if let image = image ,
+                                                            let data = UIImage.pngData(image)(){
+                                                            dataLength += data.count
+                                                        }
+                                                        //出组
+                                                        group.leave()
                 })
             }
         }
         group.notify(queue: DispatchQueue.main) {
-            print("缓存完成")
+            //print("缓存完成")
             //print("数据长度\(dataLength/1024)")
-            print("缓存图像的地址:\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)")
+            //print("缓存图像的地址:\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)")
             
             finished(true)
         }

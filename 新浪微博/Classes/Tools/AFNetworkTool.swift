@@ -70,13 +70,21 @@ extension AFNetworkTool
 extension AFNetworkTool{
     
     /// 加载微博数据
-    ///
+    /// - Parameter since_id:若指定此参数，下拉的话返回since_id大于原来数据最新的数据，默认是0
+    /// - Parameter max_id:若指定此参数，上拉的话返回max_id小于等于原来数据最新的数据,默认是0
     /// - Parameter finished: 成功与否
     /// - [查看接口返回key详情](https://open.weibo.com/wiki/2/statuses/home_timeline)
-    func LoadStatus(finished:@escaping completion){
+    func LoadStatus(since_id : Int , max_id : Int,finished:@escaping completion){
         guard var params = AFNetworkTool.tokenDict else{
             finished(nil, NSError(domain:"cn.itcast.error",code:-1001,userInfo:["message":"token 为空"]))
             return
+        }
+        
+        if since_id != 0 {
+            params["since_id"] = since_id
+        }else if max_id != 0{
+            //防止获得一样的数据,微博提供的接口是返回小于或等于的数据
+            params["max_id"] = max_id-1
         }
         
         let urlStrings = "https://api.weibo.com/2/statuses/home_timeline.json"
@@ -116,9 +124,7 @@ extension AFNetworkTool{
     func request(RequestMethod : HttpRequestMethod,URLString : String, parameters :  Any? , progress :((Progress)->Void)? , finished : @escaping (completion)){
         //成功闭包
         let success = { (_ result: URLSessionDataTask?,_ responseobject: Any?) ->Void in
-            
             finished(responseobject,nil)
-            
         }
         //失败闭包
         let failture = { (_ result: URLSessionDataTask?,_ error: Error?) ->Void in

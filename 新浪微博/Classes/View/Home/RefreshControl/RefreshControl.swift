@@ -40,12 +40,12 @@ class RefreshControl : UIRefreshControl {
         
         if frame.origin.y < reverseOffSet && !refreshView.reverseFlag
         {
-            print("反过来")
+//            print("反过来")
             refreshView.reverseFlag = true
         }
         else if frame.origin.y >= reverseOffSet && refreshView.reverseFlag
         {
-            print("转回去")
+//            print("转回去")
             refreshView.reverseFlag = false
         }
 //        print(frame)
@@ -75,7 +75,7 @@ class RefreshControl : UIRefreshControl {
         }
         
         //监听frame的变化，来改变下拉刷新
-        //把监听放到主队列去让其延迟监听，即刚刚开始的时候主线程在忙，先不执行主队列的任务，等下一次循环(用户开始滑动或加载网络数据)再去监听
+        //把监听放到主队列去让其延迟监听，即刚刚开始的时候主线程在忙，先不执行主队列的任务，等下一次runloop开始(runloop接受到port,timer,source等用户开始滑动或加载网络数据)再去监听
         DispatchQueue.main.async {
             self.addObserver(self, forKeyPath: "frame", options: [], context: nil)
         }
@@ -108,7 +108,7 @@ class RefreshView : UIView {
             return
         }
         
-        print("加载动画播放")
+//        print("加载动画播放")
         
         let anim = CABasicAnimation.init(keyPath: key)
         anim.toValue = 2*Double.pi
