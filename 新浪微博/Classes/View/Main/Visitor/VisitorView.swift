@@ -38,9 +38,9 @@ class VisitorView: UIView {
     
     private lazy var messagelabel : UILabel = UILabel(content: "关注一些人，回这里看看有什么惊喜", color: .gray, size: 14)
     
-    private lazy var registerButton : UIButton = UIButton.init(text: "注册", textColor: .orange, backImage: "common_button_white_disable",highlight : nil)
+    private lazy var registerButton : UIButton = UIButton.init(text: "注册", textColor: .orange, backImage: "common_button_white_disable",highlight : nil,isBack:true)
     
-    private lazy var loginButton : UIButton = UIButton.init(text: "登录", textColor: .gray, backImage: "common_button_white_disable",highlight : nil)
+    private lazy var loginButton : UIButton = UIButton.init(text: "登录", textColor: .gray, backImage: "common_button_white_disable",highlight : nil,isBack:true)
     
     //MARK: -初始化方法
     override init(frame: CGRect) {

@@ -82,7 +82,9 @@ extension AFNetworkTool{
         
         if since_id != 0 {
             params["since_id"] = since_id
-        }else if max_id != 0{
+        }
+        else if
+            max_id != 0{
             //防止获得一样的数据,微博提供的接口是返回小于或等于的数据
             params["max_id"] = max_id-1
         }

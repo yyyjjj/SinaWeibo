@@ -77,6 +77,7 @@ extension WelcomeViewController{
     func SetUpUI(){
         view.addSubview(iconview)
         view.addSubview(welcomeLabel)
+        
         iconview.snp.makeConstraints { (make) in
             make.centerX.equalTo(view.snp.centerX)
             make.bottom.equalTo(view.snp.bottom).offset(-200)
@@ -84,7 +85,7 @@ extension WelcomeViewController{
             make.height.equalTo(90)
         }
         welcomeLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(view.snp.centerX)
+            make.centerX.equalTo(iconview.snp.centerX)
             make.top.equalTo(iconview.snp.bottom).offset(16)
         }
     }

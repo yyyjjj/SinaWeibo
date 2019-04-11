@@ -82,7 +82,7 @@ private class NewFeatureCell : UICollectionViewCell{
     //懒加载 把昂贵的计算布局控件过程放到使用时候再去计算 默认mutating
     private lazy var iconview = UIImageView()
     
-    private lazy var startbutton = UIButton.init(text: "开始体验", textColor: .white, backImage: "new_feature_finish_button", highlight:"new_feature_finish_button_highlighted")
+    private lazy var startbutton = UIButton.init(text: "开始体验", textColor: .white, backImage: "new_feature_finish_button",isBack:true)
     
     var imageIndex : Int = 0 {
         
@@ -114,8 +114,6 @@ private class NewFeatureCell : UICollectionViewCell{
             make.centerX.equalTo(self.snp.centerX)
             make.bottom.equalTo(self.snp.bottom).multipliedBy(0.7)
         }
-        
-        startbutton.sizeToFit()
         
         startbutton.addTarget(self, action: #selector(clickStartButton), for: .touchUpInside)
         

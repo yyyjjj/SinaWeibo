@@ -10,7 +10,7 @@ import Foundation
 extension String {
     
     var length: Int {
-        return self.characters.count
+        return self.count
     }
     
     subscript (i: Int) -> String {
@@ -34,11 +34,11 @@ extension String {
     
 }
 //不包含后几个字符串的方法
-extension String {
-    func dropLast(_ n: Int = 1) -> String {
-        return String(characters.dropLast(n))
-    }
-    var dropLast: String {
-        return dropLast()
-    }
-}
+//extension String {
+//    func dropLast(_ n: Int = 1) -> String {
+//        return String(characters.dropLast(n))
+//    }
+//    var dropLast: String {
+//        return dropLast()
+//    }
+//}

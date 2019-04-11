@@ -37,5 +37,7 @@ extension UILabel{
 
         font = UIFont.systemFont(ofSize: size)
 
+        sizeToFit()
+        
     }
 }

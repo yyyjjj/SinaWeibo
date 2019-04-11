@@ -12,7 +12,18 @@ class MainViewController: UITabBarController {
     // MARK: -按钮监听方法
     ///使用OC消息转发机制
     @objc private func ClickComposeButton(){
-        print("T##items: Any...##Any")
+        
+        let vc : UIViewController!
+        
+        if UserAccountViewModel.shared.userLoginStatus {
+            vc = ComposeViewController()
+        }else{
+            vc = VisitorTableViewController()
+        }
+        
+        let nav = UINavigationController.init(rootViewController: vc)
+        
+        present(nav, animated: true, completion: nil)
     }
     
     // MARK: -视图生命周期
@@ -34,17 +45,7 @@ class MainViewController: UITabBarController {
     
      // MARK: -懒加载tabBar中间加号按钮
     private lazy var composedButton : UIButton = UIButton.init(image: "tabbar_compose_icon_add", backImage: "tabbar_compose_button")
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+
 }
 
 // MARK: - 添加控制器

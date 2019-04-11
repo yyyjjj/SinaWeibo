@@ -67,7 +67,7 @@ class RefreshControl : UIRefreshControl {
         //隐藏系统默认转轮
         tintColor = UIColor.clear
         
-        self.addSubview(refreshView)
+        addSubview(refreshView)
         //从xib指定视图布局，需要设定xib大小
         refreshView.snp.makeConstraints { (make) in
             make.center.equalTo(self.snp.center)
@@ -75,7 +75,7 @@ class RefreshControl : UIRefreshControl {
         }
         
         //监听frame的变化，来改变下拉刷新
-        //把监听放到主队列去让其延迟监听，即刚刚开始的时候主线程在忙，先不执行主队列的任务，等下一次runloop开始(runloop接受到port,timer,source等用户开始滑动或加载网络数据)再去监听
+    //把监听放到主队列去让其延迟监听，即刚刚开始的时候主线程在忙，先不执行主队列的任务，等下一次runloop开始(runloop接受到port,timer,source等用户开始滑动或加载网络数据)再去监听
         DispatchQueue.main.async {
             self.addObserver(self, forKeyPath: "frame", options: [], context: nil)
         }

@@ -23,7 +23,9 @@ class UserAccountViewModel {
     var account : UserAccount?
     ///true:已经登录登录 false:重新登录
     var userLoginStatus : Bool {
+        
         return account?.access_token != nil && !isExpired
+        
     }
     
     var accessToken : String?{

@@ -10,11 +10,11 @@ import UIKit
 
 class StatusBottomView: UIView {
     ///转发按钮
-    private lazy var retweetedButton = UIButton.init(text: "转发", textColor: UIColor.darkGray, backImage: "timeline_icon_retweet", textSize: 12);
+    private lazy var retweetedButton = UIButton.init(text: "转发", textColor: UIColor.darkGray, backImage: "timeline_icon_retweet", textSize: 12,isBack:false);
     ///评论按钮
-    private lazy var commentButton = UIButton.init(text: "评论", textColor: UIColor.darkGray, backImage: "timeline_icon_comment", textSize: 12);
+    private lazy var commentButton = UIButton.init(text: "评论", textColor: UIColor.darkGray, backImage: "timeline_icon_comment", textSize: 12,isBack:false);
     ///点赞按钮
-    private lazy var likeButton = UIButton.init(text: "转发", textColor: UIColor.darkGray, backImage: "timeline_icon_unlike", textSize: 12);
+    private lazy var likeButton = UIButton.init(text: "转发", textColor: UIColor.darkGray, backImage: "timeline_icon_unlike", textSize: 12,isBack:false);
     
     override init(frame: CGRect) {
         super.init(frame:frame)

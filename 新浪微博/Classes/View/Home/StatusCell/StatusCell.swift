@@ -37,7 +37,9 @@ class StatusCell: UITableViewCell {
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         SetUpUI()
     }
     
@@ -59,7 +61,7 @@ class StatusCell: UITableViewCell {
 extension StatusCell{
     @objc func SetUpUI(){
         
-        pictureView.backgroundColor = UIColor.black
+        pictureView.backgroundColor = UIColor.darkGray
         //添加控件
         contentView.addSubview(topView)
         contentView.addSubview(contentLabel)

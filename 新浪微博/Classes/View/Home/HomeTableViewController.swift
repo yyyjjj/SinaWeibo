@@ -21,15 +21,20 @@ class HomeTableViewController: VisitorTableViewController {
         ind.color = .gray
         return ind
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //没有登录才去设置
         if !UserAccountViewModel.shared.userLoginStatus {
-            visitorview?.SetUpInfo(imagename: nil, text:nil)
+            visitorview?.SetUpInfo(imagename: nil, text:"关注一些人，回这里看看有什么惊喜")
+            return
         }
         prepareforTableView()
         LoadStatus()
-        
+    //测试帧数
+    //let fpslabel = FPSLabel()
+//        view.addSubview(fpslabel)
+//        view.bringSubviewToFront(fpslabel)
     }
     
     ///注册原创和转发微博cell
@@ -37,11 +42,16 @@ class HomeTableViewController: VisitorTableViewController {
     ///取消tableView的分割线
     func prepareforTableView()
     {
-        tableView.register(OriginStatusCell.self, forCellReuseIdentifier: "OriginStatusCellID")
-        tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: "RetweeetedStatusCellID")
+        print(tableView)
+        tableView.register(OriginStatusCell.self, forCellReuseIdentifier: OriginStatusCellID)
+        
+        tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: RetweeetedStatusCellID)
+        
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 400
-        refreshControl = RefreshControl()
+        refreshControl = UIRefreshControl()
+//        refreshControl?.tintColor = .red
+            //RefreshControl()
 //        let v = UIView()
 //        v.backgroundColor = .red
 //        v.frame = CGRect.init(x: 0, y: 0, width: 30, height: 30)
@@ -84,6 +94,7 @@ extension HomeTableViewController
         let vm = statuslistviewModel.StatusList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
+        
         cell.selectionStyle = .none
         
         cell.viewModel = vm
