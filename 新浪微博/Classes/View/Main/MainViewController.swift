@@ -15,35 +15,43 @@ class MainViewController: UITabBarController {
         
         let vc : UIViewController!
         
-        if UserAccountViewModel.shared.userLoginStatus {
+        if UserAccountViewModel.shared.userLoginStatus
+        {
             vc = ComposeViewController()
-        }else{
+        }
+        else
+        {
             vc = VisitorTableViewController()
         }
         
         let nav = UINavigationController.init(rootViewController: vc)
         
         present(nav, animated: true, completion: nil)
+        
     }
     
-    // MARK: -视图生命周期
-    override func viewDidLoad() {
+    //MARK: -视图生命周期
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         addChilds()
 
         addComposedButton()
         
-        // Do any additional setup after loading the view.
+        //Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
         //在window调用了makeKeyAndVisible才调用
+        
         self.tabBar.bringSubviewToFront(composedButton)
+        
     }
     
-     // MARK: -懒加载tabBar中间加号按钮
+    // MARK: -懒加载tabBar中间加号按钮
     private lazy var composedButton : UIButton = UIButton.init(image: "tabbar_compose_icon_add", backImage: "tabbar_compose_button")
 
 }

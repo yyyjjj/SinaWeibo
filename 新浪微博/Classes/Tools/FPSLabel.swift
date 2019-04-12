@@ -19,16 +19,19 @@ class FPSLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         link = CADisplayLink.init(target: self, selector: #selector(FPSLabel.didTick(link:)))
+        //commom会无论用户的app处于什么停止还是滑动都会进行fps打印
         link?.add(to: RunLoop.current, forMode: .common)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         super.init(coder: aDecoder)
     }
     
     @objc func didTick(link:CADisplayLink) {
         
-        if lastTime == 0{
+        if lastTime == 0
+        {
             lastTime = link.timestamp
             return
         }

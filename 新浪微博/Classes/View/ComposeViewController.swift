@@ -1,0 +1,233 @@
+//
+//  ComposeViewController.swift
+//  新浪微博
+//
+//  Created by 梁华建 on 2019/4/10.
+//  Copyright © 2019 梁华建. All rights reserved.
+//
+
+import UIKit
+
+//MARK :-撰写控制器
+class ComposeViewController: UIViewController {
+    
+    //MARK: -监听方法
+    @objc private func clickCancel(){
+        
+        textview.resignFirstResponder()
+        
+        dismiss(animated: true, completion: nil)
+        
+    }
+    @objc private func clickPush()
+    {
+        print(textview.emoticonText())
+        clickCancel()
+        //该功能接口已经被禁止现在
+//        AFNetworkTool.sharedTool.postStatus(content: textview.emoticonText()) { (response, error) in
+//            if let error = error{
+//                print(error)
+//                return
+//            }
+//            print(response)
+//        }
+    }
+    @objc private func clickEmoticon()
+    {
+        
+        print("点击表情键盘")
+        textview.resignFirstResponder()
+        textview.inputView = textview.inputView == nil ? emoticonview : nil
+        textview.becomeFirstResponder()
+    }
+    //MARK: -生命周期
+    override func loadView() {
+        
+        view = UIView()
+        //我们要提前设置好View的属性，否则会被用户看到卡屏
+        setupUI()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        
+        textview.becomeFirstResponder()
+        
+    }
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        //添加键盘通知
+        NotificationCenter.default.addObserver(self, selector: #selector(KeyBoardChanged), name: UIResponder.keyboardWillChangeFrameNotification , object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    ///监听键盘
+    @objc func KeyBoardChanged(notification : NSNotification) {
+//       print(notification)
+        //1,拿到键盘每次完成布局后的高度
+       let rect = (notification.userInfo!["UIKeyboardFrameEndUserInfoKey"] as! NSValue).cgRectValue
+        //UIKeyboardAnimationCurveUserInfoKey
+        //获取目标的动画时长
+        let duration = (notification.userInfo!["UIKeyboardAnimationDurationUserInfoKey"] as! NSNumber).doubleValue
+        //动画曲线数值
+        let curve = (notification.userInfo!["UIKeyboardAnimationCurveUserInfoKey"] as! NSNumber).intValue
+        
+        //UIKeyboardAnimationDurationUserInfoKey
+        let offset = -UIScreen.main.bounds.height + rect.origin.y
+        
+        //2,更新约束
+        toolbar.snp.updateConstraints { (make) in
+            make.bottom.equalTo(view.snp.bottom).offset(offset)
+        }
+        //3.动画
+        UIView.animate(withDuration: duration) {
+            UIView.setAnimationCurve(UIView.AnimationCurve(rawValue: curve)!)
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    //MAKR: -懒加载控件
+    ///键盘上面的toolbar
+    lazy var toolbar = UIToolbar()
+    ///键盘输入的textVview
+    lazy var textview : UITextView =
+    {
+        let tv = UITextView.init()
+        tv.delegate = self
+        tv.font = UIFont.systemFont(ofSize: 18)
+        tv.textColor = UIColor.darkGray
+        tv.alwaysBounceVertical = true
+        tv.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
+        return tv
+    }()
+    
+    ///占位标签
+    lazy var placeHolderLabel = UILabel.init(content: "分享新鲜事...", color: .lightGray, size: 18)
+    
+    ///表情键盘
+    lazy var emoticonview = EmoticonView
+        { [weak self] (emoticon) in
+        //获取当前文本，并拼接上表情包
+        self?.textview.insertEmoticon(emoticon: emoticon)
+         
+    }
+}
+//MARK: -设置界面
+extension ComposeViewController
+{
+    ///布局视图
+    func setupUI()
+    {
+        //1，设置背景颜色
+        view.backgroundColor = .white
+        prepareNavigationBar()
+        prepareToolBar()
+        prepareTextView()
+    }
+    
+    ///布局键盘ToolBar
+    func prepareToolBar()  {
+        
+        //1,添加控件
+        self.view.addSubview(toolbar)
+        
+        //2,布局控件
+        toolbar.snp.makeConstraints
+            { (make) in
+            make.left.equalTo(view.snp.left)
+            make.right.equalTo(view.snp.right)
+            make.bottom.equalTo(view.snp.bottom)
+            make.height.equalTo(44)
+        }
+        
+        //3,添加按钮
+        let imageDict = [["imageName":"compose_toolbar_picture"],["imageName":"compose_mentionbutton_background"],
+            ["imageName":"compose_trendbutton_background"], ["imageName":"compose_emoticonbutton_background","action":"clickEmoticon"],
+            ["imageName":"compose_add_background"]]
+        
+        var items = [UIBarButtonItem]()
+
+        for dict in imageDict{
+      
+            //判断actionname
+            let item = UIBarButtonItem(imageName: dict["imageName"]!, target: self, actionName: dict["action"])
+
+            items.append(item)
+            //设置弹簧
+            items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+            
+        }
+        
+        items.removeLast()
+        
+        toolbar.items = items
+        
+    }
+    
+    ///布局textview
+    func prepareTextView(){
+        //1，添加子控件
+        view.addSubview(textview)
+        textview.addSubview(placeHolderLabel)
+        //2，设置布局
+        textview.snp.makeConstraints { (make) in
+            make.top.equalTo(self.topLayoutGuide.snp.bottom)
+            make.left.equalTo(self.view.snp.left)
+            make.right.equalTo(self.view.snp.right)
+            make.bottom.equalTo(self.toolbar.snp.top)
+        }
+        placeHolderLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(textview.snp.top).offset(8)
+            make.left.equalTo(textview.snp.left).offset(5)
+        }
+    }
+    
+    ///布局导航栏
+    func prepareNavigationBar()
+    {
+        //1,设置navBar的左右按钮
+        //取消按钮
+        navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(clickCancel))
+        //发微博按钮
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "发布", style: .plain, target: self, action: #selector(clickPush))
+        
+        //2,标题视图
+        let titleView = UIView.init(frame: CGRect.init(x: -100, y: 0, width: 200, height: 36))
+        
+        titleView.backgroundColor = .red
+        
+        navigationItem.titleView = titleView
+        
+        //3,标题文字
+        let titleLabel = UILabel.init(content: "发微博", color: .gray, size: 15)
+    
+        let nameLabel = UILabel.init(content: UserAccountViewModel.shared.account?.screen_name ?? "", color: .darkGray, size: 13)
+        
+        titleView.addSubview(titleLabel)
+        
+        titleView.addSubview(nameLabel)
+        
+        //4,设置文字标题约束
+        titleLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(titleView.center.x)
+            make.top.equalTo(titleView.snp.top)
+        }
+        nameLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(titleView.center.x)
+            make.bottom.equalTo(titleView.snp.bottom)
+        }
+        
+    }
+}
+//MAKR: -textView的代理方法
+extension ComposeViewController : UITextViewDelegate{
+    func textViewDidChange(_ textView: UITextView) {
+        placeHolderLabel.isHidden = true
+    }
+}
