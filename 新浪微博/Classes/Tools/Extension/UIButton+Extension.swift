@@ -40,9 +40,12 @@ extension UIButton
     ///   - highlight: 高亮图片名字 ，可设可不设
     ///   - textSize: 文字大小
     ///   - isBack:是否为背景图片
-    convenience init(text : String? , textColor : UIColor? , backImage : String? ,highlight : String? = nil ,textSize : CGFloat = 14,isBack : Bool){
+    convenience init(text : String? , textColor : UIColor? , backImage : String? ,highlight : String? = nil ,textSize : CGFloat = 14,isBack : Bool , backgroundColor : UIColor? = nil){
         //UIButton类的init会调用super.init()初始化UIView
         self.init()
+        
+        self.backgroundColor = backgroundColor
+        
         if isBack {
         guard let text = text else {
             
@@ -86,7 +89,7 @@ extension UIButton
             
         }else
         {
-            backgroundColor = .white
+      
             guard let text = text else {
                 
                 guard let backImage = backImage else {
@@ -111,9 +114,9 @@ extension UIButton
             setTitle(text, for: .normal)
             
             titleLabel?.font = UIFont.systemFont(ofSize: textSize)
-            
+            if backImage != nil{
             setImage(UIImage.init(named: backImage!), for: .normal)
-            
+            }
             guard let highlight = highlight else {
                 
                 setTitleColor(textColor ?? UIColor.black , for: .normal)

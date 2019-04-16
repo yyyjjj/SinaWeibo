@@ -12,7 +12,7 @@ private let PictureIdentifier = "PictureIdentifier"
 
 class PicturePickerCollectionViewController: UICollectionViewController {
     
-    let maxSelections = 8
+    let maxSelections = 9
     
     //总图片数组
     lazy var pictureArray = [UIImage]()
@@ -63,7 +63,7 @@ class PicturePickerCollectionViewController: UICollectionViewController {
         
     }
 }
-//MARK: -item点击事件代理
+//MARK: - item点击事件代理
 extension PicturePickerCollectionViewController : PictureItemDelegate{
     
     func didClickAdd(cell : PictureItem) {
@@ -96,15 +96,16 @@ extension PicturePickerCollectionViewController : PictureItemDelegate{
         }
         
         pictureArray.remove(at: indexpath.item)
-        
-        collectionView.deleteItems(at: [indexpath])
-        
+        //deleteItems会把items删除，并且去检查itemCount是否跟删除后的一样，如果不一样就报错
+        //collectionView.deleteItems(at: [indexpath])
+        //牺牲动画效果,规避检查机制
+        collectionView.reloadData()
 //        if pictureArray.count == maxSelections{
 //            collectionView.insertItems(at: [indexpath])
 //        }
     }
 }
-//MARK: -选择相册的代理方法
+//MARK: - 选择相册的代理方法
 extension PicturePickerCollectionViewController : UIImagePickerControllerDelegate,UINavigationControllerDelegate
 {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -136,7 +137,7 @@ extension PicturePickerCollectionViewController : UIImagePickerControllerDelegat
     
 }
 
-//MARK: -自定义PictureItem
+//MARK: - 自定义PitureItem
 //由于我们的Item会被复用，我们会add太多target到self上面，我们要把点击方法绑到控制器
 class PictureItem : UICollectionViewCell{
     
@@ -196,7 +197,7 @@ class PictureItem : UICollectionViewCell{
     
 }
 
-//MARK: -CollectionView的dataSource
+//MARK: - CollectionView的dataSource
 extension PicturePickerCollectionViewController{
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

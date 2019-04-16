@@ -44,7 +44,7 @@ class AFNetworkTool : AFHTTPSessionManager
     }()
 }
 
-//MARK: -获取用户信息
+//MARK: - 获取用户信息
 extension AFNetworkTool
 {
     func LoadUserInfo(uid:String,success:@escaping completion)  {
@@ -69,7 +69,7 @@ extension AFNetworkTool
     }
 }
 
-//MARK: -发送微博
+//MARK: - 发送微博
 extension AFNetworkTool{
     
     /// 发布微博
@@ -105,7 +105,7 @@ extension AFNetworkTool{
     }
 }
 
-//MARK: -获取用户关注的动态
+//MARK: - 获取用户关注的动态
 extension AFNetworkTool{
     
     /// 加载微博数据
@@ -137,7 +137,7 @@ extension AFNetworkTool{
     
 }
 
-//MARK: -获取accesst_token
+//MARK: - 获取accesst_token
 extension AFNetworkTool
 {
     func LoadTokenAccess(code : String , success : @escaping completion)
@@ -154,7 +154,7 @@ extension AFNetworkTool
 }
 
 
-//MARK: -封装AFNetwork请求方法
+//MARK: - 封装AFNetwork请求方法
 extension AFNetworkTool{
     
     func appendToken(parameters :inout [String:Any]?) -> Bool {

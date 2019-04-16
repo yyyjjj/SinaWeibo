@@ -77,7 +77,7 @@ class NewFeatureCollectionViewController: UICollectionViewController {
     
 }
 
-//MARK: -自定义cell
+//MARK: - 自定义cell
 private class NewFeatureCell : UICollectionViewCell{
     //懒加载 把昂贵的计算布局控件过程放到使用时候再去计算 默认mutating
     private lazy var iconview = UIImageView()
@@ -121,7 +121,7 @@ private class NewFeatureCell : UICollectionViewCell{
     
     
 }
-//MARK: -NewFeatureCell中的button动画及监听
+//MARK: - NewFeatureCell中的button动画及监听
 extension NewFeatureCell
 {
     @objc func clickStartButton(){

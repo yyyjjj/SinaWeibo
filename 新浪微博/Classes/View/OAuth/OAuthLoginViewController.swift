@@ -47,7 +47,7 @@ class OAuthLoginViewController: UIViewController {
     }
     
 }
-// MARK: -WKNavigationDelegate方法
+//MARK: - WKNavigationDelegate方法
 extension OAuthLoginViewController : WKNavigationDelegate
 {
     //拦截webView跳转界面(baidu)

@@ -27,11 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: WBSwitchVCControllerNotification), object: nil, queue: nil) {
             [weak self] (notification) in
-            
             self!.window?.rootViewController = MainViewController()
-            
         }
-        
         return true
     }
     deinit {

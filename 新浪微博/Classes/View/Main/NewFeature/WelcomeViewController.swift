@@ -19,7 +19,7 @@ class WelcomeViewController: UIViewController {
         iconview.sd_setImage(with:UserAccountViewModel.shared.avatar_largeURL , placeholderImage: UIImage.init(named: "avatar_default_big"), options:.cacheMemoryOnly , completed: nil)
         
     }
-    //MARK: -设置动画/键盘
+    //MARK: - 设置动画/键盘
     override func viewDidAppear(_ animated: Bool) {
         
         StartAnimation()
@@ -47,7 +47,7 @@ class WelcomeViewController: UIViewController {
     
     private lazy var welcomeLabel : UILabel = UILabel(content: "欢迎归来", color: .gray, size: 18)
     
-    //MARK: -icon动画
+    //MARK: - icon动画
     func StartAnimation(){
         
         iconview.snp.updateConstraints{ (make) in

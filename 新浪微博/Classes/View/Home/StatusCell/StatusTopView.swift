@@ -49,7 +49,7 @@ extension StatusTopView
 //    self.backgroundColor = UIColor.gray
     //1,添加子控件
     let sepView = UIView()
-    sepView.backgroundColor = UIColor.gray
+    sepView.backgroundColor = UIColor.lightGray
     self.addSubview(sepView)
     self.addSubview(iconView)
     self.addSubview(nameLabel)

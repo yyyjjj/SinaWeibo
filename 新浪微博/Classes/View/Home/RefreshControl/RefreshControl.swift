@@ -8,11 +8,11 @@
 
 import UIKit
 
-//MARK: -进行逻辑操作
+//MARK: - 进行逻辑操作
 class RefreshControl : UIRefreshControl {
     //反转零界点
     private let reverseOffSet : CGFloat = -60
-    //MARK: -重写系统的Refresh方法
+    //MARK: - 重写系统的Refresh方法
     override func endRefreshing() {
         super.endRefreshing()
         //停止动画
@@ -24,7 +24,7 @@ class RefreshControl : UIRefreshControl {
         refreshView.startAnimation()
     }
     
-    //MARK: -KVO监听下拉高度
+    //MARK: - KVO监听下拉高度
     //控件始终在屏幕上面 x = 0 y初始值为0
     //下拉的时候Y值变小 上拉的时候Y值变大
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -40,18 +40,18 @@ class RefreshControl : UIRefreshControl {
         
         if frame.origin.y < reverseOffSet && !refreshView.reverseFlag
         {
-//            print("反过来")
+            //            print("反过来")
             refreshView.reverseFlag = true
         }
         else if frame.origin.y >= reverseOffSet && refreshView.reverseFlag
         {
-//            print("转回去")
+            //print("转回去")
             refreshView.reverseFlag = false
         }
-//        print(frame)
+        //print(frame)
     }
     
-    //MARK: -初始化
+    //MARK: - 初始化
     //保证xib和纯代码都能加载
     override init() {
         super.init()
@@ -75,7 +75,7 @@ class RefreshControl : UIRefreshControl {
         }
         
         //监听frame的变化，来改变下拉刷新
-    //把监听放到主队列去让其延迟监听，即刚刚开始的时候主线程在忙，先不执行主队列的任务，等下一次runloop开始(runloop接受到port,timer,source等用户开始滑动或加载网络数据)再去监听
+        //把监听放到主队列去让其延迟监听，即刚刚开始的时候主线程在忙，先不执行主队列的任务，等下一次runloop开始(runloop接受到port,timer,source等用户开始滑动或加载网络数据)再去监听
         DispatchQueue.main.async {
             self.addObserver(self, forKeyPath: "frame", options: [], context: nil)
         }
@@ -108,7 +108,7 @@ class RefreshView : UIView {
             return
         }
         
-//        print("加载动画播放")
+        //        print("加载动画播放")
         
         let anim = CABasicAnimation.init(keyPath: key)
         anim.toValue = 2*Double.pi

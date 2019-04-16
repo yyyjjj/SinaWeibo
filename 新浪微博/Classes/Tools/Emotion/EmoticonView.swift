@@ -12,18 +12,18 @@ class EmoticonView: UIView {
     ///表情点击闭包
     private var didSelectEmoticonCallBack : (Emoticon) -> ()
     
-    //MARK: -toolbar点击方法
+    //MARK: - toolbar点击方法
     @objc func didClickToolBar(item:UIBarButtonItem)
     {
         let indexpath = IndexPath.init(item: 1, section: item.tag)
         collectionviews.scrollToItem(at: indexpath, at: .left, animated: true)
     }
     
-    //MARK: -懒加载控件
+    //MARK: - 懒加载控件
     lazy var collectionviews = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: EmoticonLayout())
     lazy var toolbar = UIToolbar()
     
-    //MARK: -控件初始化
+    //MARK: - 控件初始化
     init(didSelectEmoticon:@escaping (Emoticon) -> ()) {
         
         didSelectEmoticonCallBack = didSelectEmoticon
@@ -54,7 +54,7 @@ class EmoticonView: UIView {
     lazy var packages = EmoticonsViewModel.shared.packages
     
 }
-//MARK: -布局视图
+//MARK: - 布局视图
 extension EmoticonView{
     
     func setupUI(){
@@ -109,7 +109,7 @@ extension EmoticonView{
         collectionviews.delegate = self
         collectionviews.register(EmoticonCell.self, forCellWithReuseIdentifier: EmoticonCellID)
     }
-    //MARK: -Collection的layout类
+    //MARK: - Collection的layout类
     ///自定义UICollectionViewFlowLayout，去完成CollectionView里面布局
     private class EmoticonLayout : UICollectionViewFlowLayout{
         //该方法会在第一次完成CollectionView布局的时候调用,自发的
@@ -132,7 +132,7 @@ extension EmoticonView{
         }
     }
 }
-//MARK: -CollectionCell的dataSource和delegate方法
+//MARK: - CollectionCell的dataSource和delegate方法
 extension EmoticonView : UICollectionViewDataSource,UICollectionViewDelegate{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -155,11 +155,11 @@ extension EmoticonView : UICollectionViewDataSource,UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //我们点击了该表情，要传值出去给外部
         didSelectEmoticonCallBack(packages[indexPath.section].emoticons[indexPath.row])
-//        print("indexpath = \(indexPath)")
+        //print("indexpath = \(indexPath)")
     }
 }
 
-//MARK: -Emoticon的自定义Cell
+//MARK: - Emoticon的自定义Cell
 class EmoticonCell : UICollectionViewCell {
     
     var emoticon : Emoticon?{

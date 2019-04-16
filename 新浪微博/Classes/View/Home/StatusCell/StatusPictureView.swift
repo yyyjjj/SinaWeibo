@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+
 let pictureMargins : CGFloat = 8
 let CollectionViewCellID = "CollectionViewCellID"
 
@@ -36,6 +37,7 @@ class StatusPictureView: UICollectionView {
         super.init(frame: CGRect.zero, collectionViewLayout: layout)
         //设置自己为数据源，比较小的自定义视图
         dataSource = self
+        delegate = self
         register(PictrueViewCell.self, forCellWithReuseIdentifier: CollectionViewCellID)
     }
     
@@ -43,7 +45,7 @@ class StatusPictureView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-//MARK :- 计算总图片宽高
+//MARK: - 计算总图片宽高
 extension StatusPictureView
 {
     ///通过图片数量 计算大小
@@ -98,14 +100,23 @@ extension StatusPictureView
         
         let w = column * itemwidth + (column-1)*pictureMargins
         
-        //        print("H = \(h) ----------------------------------- W = \(w)")
+        //print("H = \(h) ----------------------------------- W = \(w)")
         
         return CGSize.init(width: w, height: h)
         
     }
 }
-
-extension StatusPictureView :UICollectionViewDataSource{
+//MARK: - 代理方法
+extension StatusPictureView :UICollectionViewDataSource,UICollectionViewDelegate{
+    ///点击事件
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //发布通知
+        //把选中的item，index和该条微博所有图片url
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: WBPictureCellSelectNotification), object: self, userInfo: [WBPictureCellIndexNotification:indexPath,
+                                                                                                    WBPictureArrayNotification: viewModel!.thumbnails!])
+        PhotoBrowserPresentFromRect(indexPath: indexPath)
+        PhotoBrowserPresentToRect(indexPath: indexPath)
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel?.thumbnails?.count ?? 0
@@ -121,6 +132,75 @@ extension StatusPictureView :UICollectionViewDataSource{
         
     }
     
+}
+extension StatusPictureView : PhotoPositionDelegate
+{
+    ///获取大图的rect
+    func PhotoBrowserPresentToRect(indexPath: IndexPath) -> CGRect {
+        
+        guard let url = self.viewModel?.thumbnails![indexPath.item].absoluteString else{
+            return CGRect.zero
+        }
+        
+        guard  let image = SDWebImageManager.shared().imageCache?.imageFromDiskCache(forKey: url) else {
+            return CGRect.zero
+        }
+        //根据缩略图大小，计算全屏的大小
+        //所以这里只需要拿到缩略图就行了
+        let w = UIScreen.main.bounds.width
+        let h = image.size.height*w / image.size.width
+        
+        let screeenHeight =  UIScreen.main.bounds.height
+        var y : CGFloat = 0
+        //处理图片过长的情况
+        if h < screeenHeight {
+            y = (screeenHeight - h) * 0.5
+        }
+        
+        let rect = CGRect.init(x: 0, y: y, width: w, height: h)
+        
+        //测试代码
+        let v = PhotoForAnimation(indexPath: indexPath)
+
+        v.frame = rect
+        
+        UIApplication.shared.keyWindow?.addSubview(v)
+        
+        return rect
+        
+    }
+    ///获取缩略图的rect
+    func PhotoBrowserPresentFromRect(indexPath: IndexPath) -> CGRect {
+        //1,获取图片所在cell
+        let cell = self.cellForItem(at: indexPath)
+        //2,坐标转换
+        //当前cell在UIScreen的位置
+        let rect = convert(cell!.frame, to: UIApplication.shared.keyWindow)
+        //测试代码
+        let imageView = PhotoForAnimation(indexPath: indexPath)
+        
+        imageView.frame = rect
+        
+        UIApplication.shared.keyWindow?.addSubview(imageView)
+        
+        return rect
+        
+    }
+    
+    func PhotoForAnimation(indexPath: IndexPath) -> UIImageView {
+        let iv = UIImageView()
+        //1,设置填充模式
+        iv.contentMode = .scaleToFill
+        iv.clipsToBounds = true
+        
+        //2,从本地加载缩略图片
+        if let url = self.viewModel?.thumbnails![indexPath.item]{
+            //如果本地存在图片就不会去下载
+            iv.sd_setImage(with: url, completed: nil)
+        }
+        
+        return iv
+    }
 }
 
 ///MARK :-图片cell
@@ -160,3 +240,4 @@ private class PictrueViewCell: UICollectionViewCell {
     }()
     
 }
+

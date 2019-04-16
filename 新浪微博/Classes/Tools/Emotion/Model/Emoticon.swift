@@ -38,7 +38,7 @@ class Emoticon: NSObject
     ///是否为空
     var isEmpty :Bool = false
     
-    //MARK: -构造函数
+    //MARK: - 构造函数
     ///创建一个空白cell,补充不同类别的表情组
     init(isEmpty:Bool) {
         self.isEmpty = isEmpty

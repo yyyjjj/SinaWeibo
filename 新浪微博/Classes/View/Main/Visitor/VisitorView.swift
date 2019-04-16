@@ -20,7 +20,7 @@ class VisitorView: UIView {
     
     weak var delegate : VisitorViewDelegate?
     
-    //MARK: -调用跳转方法
+    //MARK: - 调用跳转方法
     @objc func clickRegister(){
         delegate?.ClickRegisteButton()
     }
@@ -42,7 +42,7 @@ class VisitorView: UIView {
     
     private lazy var loginButton : UIButton = UIButton.init(text: "登录", textColor: .gray, backImage: "common_button_white_disable",highlight : nil,isBack:true)
     
-    //MARK: -初始化方法
+    //MARK: - 初始化方法
     override init(frame: CGRect) {
         
         super.init(frame: frame)
@@ -77,7 +77,7 @@ class VisitorView: UIView {
         SetUpUI()
     }
     
-    //MARK: -布局视图
+    //MARK: - 布局视图
     func SetUpUI(){
         
         self.addSubview(iconview)

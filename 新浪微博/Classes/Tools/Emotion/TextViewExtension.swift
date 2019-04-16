@@ -9,7 +9,6 @@
 import UIKit
 extension UITextView
 {
-    
     ///发送给服务器的图文混排文本
     func emoticonText() -> String
     {
@@ -37,7 +36,7 @@ extension UITextView
         
     }
     
-    //MARK: -插入表情操作
+    //MARK: - 插入表情操作
     func insertEmoticon(emoticon:Emoticon)
     {
         

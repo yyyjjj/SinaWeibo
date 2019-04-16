@@ -10,7 +10,7 @@ import UIKit
 ///注意 这里的tableview数据源和代理方法不能实现，不然子类的会被覆盖
 class VisitorTableViewController: UITableViewController {
     
-    // MARK: -用户登录状态
+    //MARK: - 用户登录状态
     private var loginStatus = UserAccountViewModel.shared.userLoginStatus
     //懒加载会被子类调用而产生不必要的view
     var visitorview : VisitorView? = VisitorView()

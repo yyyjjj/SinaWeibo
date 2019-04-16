@@ -8,10 +8,10 @@
 
 import UIKit
 
-//MARK :-撰写控制器
+//MARK: - 撰写控制器
 class ComposeViewController: UIViewController {
     
-    //MARK: -监听方法
+    //MARK: - 监听方法
     @objc private func clickCancel(){
         
         textview.resignFirstResponder()
@@ -31,6 +31,17 @@ class ComposeViewController: UIViewController {
 //            }
 //            print(response)
 //        }
+//        let image = PicturePickerController.pictureArray
+        //上传图片
+//        AFNetworkTool.sharedTool.postStatus(content: textview.emoticonText(), image: image.last)
+//            { (response, error) in
+//                            if let error = error{
+//                                print(error)
+//                                return
+//                            }
+//                print(response!)
+//            }
+//        }
     }
     @objc private func clickEmoticon()
     {
@@ -40,7 +51,31 @@ class ComposeViewController: UIViewController {
         textview.inputView = textview.inputView == nil ? emoticonview : nil
         textview.becomeFirstResponder()
     }
-    //MARK: -生命周期
+    
+    @objc private func clickAddPhoto()
+    {
+        //退掉键盘
+        textview.resignFirstResponder()
+        //防止多次重新布局
+        if PicturePickerController.view.bounds.height>0{
+            return
+        }
+        PicturePickerController.view.snp.updateConstraints { (make) in
+            make.height.equalTo(view.bounds.height*0.6)
+        }
+        //跟新文本约束参照对象，改变参照物需要用remake不能用update
+        textview.snp.remakeConstraints { (make) in
+        
+            make.top.equalTo(topLayoutGuide.snp.bottom)
+            make.left.equalTo(view.snp.left)
+            make.right.equalTo(view.snp.right)
+            make.bottom.equalTo(PicturePickerController.view.snp.top)
+        }
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    //MARK: - 生命周期
     override func loadView() {
         
         view = UIView()
@@ -52,8 +87,10 @@ class ComposeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
-        
-        textview.becomeFirstResponder()
+        //选完照片不会再弹出键盘
+        if PicturePickerController.view.frame.height == 0{
+            textview.becomeFirstResponder()
+        }
         
     }
     
@@ -117,18 +154,39 @@ class ComposeViewController: UIViewController {
         self?.textview.insertEmoticon(emoticon: emoticon)
          
     }
+    
+    ///相册
+    lazy var PicturePickerController = PicturePickerCollectionViewController()
 }
-//MARK: -设置界面
+//MARK: - 设置界面
 extension ComposeViewController
 {
     ///布局视图
     func setupUI()
     {
+        //ios7-11需要设置下面为false，否则他认为你collection默认有个导航条
+//        automaticallyAdjustsScrollViewInsets
         //1，设置背景颜色
         view.backgroundColor = .white
         prepareNavigationBar()
         prepareToolBar()
         prepareTextView()
+        preparePicturePicker()
+    }
+    
+    ///布局图片选择器
+    func preparePicturePicker() {
+        //如果不添加到childView，响应链条会断掉
+        self.addChild(PicturePickerController)
+        
+        self.view.insertSubview(PicturePickerController.view, belowSubview: toolbar)
+        
+        PicturePickerController.view.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.view.snp.bottom)
+            make.left.equalTo(self.view.snp.left)
+            make.right.equalTo(self.view.snp.right)
+            make.height.equalTo(0)
+        }
     }
     
     ///布局键盘ToolBar
@@ -147,7 +205,7 @@ extension ComposeViewController
         }
         
         //3,添加按钮
-        let imageDict = [["imageName":"compose_toolbar_picture"],["imageName":"compose_mentionbutton_background"],
+        let imageDict = [["imageName":"compose_toolbar_picture","action":"clickAddPhoto"],["imageName":"compose_mentionbutton_background"],
             ["imageName":"compose_trendbutton_background"], ["imageName":"compose_emoticonbutton_background","action":"clickEmoticon"],
             ["imageName":"compose_add_background"]]
         

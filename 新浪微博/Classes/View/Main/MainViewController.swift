@@ -9,7 +9,7 @@
 import UIKit
 
 class MainViewController: UITabBarController {
-    // MARK: -按钮监听方法
+    //MARK: - 按钮监听方法
     ///使用OC消息转发机制
     @objc private func ClickComposeButton(){
         
@@ -30,7 +30,7 @@ class MainViewController: UITabBarController {
         
     }
     
-    //MARK: -视图生命周期
+    //MARK: - 视图生命周期
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -51,12 +51,12 @@ class MainViewController: UITabBarController {
         
     }
     
-    // MARK: -懒加载tabBar中间加号按钮
+    //MARK: - 懒加载tabBar中间加号按钮
     private lazy var composedButton : UIButton = UIButton.init(image: "tabbar_compose_icon_add", backImage: "tabbar_compose_button")
 
 }
 
-// MARK: - 添加控制器
+//MARK: - 添加控制器
 extension MainViewController{
     private func addComposedButton(){
         

@@ -79,8 +79,12 @@ extension StatusListViewModel{
                 group.enter()
                 //        print("开始缓存单图 : \($0.thumbnails![0].absoluteString)")
                 //缓存
+                //注意：
+                //设置了retryFailed，当请求失败会重新执行该闭包内容，如果里面有某些信号量的处理，可能会引起越界，如group.leave()
+                //设置了refreshCached，sdWeb请求服务器下载图片的时候会把缓存图片的hash值发送给服务器做图片校验，如果一样服务器返回304，否则重新执行该闭包下载，也会引起信号量的处理
+                //[SDWebImageOptions.refreshCached,SDWebImageOptions.retryFailed]
                 SDWebImageManager.shared().loadImage(with: $0.thumbnails![0],
-                                                     options: [SDWebImageOptions.refreshCached,SDWebImageOptions.retryFailed],
+                                                     options: [],
                                                      progress:nil,
                                                      completed: { (image, _, _, _, _, _) in
                                                         if let image = image ,
