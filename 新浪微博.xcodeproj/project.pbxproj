@@ -17,6 +17,7 @@
 		692A015D2251D8AD00131A21 /* OriginStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A015C2251D8AD00131A21 /* OriginStatusCell.swift */; };
 		692A01602252494500131A21 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A015F2252494500131A21 /* RefreshControl.swift */; };
 		692A01622252499600131A21 /* RefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 692A01612252499600131A21 /* RefreshView.xib */; };
+		692B74A022647B5600C1030B /* ProgressImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692B749F22647B5600C1030B /* ProgressImageView.swift */; };
 		6931F234222F6A07008B4948 /* OAuthLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931F233222F6A07008B4948 /* OAuthLoginViewController.swift */; };
 		6931F237222FB335008B4948 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931F236222FB335008B4948 /* String+Extension.swift */; };
 		6933AE412230F1B5003612CA /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6933AE402230F1B5003612CA /* UserAccount.swift */; };
@@ -46,10 +47,15 @@
 		6952C53A225F655300A8DC97 /* EmoticonPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C536225F655300A8DC97 /* EmoticonPackage.swift */; };
 		6952C53B225F655300A8DC97 /* EmoticonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C538225F655300A8DC97 /* EmoticonsViewModel.swift */; };
 		6952C53D225F659100A8DC97 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C53C225F659100A8DC97 /* String.swift */; };
+		6952C5D32260E22100A8DC97 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C5D22260E22100A8DC97 /* UIImage+Extension.swift */; };
+		6952C5D62260E24500A8DC97 /* PicturePickerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C5D52260E24500A8DC97 /* PicturePickerCollectionViewController.swift */; };
+		6952C5D92260FF0C00A8DC97 /* PhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C5D82260FF0C00A8DC97 /* PhotoBrowserViewController.swift */; };
 		696370B32237B61E00DBAC0C /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696370B22237B61E00DBAC0C /* AFNetworking.framework */; };
 		696370B52237B61E00DBAC0C /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696370B42237B61E00DBAC0C /* SnapKit.framework */; };
 		69693BEA22584D0F001EB21B /* FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69693BE922584D0F001EB21B /* FPSLabel.swift */; };
 		6976DA3C2236834D009E17EC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6976DA3B2236834D009E17EC /* WelcomeViewController.swift */; };
+		69A306D622618AC900180F5A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A306D522618AC900180F5A /* UIColor+Extension.swift */; };
+		69A306D8226193A800180F5A /* PictureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A306D7226193A800180F5A /* PictureCollectionViewCell.swift */; };
 		69B0B3DC222EB3290020014B /* AFNetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B0B3DB222EB3290020014B /* AFNetworkTool.swift */; };
 		69C5C0D0224A0B270000D39D /* StatusPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C5C0CF224A0B270000D39D /* StatusPictureView.swift */; };
 		69DFBD6322360B57007AF947 /* NewFeatureCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DFBD6222360B57007AF947 /* NewFeatureCollectionViewController.swift */; };
@@ -87,6 +93,7 @@
 		692A015C2251D8AD00131A21 /* OriginStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginStatusCell.swift; sourceTree = "<group>"; };
 		692A015F2252494500131A21 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		692A01612252499600131A21 /* RefreshView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshView.xib; sourceTree = "<group>"; };
+		692B749F22647B5600C1030B /* ProgressImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressImageView.swift; sourceTree = "<group>"; };
 		6931F233222F6A07008B4948 /* OAuthLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthLoginViewController.swift; sourceTree = "<group>"; };
 		6931F236222FB335008B4948 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		6933AE402230F1B5003612CA /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
@@ -116,11 +123,16 @@
 		6952C536225F655300A8DC97 /* EmoticonPackage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonPackage.swift; sourceTree = "<group>"; };
 		6952C538225F655300A8DC97 /* EmoticonsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonsViewModel.swift; sourceTree = "<group>"; };
 		6952C53C225F659100A8DC97 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		6952C5D22260E22100A8DC97 /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		6952C5D52260E24500A8DC97 /* PicturePickerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturePickerCollectionViewController.swift; sourceTree = "<group>"; };
+		6952C5D82260FF0C00A8DC97 /* PhotoBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserViewController.swift; sourceTree = "<group>"; };
 		696370B22237B61E00DBAC0C /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		696370B42237B61E00DBAC0C /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69693BE922584D0F001EB21B /* FPSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPSLabel.swift; sourceTree = "<group>"; };
 		69693BEB22584DCB001EB21B /* Pods_新浪微博.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "Pods_新浪微博.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6976DA3B2236834D009E17EC /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		69A306D522618AC900180F5A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		69A306D7226193A800180F5A /* PictureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCollectionViewCell.swift; sourceTree = "<group>"; };
 		69B0B3DB222EB3290020014B /* AFNetworkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFNetworkTool.swift; sourceTree = "<group>"; };
 		69C5C0CF224A0B270000D39D /* StatusPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPictureView.swift; sourceTree = "<group>"; };
 		69DFBD6222360B57007AF947 /* NewFeatureCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeatureCollectionViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +209,8 @@
 				6929BD7E222CE5E900EE13FA /* UILabel+Extension.swift */,
 				6931F236222FB335008B4948 /* String+Extension.swift */,
 				6952C521225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift */,
+				6952C5D22260E22100A8DC97 /* UIImage+Extension.swift */,
+				69A306D522618AC900180F5A /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -241,6 +255,8 @@
 		6936FC54222B7066002B9A19 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				6952C5D72260FE9D00A8DC97 /* PhotoBrowser */,
+				6952C5D42260E24500A8DC97 /* PicturePicker */,
 				6952C523225F646000A8DC97 /* Emotion */,
 				6929BD76222CAEA800EE13FA /* Extension */,
 				6929BD80222D541400EE13FA /* Common.swift */,
@@ -377,6 +393,24 @@
 				6952C538225F655300A8DC97 /* EmoticonsViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6952C5D42260E24500A8DC97 /* PicturePicker */ = {
+			isa = PBXGroup;
+			children = (
+				6952C5D52260E24500A8DC97 /* PicturePickerCollectionViewController.swift */,
+			);
+			path = PicturePicker;
+			sourceTree = "<group>";
+		};
+		6952C5D72260FE9D00A8DC97 /* PhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				6952C5D82260FF0C00A8DC97 /* PhotoBrowserViewController.swift */,
+				69A306D7226193A800180F5A /* PictureCollectionViewCell.swift */,
+				692B749F22647B5600C1030B /* ProgressImageView.swift */,
+			);
+			path = PhotoBrowser;
 			sourceTree = "<group>";
 		};
 		69DFBD6122360B3C007AF947 /* NewFeature */ = {
@@ -686,6 +720,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6952C522225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift in Sources */,
+				69A306D8226193A800180F5A /* PictureCollectionViewCell.swift in Sources */,
 				69396A7D2248F3F30005E981 /* StatusTopView.swift in Sources */,
 				6931F234222F6A07008B4948 /* OAuthLoginViewController.swift in Sources */,
 				6936FC66222B72B2002B9A19 /* ProfileTableViewController.swift in Sources */,
@@ -701,6 +736,8 @@
 				69396A7A2248F3930005E981 /* StatusCell.swift in Sources */,
 				69396A7F2248F4C20005E981 /* StatusBottomView.swift in Sources */,
 				6931F237222FB335008B4948 /* String+Extension.swift in Sources */,
+				692B74A022647B5600C1030B /* ProgressImageView.swift in Sources */,
+				69A306D622618AC900180F5A /* UIColor+Extension.swift in Sources */,
 				692A015D2251D8AD00131A21 /* OriginStatusCell.swift in Sources */,
 				6976DA3C2236834D009E17EC /* WelcomeViewController.swift in Sources */,
 				6929BD7A222CC9B300EE13FA /* VisitorTableViewController.swift in Sources */,
@@ -712,6 +749,7 @@
 				6936FC5E222B724C002B9A19 /* MainViewController.swift in Sources */,
 				6952C52B225F646000A8DC97 /* TextViewExtension.swift in Sources */,
 				6939D95F2233660F004E7623 /* UserAccountViewModel.swift in Sources */,
+				6952C5D32260E22100A8DC97 /* UIImage+Extension.swift in Sources */,
 				6952C53D225F659100A8DC97 /* String.swift in Sources */,
 				6933AE412230F1B5003612CA /* UserAccount.swift in Sources */,
 				69396A742248C84E0005E981 /* StatusVListiewModel.swift in Sources */,
@@ -720,10 +758,12 @@
 				69396A782248EF1E0005E981 /* StatusViewModel.swift in Sources */,
 				6952C539225F655300A8DC97 /* Emoticon.swift in Sources */,
 				6929BD78222CB16200EE13FA /* UIButton+Extension.swift in Sources */,
+				6952C5D92260FF0C00A8DC97 /* PhotoBrowserViewController.swift in Sources */,
 				69396A7222487A020005E981 /* Status.swift in Sources */,
 				6952C52A225F646000A8DC97 /* EmoticonAttachment.swift in Sources */,
 				6952C53B225F655300A8DC97 /* EmoticonsViewModel.swift in Sources */,
 				69DFBD6322360B57007AF947 /* NewFeatureCollectionViewController.swift in Sources */,
+				6952C5D62260E24500A8DC97 /* PicturePickerCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
