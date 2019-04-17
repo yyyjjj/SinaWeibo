@@ -114,8 +114,8 @@ extension StatusPictureView :UICollectionViewDataSource,UICollectionViewDelegate
         //把选中的item，index和该条微博所有图片url
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: WBPictureCellSelectNotification), object: self, userInfo: [WBPictureCellIndexNotification:indexPath,
                                                                                                     WBPictureArrayNotification: viewModel!.thumbnails!])
-        PhotoBrowserPresentFromRect(indexPath: indexPath)
-        PhotoBrowserPresentToRect(indexPath: indexPath)
+//        PhotoBrowserPresentFromRect(indexPath: indexPath)
+//        PhotoBrowserPresentToRect(indexPath: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -133,8 +133,23 @@ extension StatusPictureView :UICollectionViewDataSource,UICollectionViewDelegate
     }
     
 }
-extension StatusPictureView : PhotoPositionDelegate
+extension StatusPictureView : PhotoBrowserPresentDelegate
 {
+    func PhotoPresentForAnimation(indexPath: IndexPath) -> UIImageView {
+        let iv = UIImageView()
+        //1,设置填充模式
+        iv.contentMode = .scaleToFill
+        iv.clipsToBounds = true
+        
+        //2,从本地加载缩略图片
+        if let url = self.viewModel?.thumbnails![indexPath.item]{
+            //如果本地存在图片就不会去下载
+            iv.sd_setImage(with: url, completed: nil)
+        }
+    
+        return iv
+    }
+    
     ///获取大图的rect
     func PhotoBrowserPresentToRect(indexPath: IndexPath) -> CGRect {
         
@@ -160,11 +175,11 @@ extension StatusPictureView : PhotoPositionDelegate
         let rect = CGRect.init(x: 0, y: y, width: w, height: h)
         
         //测试代码
-        let v = PhotoForAnimation(indexPath: indexPath)
-
-        v.frame = rect
-        
-        UIApplication.shared.keyWindow?.addSubview(v)
+//        let v = PhotoForAnimation(indexPath: indexPath)
+//
+//        v.frame = rect
+//        
+//        UIApplication.shared.keyWindow?.addSubview(v)
         
         return rect
         
@@ -175,32 +190,20 @@ extension StatusPictureView : PhotoPositionDelegate
         let cell = self.cellForItem(at: indexPath)
         //2,坐标转换
         //当前cell在UIScreen的位置
-        let rect = convert(cell!.frame, to: UIApplication.shared.keyWindow)
+        //self(collectionView)是cell的父视图
+        let rect = self.convert(cell!.frame, to: UIApplication.shared.keyWindow)
         //测试代码
-        let imageView = PhotoForAnimation(indexPath: indexPath)
-        
-        imageView.frame = rect
-        
-        UIApplication.shared.keyWindow?.addSubview(imageView)
+        //let imageView = PhotoForAnimation(indexPath: indexPath)
+        //
+        //imageView.frame = rect
+        //
+        //UIApplication.shared.keyWindow?.addSubview(imageView)
         
         return rect
         
     }
     
-    func PhotoForAnimation(indexPath: IndexPath) -> UIImageView {
-        let iv = UIImageView()
-        //1,设置填充模式
-        iv.contentMode = .scaleToFill
-        iv.clipsToBounds = true
-        
-        //2,从本地加载缩略图片
-        if let url = self.viewModel?.thumbnails![indexPath.item]{
-            //如果本地存在图片就不会去下载
-            iv.sd_setImage(with: url, completed: nil)
-        }
-        
-        return iv
-    }
+   
 }
 
 ///MARK :-图片cell

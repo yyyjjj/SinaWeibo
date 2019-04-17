@@ -7,23 +7,36 @@
 //
 
 import UIKit
-//MARK: - 获得图片位置的代理
-protocol PhotoPositionDelegate : NSObjectProtocol{
+//MARK: - 图片present的代理
+protocol PhotoBrowserPresentDelegate : NSObjectProtocol{
     func PhotoBrowserPresentFromRect(indexPath : IndexPath) -> CGRect
     func PhotoBrowserPresentToRect(indexPath : IndexPath) -> CGRect
-    func PhotoForAnimation(indexPath : IndexPath) -> UIImageView
+    func PhotoPresentForAnimation(indexPath : IndexPath) -> UIImageView
+}
+//MARK: - 图片dismiss的代理
+/// 我们要拿到参与制作动画的替身及其位置，以及当前indexPath
+protocol PhotoBrowserDismissDelegate : NSObjectProtocol{
+    func PhotoDimissForAnimation() -> UIImageView?
+    func CurrentIndexPath() -> IndexPath?
 }
 //MARK: - 实现转场的代理
 class PhotoBrowserTransitioningDelegate : NSObject, UIViewControllerTransitioningDelegate {
     
-    //设置PhotoPositionDelegate的代理
-    weak var PhotoRectDelegate : PhotoPositionDelegate?
+    //设置Photo展现的代理
+    weak var PhotoPresentDelegate : PhotoBrowserPresentDelegate?
+    //设置Photo解除视图的代理
+    weak var PhotoDismissDelegate : PhotoBrowserDismissDelegate?
     //当前点击item的index，用于计算图片位置
     var indexPath : IndexPath?
-    
-    func setPhotoRectDelegate(indexPath : IndexPath , delegate : PhotoPositionDelegate){
-        self.PhotoRectDelegate = delegate
+    //一键设置present和dismiss代理
+    func setPhotoDelegate(indexPath : IndexPath ,
+                          presentDelegate : PhotoBrowserPresentDelegate,
+                          dismissDelegate : PhotoBrowserDismissDelegate){
+        
+        self.PhotoPresentDelegate = presentDelegate
+        self.PhotoDismissDelegate = dismissDelegate
         self.indexPath = indexPath
+        
     }
     
     var forPresented = false
@@ -62,14 +75,30 @@ extension PhotoBrowserTransitioningDelegate: UIViewControllerAnimatedTransitioni
     }
     //present转场动画
     func AnimationForPresent( transitionContext: UIViewControllerContextTransitioning){
+        guard let indexPath = indexPath , let PhotoRectDelegate = PhotoPresentDelegate else {
+                return
+        }
+        
         let toView = transitionContext.view(forKey: .to)
         //PhotoBrowser里面的collectionView
         transitionContext.containerView.addSubview(toView!)
+        
+        //拿到imageView/转场前rect/转场后rect
+        let imageView = PhotoRectDelegate.PhotoPresentForAnimation(indexPath: indexPath)
+        
+        imageView.frame = PhotoRectDelegate.PhotoBrowserPresentFromRect(indexPath: indexPath)
+        
         toView?.alpha = 0
-        UIView.animate(withDuration: 1.5, animations: {
+        
+        transitionContext.containerView.addSubview(imageView)
+        
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
+            imageView.frame = PhotoRectDelegate.PhotoBrowserPresentToRect(indexPath: indexPath)
             toView?.alpha = 1
         }) { (_) in
+
         //四，通知系统完成present，继续后面的操作
+        imageView.removeFromSuperview()
         transitionContext.completeTransition(true)
 
         }
@@ -77,12 +106,28 @@ extension PhotoBrowserTransitioningDelegate: UIViewControllerAnimatedTransitioni
     }
     //dismiss转场动画
     func AnimationForDismiss( transitionContext: UIViewControllerContextTransitioning){
-        let fromView = transitionContext.view(forKey: .from)
-        UIView.animate(withDuration: 1.5, animations: {
-            fromView?.alpha = 0
-           
+        
+        guard let PhotoPresentDelegate = PhotoPresentDelegate ,
+            let PhotoDismissDelegate = PhotoDismissDelegate ,
+            let imageView = PhotoDismissDelegate.PhotoDimissForAnimation()
+            else
+        {
+            return
+        }
+
+        let fromView = transitionContext.view(forKey: .from)!
+//        fromView.backgroundColor = .black
+//        fromView.removeFromSuperview()
+        //把假的ImageView添加到contentView
+        //里面已经设置好图片大小了
+        fromView.removeFromSuperview()
+        transitionContext.containerView.backgroundColor = .black
+        transitionContext.containerView.addSubview(imageView)
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
+            imageView.frame = PhotoPresentDelegate.PhotoBrowserPresentFromRect(indexPath: PhotoDismissDelegate.CurrentIndexPath()!)
         }) { (_) in
-            fromView?.removeFromSuperview()
+//            imageView.isHidden = true
+            imageView.removeFromSuperview()
             transitionContext.completeTransition(true)
         }
     }

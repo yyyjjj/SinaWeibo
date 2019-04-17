@@ -61,7 +61,7 @@ class HomeTableViewController: VisitorTableViewController {
             guard let urls = notification.userInfo?[NSNotification.Name.init(rawValue: WBPictureArrayNotification)] as? [URL] else{
                 return
             }
-            guard let cell = notification.object as? PhotoPositionDelegate else{
+            guard let cell = notification.object as? PhotoBrowserPresentDelegate else{
                 return
             }
             
@@ -69,11 +69,13 @@ class HomeTableViewController: VisitorTableViewController {
             
             self?.modalPresentationStyle = .custom
             vc.transitioningDelegate = self?.PhotoTransitionDelegate
+            
             //通过回传的PhotoView把其设置为代理对象
-            self?.PhotoTransitionDelegate.setPhotoRectDelegate(indexPath: indexpath, delegate: cell)
+            self?.PhotoTransitionDelegate.setPhotoDelegate(indexPath: indexpath, presentDelegate: cell, dismissDelegate: vc)
             print(cell)
             self?.present(vc, animated: true
                 , completion: nil)
+            
             //print(notification)
         }
     }

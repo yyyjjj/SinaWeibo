@@ -169,3 +169,29 @@ extension PhotoBrowserViewController : TouchPictureDelegate
         close()
     }
 }
+
+//MARK: - 图片dismiss代理
+extension PhotoBrowserViewController : PhotoBrowserDismissDelegate{
+    func PhotoDimissForAnimation() -> UIImageView? {
+        guard let cell = self.collectionView.visibleCells[0] as? PictureCollectionViewCell else{
+            return nil
+        }
+        
+        let imageView = UIImageView()
+        
+        imageView.contentMode = .scaleAspectFill
+        
+        imageView.clipsToBounds = true
+        
+        imageView.image = cell.imageview.image
+        
+        imageView.frame = cell.scrollview.convert(cell.imageview.frame, to: UIApplication.shared.keyWindow!)
+        
+        return imageView
+    }
+    
+    func CurrentIndexPath() -> IndexPath? {
+       return self.collectionView.indexPathsForVisibleItems[0]
+    }
+    
+}
