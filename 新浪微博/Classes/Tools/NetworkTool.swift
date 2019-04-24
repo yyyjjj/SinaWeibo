@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AFNetworking
+import Alamofire
 
 enum HttpRequestMethod {
     case GET
@@ -15,7 +15,7 @@ enum HttpRequestMethod {
 }
 
 //网络单例
-class AFNetworkTool : AFHTTPSessionManager
+class AFNetworkTool
 {
     private static let AppKey = "3769036694"
     
@@ -33,10 +33,8 @@ class AFNetworkTool : AFHTTPSessionManager
 //        return ["access_token":token]
 //    }
     
-    static var sharedTool : AFNetworkTool = {
-        let tool = AFNetworkTool()
-        return tool
-    }()
+    static var sharedTool = AFNetworkTool()
+    
     lazy var loadOAuth : URL = {
         let url = URL.init(string:  "https://api.weibo.com/oauth2/authorize?client_id=\(AFNetworkTool.AppKey)&redirect_uri=\(AFNetworkTool.reDirectUrl)")
        
@@ -59,7 +57,7 @@ extension AFNetworkTool
         
         params["uid"] = uid
         
-        tokenRequest(RequestMethod: .GET, URLString: urlStrings, parameters: params, progress: nil) { (result, error) -> (Void) in
+        tokenRequest(RequestMethod: .get, URLString: urlStrings, parameters: params, progress: nil) { (result, error) -> (Void) in
             if error != nil{
                 assert(true, "在通过access_token和uid获取用户数据的时候出现错误")
             }
@@ -91,7 +89,7 @@ extension AFNetworkTool{
         if image == nil {
             let url = "https://api.weibo.com/2/statuses/update"
             
-            tokenRequest(RequestMethod: .POST, URLString: url, parameters: params, progress: nil) { (response, error) in
+            tokenRequest(RequestMethod: .post, URLString: url, parameters: params, progress: nil) { (response, error) in
                 finished(response,error)
             }
         }else{
@@ -132,7 +130,7 @@ extension AFNetworkTool{
         
         let urlStrings = "https://api.weibo.com/2/statuses/home_timeline.json"
         
-        tokenRequest(RequestMethod: .GET, URLString: urlStrings, parameters: params, progress: nil, finished: finished)
+        tokenRequest(RequestMethod: .get, URLString: urlStrings, parameters: params, progress: nil, finished: finished)
     }
     
 }
@@ -149,7 +147,7 @@ extension AFNetworkTool
                      "code":code,
                      "redirect_uri":AFNetworkTool.reDirectUrl]
         
-        request(RequestMethod: .POST, URLString: "https://api.weibo.com/oauth2/access_token", parameters: paras, progress: nil, finished: success)
+        request(RequestMethod: .post, URLString: "https://api.weibo.com/oauth2/access_token", parameters: paras, progress: nil, finished: success)
     }
 }
 
@@ -181,7 +179,7 @@ extension AFNetworkTool{
     ///   - parameters: POST的参数
     ///   - progress: 请求过程补抓
     ///   - success: 成功回调
-    func tokenRequest(RequestMethod : HttpRequestMethod,URLString : String, parameters : [String : Any]? , progress :((Progress)->Void)? , finished : @escaping (completion)){
+    func tokenRequest(RequestMethod : HTTPMethod,URLString : String, parameters : [String : Any]? , progress :((Progress)->Void)? , finished : @escaping (completion)){
         
         var para = parameters
         
@@ -200,25 +198,46 @@ extension AFNetworkTool{
     ///   - parameters: POST的参数
     ///   - progress: 请求过程补抓
     ///   - success: 成功回调
-    func request(RequestMethod : HttpRequestMethod,URLString : String, parameters :  [ String : Any]? , progress :((Progress)->Void)? , finished : @escaping (completion)){
-      
-        //成功闭包
-        let success = { (_ result: URLSessionDataTask?,_ responseobject: Any?) ->Void in
-            finished(responseobject,nil)
-        }
-        //失败闭包
-        let failture = { (_ result: URLSessionDataTask?,_ error: Error?) ->Void in
-            finished(nil,error)
+    func request(RequestMethod : HTTPMethod,URLString : String, parameters :  [ String : Any]? , progress :((Progress)->Void)? , finished : @escaping (completion)){
+        
+        Alamofire.request(URLString, method: RequestMethod, parameters: parameters).responseJSON { (response) in
+            
+            if response.error != nil{
+               finished(nil,response.error!)
+                return
+            }
+            if response.result.isFailure{
+                finished(nil,response.error!)
+                return
+            }
+            //获得序列化数据(字典数组)
+//            guard let result = response.result as? [String : Any] else
+//            {
+//                finished(nil,response.error)
+//                return
+//            }
+//            print(response.result)
+            finished(response.result.value,response.error)
+            
         }
         
-        if RequestMethod == .GET
-        {
-            get(URLString, parameters: parameters,progress : progress,success: success, failure: failture)
-        }
-        else
-        {
-            post(URLString, parameters: parameters, progress: progress, success: success, failure: failture)
-        }
+//        成功闭包
+//        let success = { (_ result: URLSessionDataTask?,_ responseobject: Any?) ->Void in
+//            finished(responseobject,nil)
+//        }
+//        //失败闭包
+//        let failture = { (_ result: URLSessionDataTask?,_ error: Error?) ->Void in
+//            finished(nil,error)
+//        }
+//
+//        if RequestMethod == .GET
+//        {
+//            get(URLString, parameters: parameters,progress : progress,success: success, failure: failture)
+//        }
+//        else
+//        {
+//            post(URLString, parameters: parameters, progress: progress, success: success, failure: failture)
+//        }
     }
     
     func upload(URLString : String, data: Data ,name : String, parameters : [ String : Any]? , progress :((Progress)->Void)? , finished : @escaping (completion))
@@ -229,18 +248,19 @@ extension AFNetworkTool{
         {
             finished(nil,NSError(domain: "cn.itcast.error", code: -1001, userInfo: ["message":"token为空"]))
         }
-        post(URLString, parameters: para, constructingBodyWith: { (formData) in
-            //name服务器定义的字段名字，有点像access_token那种
-            //filename:http协议定义的属性
-            //application/octer-stream:告诉服务器这是一个字节流二进制，不知道准确类型
-            formData.appendPart(withFileData: data, name: name, fileName: "aaa", mimeType: "application/octer-stream")
-        }, progress: progress, success: { (_, result) in
-            finished(result,nil)
-        }) { (_, error) in
-            print("error")
-            finished(nil,error)
-            
-        }
+        Alamofire.request(URLString, method: .post, parameters: para, headers: ["mimeType":"application/octer-stream"])
+//        post(URLString, parameters: para, constructingBodyWith: { (formData) in
+//            //name服务器定义的字段名字，有点像access_token那种
+//            //filename:http协议定义的属性
+//            //application/octer-stream:告诉服务器这是一个字节流二进制，不知道准确类型
+//            formData.appendPart(withFileData: data, name: name, fileName: "aaa", mimeType: "application/octer-stream")
+//        }, progress: progress, success: { (_, result) in
+//            finished(result,nil)
+//        }) { (_, error) in
+//            print("error")
+//            finished(nil,error)
+//
+//        }
     }
 }
 
