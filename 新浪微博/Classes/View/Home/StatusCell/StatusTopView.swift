@@ -8,12 +8,14 @@
 
 import UIKit
 import SnapKit
-
+import QorumLogs
 class StatusTopView: UIView {
 
     var viewModel : StatusViewModel?{
         didSet{
            nameLabel.text = viewModel?.status.user?.screen_name
+//           QL1(viewModel?.status.created_at!)
+            timeLabel.text = viewModel?.created_at
             iconView.sd_setImage(with: viewModel?.profileURL, placeholderImage: viewModel?.defaultProfile, options: [], completed: nil)
             memberIconView.image = viewModel?.memberImage
             vipIconView.image = viewModel?.verifiedImage
@@ -37,7 +39,8 @@ class StatusTopView: UIView {
     ///认证图标 小
     private lazy var vipIconView : UIImageView = UIImageView.init(image: UIImage.init(named: "avatar_vip"))
     ///时间标签
-    private lazy var timeLabel : UILabel = UILabel.init(content: "现在", size:11)
+    private lazy var timeLabel : UILabel = UILabel.init(content:""
+    , size:11)
     ///来源标签
     private lazy var sourceLabel : UILabel = UILabel.init(content: "来源", size: 11)
     

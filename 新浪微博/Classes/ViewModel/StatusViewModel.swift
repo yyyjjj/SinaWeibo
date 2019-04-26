@@ -45,6 +45,14 @@ class StatusViewModel: NSObject {
         }
         
     }
+    ///用户时间
+    var created_at : String?{
+        
+        if let created_at = self.status.created_at  {
+           return Date.sinaDate(dateString: created_at)?.dateDescription
+        }
+        return ""
+    }
 
     ///用户配图数组
     /// 原创微博：可以带图也可以不带图

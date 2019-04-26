@@ -8,7 +8,7 @@
 
 import UIKit
 import SDWebImage
-
+import QorumLogs
 let pictureMargins : CGFloat = 8
 let CollectionViewCellID = "CollectionViewCellID"
 
@@ -211,6 +211,11 @@ private class PictrueViewCell: UICollectionViewCell {
             iconView.sd_setImage(with: imageURL!, placeholderImage: nil, options: [SDWebImageOptions.retryFailed    //超过15s就记录防止再次访问
                 ,SDWebImageOptions.refreshCached  //防止URL不变数据源变了，及时更新
                 ], completed: nil)
+            if (imageURL!.absoluteString as NSString).pathExtension == "gif"
+         {self.gifView.isHidden = false
+         }else {
+            self.gifView.isHidden = true
+            }
         }
     }
     
@@ -225,9 +230,16 @@ private class PictrueViewCell: UICollectionViewCell {
     
     func setupUI(){
         contentView.addSubview(iconView)
+        iconView.addSubview(gifView)
+        
+        gifView.sizeToFit()
         //cell会改变
         iconView.snp.makeConstraints { (make) in
             make.edges.equalTo(contentView.snp.edges)
+        }
+        gifView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.iconView.snp.bottom)
+            make.right.equalTo(self.iconView.snp.right)
         }
     }
     //懒加载要指明类型，否则其他地方调用不清楚其属性
@@ -239,6 +251,7 @@ private class PictrueViewCell: UICollectionViewCell {
         iv.clipsToBounds = true
         return iv
     }()
-    
+    //gif标记
+    private lazy var gifView : UIImageView = UIImageView.init(image: UIImage.init(named: "timeline_image_gif"))
 }
 

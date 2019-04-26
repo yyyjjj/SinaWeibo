@@ -14,7 +14,7 @@ class WelcomeViewController: UIViewController {
         
         super.viewDidLoad()
         
-       print(UserAccountViewModel.shared) 
+//       print(UserAccountViewModel.shared) 
         
         iconview.sd_setImage(with:UserAccountViewModel.shared.avatar_largeURL , placeholderImage: UIImage.init(named: "avatar_default_big"), options:.cacheMemoryOnly , completed: nil)
         

@@ -86,7 +86,7 @@ class StatusDAL {
         
         sql.append(contentsOf: "ORDER BY statusId DESC LIMIT 20")
         
-//        print("查询sql是 ->"+sql)
+        //print("查询sql是 ->"+sql)
         //获取查询后的数据集
         guard let array = FMDBManager.shared.SearchRecord(sql: sql) , array.count > 0 else{
             return nil

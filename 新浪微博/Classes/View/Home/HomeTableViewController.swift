@@ -86,7 +86,7 @@ class HomeTableViewController: VisitorTableViewController {
             
             //通过回传的PhotoView把其设置为代理对象
             self?.PhotoTransitionDelegate.setPhotoDelegate(indexPath: indexpath, presentDelegate: cell, dismissDelegate: vc)
-            print(cell)
+//            print(cell)
             self?.present(vc, animated: true
                 , completion: nil)
             
