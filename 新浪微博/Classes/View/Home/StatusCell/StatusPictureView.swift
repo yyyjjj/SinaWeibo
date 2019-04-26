@@ -114,8 +114,6 @@ extension StatusPictureView :UICollectionViewDataSource,UICollectionViewDelegate
         //把选中的item，index和该条微博所有图片url
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: WBPictureCellSelectNotification), object: self, userInfo: [WBPictureCellIndexNotification:indexPath,
                                                                                                     WBPictureArrayNotification: viewModel!.thumbnails!])
-//        PhotoBrowserPresentFromRect(indexPath: indexPath)
-//        PhotoBrowserPresentToRect(indexPath: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -133,6 +131,7 @@ extension StatusPictureView :UICollectionViewDataSource,UICollectionViewDelegate
     }
     
 }
+//MARK: - Present代理
 extension StatusPictureView : PhotoBrowserPresentDelegate
 {
     func PhotoPresentForAnimation(indexPath: IndexPath) -> UIImageView {
@@ -146,7 +145,6 @@ extension StatusPictureView : PhotoBrowserPresentDelegate
             //如果本地存在图片就不会去下载
             iv.sd_setImage(with: url, completed: nil)
         }
-    
         return iv
     }
     

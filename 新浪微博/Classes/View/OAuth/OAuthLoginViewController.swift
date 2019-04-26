@@ -42,7 +42,7 @@ class OAuthLoginViewController: UIViewController {
         
         webView.frame = UIScreen.main.bounds
         
-        webView.load(URLRequest.init(url: AFNetworkTool.sharedTool.loadOAuth))
+        webView.load(URLRequest.init(url: NetworkTool.sharedTool.loadOAuth))
         
     }
     

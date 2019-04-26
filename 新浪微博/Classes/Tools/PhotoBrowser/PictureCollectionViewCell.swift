@@ -13,6 +13,7 @@ import SVProgressHUD
 //MARK: - 点击图片代理
 protocol TouchPictureDelegate : NSObjectProtocol {
     func touchPicture()
+    func photoBrowserDidZoom(scale : CGFloat)
 }
 
 class PictureCollectionViewCell: UICollectionViewCell {
@@ -137,6 +138,7 @@ class PictureCollectionViewCell: UICollectionViewCell {
     lazy var scrollview = UIScrollView()
     lazy var imageview = UIImageView()
     lazy var placeholderImageView = ProgressImageView()
+    
 }
 
 //MARK: - 布局
@@ -179,6 +181,9 @@ extension PictureCollectionViewCell : UIScrollViewDelegate
     ///   - view: view被缩放的视图
     ///   - scale: 被缩放的比例
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        if scale < 1 {
+            pictureDelegate?.touchPicture()
+        }
         //print("view?.bounds = \(view?.bounds)")
         var offsetY = (scrollView.bounds.height - view!.frame.height)*0.5
         //出屏幕就变0 否则就停在用户停止放大的地方
@@ -198,6 +203,6 @@ extension PictureCollectionViewCell : UIScrollViewDelegate
      *frame = center + bounds * transform
     */
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-    
+        pictureDelegate?.photoBrowserDidZoom(scale: imageview.transform.a)
     }
 }

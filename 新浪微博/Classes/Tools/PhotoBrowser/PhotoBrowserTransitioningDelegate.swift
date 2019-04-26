@@ -75,6 +75,7 @@ extension PhotoBrowserTransitioningDelegate: UIViewControllerAnimatedTransitioni
     }
     //present转场动画
     func AnimationForPresent( transitionContext: UIViewControllerContextTransitioning){
+        
         guard let indexPath = indexPath , let PhotoRectDelegate = PhotoPresentDelegate else {
                 return
         }
@@ -100,7 +101,6 @@ extension PhotoBrowserTransitioningDelegate: UIViewControllerAnimatedTransitioni
         //四，通知系统完成present，继续后面的操作
         imageView.removeFromSuperview()
         transitionContext.completeTransition(true)
-
         }
        
     }
@@ -116,17 +116,20 @@ extension PhotoBrowserTransitioningDelegate: UIViewControllerAnimatedTransitioni
         }
 
         let fromView = transitionContext.view(forKey: .from)!
-//        fromView.backgroundColor = .black
-//        fromView.removeFromSuperview()
+        //fromView.backgroundColor = .black
+        fromView.removeFromSuperview()
         //把假的ImageView添加到contentView
         //里面已经设置好图片大小了
-        fromView.removeFromSuperview()
-        transitionContext.containerView.backgroundColor = .black
+        
         transitionContext.containerView.addSubview(imageView)
+        
+        let indexpath = PhotoDismissDelegate.CurrentIndexPath()!
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
-            imageView.frame = PhotoPresentDelegate.PhotoBrowserPresentFromRect(indexPath: PhotoDismissDelegate.CurrentIndexPath()!)
+            
+            imageView.frame = PhotoPresentDelegate.PhotoBrowserPresentFromRect(indexPath: indexpath)
+            print(transitionContext.containerView.frame)
         }) { (_) in
-//            imageView.isHidden = true
+//          imageView.isHidden = true
             imageView.removeFromSuperview()
             transitionContext.completeTransition(true)
         }

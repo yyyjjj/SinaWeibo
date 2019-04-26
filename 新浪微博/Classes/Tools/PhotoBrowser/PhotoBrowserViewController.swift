@@ -37,6 +37,7 @@ class PhotoBrowserViewController: UIViewController {
         let message = (error == nil) ? "保存成功" : "保存失败"
         
         SVProgressHUD.showInfo(withStatus: message)
+        
      }
     
     //MARK: - 生命周期
@@ -48,7 +49,8 @@ class PhotoBrowserViewController: UIViewController {
         bounds.size.width += 20
         
         view = UIView(frame:bounds)
-        
+//        view.backgroundColor = .yellow
+//        self.collectionView.backgroundColor = .white
         setupUI()
         
     }
@@ -73,7 +75,6 @@ class PhotoBrowserViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     //MARK: - 懒加载控件
     lazy var collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: PictureCollectionsFlowLayout())
@@ -161,11 +162,32 @@ extension PhotoBrowserViewController : UICollectionViewDataSource
         return cell
     }
 }
+
 //MARK: - 图片点击代理
 extension PhotoBrowserViewController : TouchPictureDelegate
 {
-    func touchPicture() {
-        
+    func photoBrowserDidZoom(scale: CGFloat) {
+        //CollectionViewController里面 view中装载着collectionView
+       let ishidden = scale < 1
+        hideControls(isHidden: ishidden)
+        if scale < 1 {
+            view.alpha = scale
+            view.transform = CGAffineTransform.init(scaleX: scale, y: scale)
+        }else{
+            view.alpha = 1
+            view.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func hideControls(isHidden : Bool)
+    {
+        closeBtn.isHidden = isHidden
+        saveBtn.isHidden = isHidden
+        collectionView.backgroundColor = isHidden ? UIColor.clear : UIColor.black
+    }
+    
+    func touchPicture()
+    {
         close()
     }
 }

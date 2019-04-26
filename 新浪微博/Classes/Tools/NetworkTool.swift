@@ -15,7 +15,7 @@ enum HttpRequestMethod {
 }
 
 //网络单例
-class AFNetworkTool
+class NetworkTool
 {
     private static let AppKey = "3769036694"
     
@@ -33,17 +33,17 @@ class AFNetworkTool
 //        return ["access_token":token]
 //    }
     
-    static var sharedTool = AFNetworkTool()
+    static var sharedTool = NetworkTool()
     
     lazy var loadOAuth : URL = {
-        let url = URL.init(string:  "https://api.weibo.com/oauth2/authorize?client_id=\(AFNetworkTool.AppKey)&redirect_uri=\(AFNetworkTool.reDirectUrl)")
+        let url = URL.init(string:  "https://api.weibo.com/oauth2/authorize?client_id=\(NetworkTool.AppKey)&redirect_uri=\(NetworkTool.reDirectUrl)")
        
         return url!
     }()
 }
 
 //MARK: - 获取用户信息
-extension AFNetworkTool
+extension NetworkTool
 {
     func LoadUserInfo(uid:String,success:@escaping completion)  {
         
@@ -68,7 +68,7 @@ extension AFNetworkTool
 }
 
 //MARK: - 发送微博
-extension AFNetworkTool{
+extension NetworkTool{
     
     /// 发布微博
     ///
@@ -104,7 +104,7 @@ extension AFNetworkTool{
 }
 
 //MARK: - 获取用户关注的动态
-extension AFNetworkTool{
+extension NetworkTool{
     
     /// 加载微博数据
     /// - Parameter since_id:若指定此参数，下拉的话返回since_id大于原来数据最新的数据，默认是0
@@ -136,16 +136,16 @@ extension AFNetworkTool{
 }
 
 //MARK: - 获取accesst_token
-extension AFNetworkTool
+extension NetworkTool
 {
     func LoadTokenAccess(code : String , success : @escaping completion)
     {
 
-        var paras = ["client_id":AFNetworkTool.AppKey,
-                     "client_secret":AFNetworkTool.AppSecret,
+        var paras = ["client_id":NetworkTool.AppKey,
+                     "client_secret":NetworkTool.AppSecret,
                      "grant_type":"authorization_code",
                      "code":code,
-                     "redirect_uri":AFNetworkTool.reDirectUrl]
+                     "redirect_uri":NetworkTool.reDirectUrl]
         
         request(RequestMethod: .post, URLString: "https://api.weibo.com/oauth2/access_token", parameters: paras, progress: nil, finished: success)
     }
@@ -153,7 +153,7 @@ extension AFNetworkTool
 
 
 //MARK: - 封装AFNetwork请求方法
-extension AFNetworkTool{
+extension NetworkTool{
     
     func appendToken(parameters :inout [String:Any]?) -> Bool {
         guard let token = UserAccountViewModel.shared.accessToken else {
@@ -248,7 +248,30 @@ extension AFNetworkTool{
         {
             finished(nil,NSError(domain: "cn.itcast.error", code: -1001, userInfo: ["message":"token为空"]))
         }
-        Alamofire.request(URLString, method: .post, parameters: para, headers: ["mimeType":"application/octer-stream"])
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            //告诉服务器二进制流类型
+            multipartFormData.append(data, withName: "xxx", mimeType: "application/octet-stream")
+            //我们还需要拼接para到url上 如下
+            if let parameters = parameters{
+                for (k,v) in parameters
+                {
+                    let str = v as! String
+                    let strData = str.data(using: .utf8)!
+                    multipartFormData.append(strData, withName: k)
+                }
+            }
+            
+        }, to: URLString) {  encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    debugPrint(response)
+                }
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+            }
+        }
 //        post(URLString, parameters: para, constructingBodyWith: { (formData) in
 //            //name服务器定义的字段名字，有点像access_token那种
 //            //filename:http协议定义的属性
@@ -261,6 +284,6 @@ extension AFNetworkTool{
 //            finished(nil,error)
 //
 //        }
-    }
+    
 }
 

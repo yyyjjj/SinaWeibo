@@ -8,22 +8,22 @@
 
 import UIKit
 import SVProgressHUD
-
+import QorumLogs
 let OriginStatusCellID = "OriginStatusCellID"
 let RetweeetedStatusCellID = "RetweeetedStatusCellID"
 class HomeTableViewController: VisitorTableViewController {
     
-   
     var statuslistviewModel = StatusListViewModel()
     //MARK: - 懒加载控件
     lazy var PhotoTransitionDelegate = PhotoBrowserTransitioningDelegate()
-    
+    ///刷新时的小转轮
     lazy var indicator : UIActivityIndicatorView = {
         let ind = UIActivityIndicatorView()
         ind.style = .whiteLarge
         ind.color = .gray
         return ind
     }()
+    ///网络错误时候的重新加载
     lazy var reloadButton : UIButton = {
         let button = UIButton()
         button.setTitle("重新加载", for: .normal)
@@ -31,6 +31,13 @@ class HomeTableViewController: VisitorTableViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         return button
     }()
+    ///刷新的Label
+    lazy var RefreshStatusLabel : UILabel = {
+        let label = UILabel.init(content: "", size: 18)
+        label.backgroundColor = UIColor.orange
+        return label
+    }()
+    ///用与在网络错误的时候，防止用户多次刷新
     private var reloadSignal = 0
     //MARK: - 重新加载
     @objc func clickReloadButton(){
@@ -49,10 +56,16 @@ class HomeTableViewController: VisitorTableViewController {
         LoadStatus()
         prepareReloadButton()
         //测试帧数
-        //let fpslabel = FPSLabel()
-        //        view.addSubview(fpslabel)
-        //        view.bringSubviewToFront(fpslabel)
+        let fpslabel = FPSLabel()
+        //view.addSubview(fpslabel)
+        //view.bringSubviewToFront(fpslabel)
         
+        UIApplication.shared.keyWindow?.addSubview(fpslabel)
+        fpslabel.snp.makeConstraints { (make) in
+            make.center.equalTo(UIApplication.shared.keyWindow!.snp.center)
+            make.height.equalTo(30)
+            make.width.equalTo(60)
+        }
         //通知单例为了给self发消息强引用self，self中也有通知才能一直监听该事件。
         NotificationCenter.default.addObserver(forName: NSNotification.Name.init(rawValue: WBPictureCellSelectNotification), object: nil, queue: nil) { [weak self] (notification) in
             guard let indexpath = notification.userInfo?[NSNotification.Name.init(rawValue: WBPictureCellIndexNotification)] as? IndexPath else{
@@ -67,7 +80,8 @@ class HomeTableViewController: VisitorTableViewController {
             
             let vc = PhotoBrowserViewController(urls: urls, indexPath: indexpath)
             
-            self?.modalPresentationStyle = .custom
+            vc.modalPresentationStyle = .custom
+            //vc.modalTransitionStyle
             vc.transitioningDelegate = self?.PhotoTransitionDelegate
             
             //通过回传的PhotoView把其设置为代理对象
@@ -76,7 +90,6 @@ class HomeTableViewController: VisitorTableViewController {
             self?.present(vc, animated: true
                 , completion: nil)
             
-            //print(notification)
         }
     }
     
@@ -114,7 +127,7 @@ class HomeTableViewController: VisitorTableViewController {
         refreshControl?.addTarget(self, action: #selector(LoadStatus), for: .valueChanged)
     }
     
-    ///加载Status数据到ListViewModel并刷新tableView
+    //MARK: - 加载Status数据到ListViewModel并刷新tableView
     @objc func LoadStatus(){
         refreshControl?.beginRefreshing()
         reloadSignal += 1
@@ -133,13 +146,45 @@ class HomeTableViewController: VisitorTableViewController {
                     self.reloadSignal = 0
                     return
                 }
+                
+                self.addRefreshStatusLabel()
+                
                 self.reloadButton.isHidden = true
+                
                 self.reloadSignal = 0
+                
                 self.tableView.reloadData()
             }
         }
     }
+    func addRefreshStatusLabel()  {
+        
+        guard let refreshCount = statuslistviewModel.pullDownStatusCount else {
+            return
+        }
+        
+            //QL1("刷新到\(refreshCount)条数据")
+        self.RefreshStatusLabel.text = refreshCount != 0 ? "刷新到\(refreshCount)条数据" : "没有刷新到数据"
+            //我们来改变他的y轴距离去让他显示
+            let labelY : CGFloat = 44
+        
+            let rect = CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: 44)
+        
+            self.RefreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: -2*labelY)
+        
+            self.navigationController?.navigationBar.insertSubview(self.RefreshStatusLabel, at: 0)
+        
+            //我们在这里添加label在navibar上面还是下面
+            UIView.animate(withDuration: 1.5, animations: {
+                self.RefreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: labelY)
+            }, completion: { _ in
+                self.RefreshStatusLabel.frame = CGRect.init(x: 0, y: -2*labelY, width: self.view.bounds.width, height: 44)
+            })
+        
+    }
 }
+
+
 //MARK: - 数据源方法
 extension HomeTableViewController
 {

@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AFNetworking.xcscheme</key>
+		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -20,6 +20,11 @@
 			<false/>
 		</dict>
 		<key>Pods-新浪微博UITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>QorumLogs.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

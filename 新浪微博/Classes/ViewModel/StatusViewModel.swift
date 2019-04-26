@@ -9,6 +9,7 @@
 import UIKit
 
 class StatusViewModel: NSObject {
+    ///微博数据
     var status : Status
     ///用户头像URL
     var profileURL : URL {

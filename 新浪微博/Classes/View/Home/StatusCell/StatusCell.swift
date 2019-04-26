@@ -61,7 +61,7 @@ class StatusCell: UITableViewCell {
 extension StatusCell{
     @objc func SetUpUI(){
         
-        pictureView.backgroundColor = UIColor.darkGray
+        pictureView.backgroundColor = UIColor.white
         //添加控件
         contentView.addSubview(topView)
         contentView.addSubview(contentLabel)

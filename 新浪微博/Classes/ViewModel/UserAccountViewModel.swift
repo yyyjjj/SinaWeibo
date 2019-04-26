@@ -23,9 +23,7 @@ class UserAccountViewModel {
     var account : UserAccount?
     ///true:已经登录登录 false:重新登录
     var userLoginStatus : Bool {
-        
         return account?.access_token != nil && !isExpired
-        
     }
     
     var accessToken : String?{
@@ -85,7 +83,7 @@ class UserAccountViewModel {
 //MARK: -封装网络请求
 extension UserAccountViewModel {
     func loadAccessToken( code:String , finished: @escaping (_ isSuccess : Bool)->()){
-        AFNetworkTool.sharedTool.LoadTokenAccess(code: code) { (data, error) in
+        NetworkTool.sharedTool.LoadTokenAccess(code: code) { (data, error) in
             if error != nil{
                 return
             }
@@ -107,7 +105,7 @@ extension UserAccountViewModel {
     }
     
     private func loadUserInfo(uid:String,finished : @escaping (_ isSuccess : Bool)->())  {
-        AFNetworkTool.sharedTool.LoadUserInfo( uid: uid){ (data, error) in
+        NetworkTool.sharedTool.LoadUserInfo( uid: uid){ (data, error) in
             if error != nil
             {
                 finished(false)

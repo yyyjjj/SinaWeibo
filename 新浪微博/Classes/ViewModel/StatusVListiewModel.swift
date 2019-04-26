@@ -12,6 +12,9 @@ class StatusListViewModel
 {
     ///StatusViewModel的数组
     var StatusList = [StatusViewModel]()
+    
+    //下拉刷新得到的数据
+    var pullDownStatusCount : Int?
 }
 //MARK :-封装网络获取发布的动态
 extension StatusListViewModel{
@@ -22,40 +25,40 @@ extension StatusListViewModel{
         //获得最后一条数据的max_id 如果是上拉
         let max_id = isPullUp ? (StatusList.last?.status.id ?? 0) : 0
         
-        AFNetworkTool.sharedTool.LoadStatus(since_id: since_id, max_id: max_id)
-        { (result, error) in
-            if error != nil
+        StatusDAL.loadStatus(since_id: since_id, max_id: max_id) { (statuses) in
+            guard let statuses = statuses else
             {
                 finished(false)
-                assert(true, "加载错误")
-            }
-            //1,拿到statuses键下的字典
-            guard let result = result as? [String:AnyObject], let statuses = result["statuses"] as? [[String:AnyObject]] else
-            {
-                assert(true, "数据格式错误")
                 return
             }
             
             var List = [StatusViewModel]()
+            
             //2,拼接每一个status的图片URL
             statuses.forEach({
-                List.append(StatusViewModel.init(status: Status.init(dict: $0) ))
+                List.append(StatusViewModel.init(status: Status.init(dict: $0 as [String : AnyObject]) ))
             })
-            
+            //赋值下拉刷新到的数据，用于显示刷新条数
+            if since_id > 0
+            {
+                self.pullDownStatusCount = statuses.count
+            }
             //3,赋值StatusList,刷新的数据直接拼接
             if isPullUp {
-            //上拉获得旧的数据 尾部拼接
-            self.StatusList += List
+                //上拉获得旧的数据 尾部拼接
+                self.StatusList += List
             }else{
-            //下拉获得新的数据 头部拼接
-               self.StatusList = List + self.StatusList
+                //下拉获得新的数据 头部拼接
+                self.StatusList = List + self.StatusList
             }
             
-//            print("刷新了\(List.count)条微博 ，总微博为\(self.StatusList.count)")
+            //print("刷新了\(List.count)条微博 ，总微博为\(self.StatusList.count)")
             
             //4,我们要保证finish闭包要在缓存完单图后
             self.cacheSinglePic(StatusList: List,finished: finished)
+            finished(true)
         }
+        
     }
 }
 
