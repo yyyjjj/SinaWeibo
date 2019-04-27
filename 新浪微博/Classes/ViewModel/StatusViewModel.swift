@@ -53,6 +53,12 @@ class StatusViewModel: NSObject {
         }
         return ""
     }
+    
+    ///用户来源
+    var source : String?{
+        return self.status.source?.RegexString?.text
+    }
+
 
     ///用户配图数组
     /// 原创微博：可以带图也可以不带图
