@@ -19,7 +19,7 @@ class RetweetedStatusCell: StatusCell {
     override var viewModel: StatusViewModel?{
         didSet{
             let text = viewModel?.retweetedStatusText ?? ""
-            retweetlabel.attributedText = EmoticonsViewModel.shared.emoticonText(string: text, font: UIFont.systemFont(ofSize: 14))
+            retweetlabel.attributedText = EmoticonsViewModel.shared.emoticonText(string: text, font: retweetlabel.font)
             //断点调试 发现先调用父类方法再调用子类
             //重写父类属性，不用super去调用，系统会自动调用父类操作，子类只需要专注子类的操作就可以了，类的继承
             pictureView.snp.updateConstraints{ (make) in
@@ -29,14 +29,16 @@ class RetweetedStatusCell: StatusCell {
         }
     }
     
+    //MAKR: - 懒加载控件
     ///转发微博的背景
     lazy var backbutton : UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.init(white: 0.95, alpha: 1.0)
         return button
     }()
+
     ///转发微博的文字
-    lazy var retweetlabel : UILabel = UILabel.init(content: "",
+    lazy var retweetlabel : FFLabel = FFLabel.init(content: "",
                                                    color: UIColor.darkGray,
                                                    size: 14,
                                                    screenInset: StatusCellMargins)
@@ -66,5 +68,7 @@ extension RetweetedStatusCell{
             make.height.equalTo(300)
             make.width.equalTo(90)
         }
+        //父类实现了对应的代理方法
+        retweetlabel.labelDelegate = self
     }
 }

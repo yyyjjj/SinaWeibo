@@ -15,7 +15,7 @@ extension String{
         let patten = "<a href=\"(.*?)\" .*?>(.*?)</a>"
         let regex = try! NSRegularExpression.init(pattern: patten, options:[])
         guard let result = regex.firstMatch(in: str, options: [], range: NSRange.init(location: 0, length: str.count)) else{
-            print("没有匹配到字符串")
+//            print("没有匹配到字符串")
             return nil
         }
     

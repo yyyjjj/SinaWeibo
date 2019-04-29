@@ -32,7 +32,7 @@ class HomeTableViewController: VisitorTableViewController {
         return button
     }()
     ///刷新的Label
-    lazy var RefreshStatusLabel : UILabel = {
+    lazy var refreshStatusLabel : UILabel = {
         let label = UILabel.init(content: "", size: 18)
         label.backgroundColor = UIColor.orange
         return label
@@ -164,21 +164,21 @@ class HomeTableViewController: VisitorTableViewController {
         }
         
             //QL1("刷新到\(refreshCount)条数据")
-        self.RefreshStatusLabel.text = refreshCount != 0 ? "刷新到\(refreshCount)条数据" : "没有刷新到数据"
+        self.refreshStatusLabel.text = refreshCount != 0 ? "刷新到\(refreshCount)条数据" : "没有刷新到数据"
             //我们来改变他的y轴距离去让他显示
             let labelY : CGFloat = 44
         
             let rect = CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: 44)
         
-            self.RefreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: -2*labelY)
+            self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: -2*labelY)
         
-            self.navigationController?.navigationBar.insertSubview(self.RefreshStatusLabel, at: 0)
+            self.navigationController?.navigationBar.insertSubview(self.refreshStatusLabel, at: 0)
         
             //我们在这里添加label在navibar上面还是下面
             UIView.animate(withDuration: 1.5, animations: {
-                self.RefreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: labelY)
+                self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: labelY)
             }, completion: { _ in
-                self.RefreshStatusLabel.frame = CGRect.init(x: 0, y: -2*labelY, width: self.view.bounds.width, height: 44)
+                self.refreshStatusLabel.frame = CGRect.init(x: 0, y: -2*labelY, width: self.view.bounds.width, height: 44)
             })
         
     }
@@ -205,6 +205,8 @@ extension HomeTableViewController
         cell.selectionStyle = .none
         
         cell.viewModel = vm
+        
+        cell.clickdelegate = self
         
         if indexPath.row == statuslistviewModel.StatusList.count-1 && !indicator.isAnimating{
             indicator.startAnimating()
@@ -234,5 +236,14 @@ extension HomeTableViewController
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return indicator
+    }
+}
+
+extension HomeTableViewController : ClickLabelDelegate
+{
+    func didClickURL(url: URL) {
+        let webVC = HomeWebViewController.init(url: url)
+        webVC.hidesBottomBarWhenPushed = true
+    self.navigationController?.pushViewController(webVC, animated:true)
     }
 }

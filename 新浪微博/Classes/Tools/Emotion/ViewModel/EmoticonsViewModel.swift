@@ -44,13 +44,14 @@ class EmoticonsViewModel {
     }
     //MAKR: - 微博带表情正文
     ///把字符串转化为属性字符串
-    func emoticonText(string : String = "我[爱你]啊[笑哈哈]" , font : UIFont = UIFont.systemFont(ofSize: 18)) -> NSAttributedString{
+    func emoticonText(string : String = "我[爱你]啊[笑哈哈]" , font : UIFont = UIFont.systemFont(ofSize: 14)) -> NSAttributedString{
         //"我[爱你]啊[笑哈哈]"
         let strM = NSMutableAttributedString(string: string)
         //1,正则表达式[]是正则表达式关键字，需要转义
         let patten = "\\[.*?\\]"
         //我们拿到[爱你]和[笑哈哈]这两个字符串
         let regex = try! NSRegularExpression.init(pattern: patten, options: [])
+        
         let results = regex.matches(in: string, options: [], range: NSRange.init(location: 0   , length: string.length))
         //获得匹配数量
         var count = results.count
@@ -67,7 +68,7 @@ class EmoticonsViewModel {
                 strM.replaceCharacters(in: range, with: attrText)
             }
         }
-        print("微博表情文字测试: \(strM)")
+//        print("微博表情文字测试: \(strM)")
         return strM
     }
     ///根据表情包字符串，在表情包中找到对应的表情
@@ -76,6 +77,7 @@ class EmoticonsViewModel {
         for package in EmoticonsViewModel.shared.packages{
             
             let emoticon = package.emoticons.filter{$0.chs == string}.last
+            
             if emoticon != nil
             {
                 return emoticon
