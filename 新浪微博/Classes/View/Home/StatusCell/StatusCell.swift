@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import QorumLogs
 let StatusCellMargins : CGFloat = 12
 let StatusCellIconWidth : CGFloat = 35
+
 class StatusCell: UITableViewCell {
     
     var viewModel : StatusViewModel?
@@ -17,7 +19,10 @@ class StatusCell: UITableViewCell {
         {
             
             topView.viewModel = viewModel
-            contentLabel.text = viewModel?.status.text
+            let text = viewModel?.status.text ?? ""
+            
+            contentLabel.attributedText = EmoticonsViewModel.shared.emoticonText(string: text, font: UIFont.systemFont(ofSize: 14))
+//            QL1(viewModel?.status.text)
             pictureView.viewModel = viewModel
             pictureView.snp.updateConstraints{ (make) in
                 make.height.equalTo(pictureView.bounds.height)

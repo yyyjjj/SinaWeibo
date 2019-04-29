@@ -9,6 +9,7 @@
 import UIKit
 let EmoticonCellID = "EmoticonCellID"
 class EmoticonView: UIView {
+ 
     ///表情点击闭包
     private var didSelectEmoticonCallBack : (Emoticon) -> ()
     
@@ -40,10 +41,10 @@ class EmoticonView: UIView {
         //打开就滚到默认表情页
         let indexpath = IndexPath.init(item: 0, section: 1)
         
-        DispatchQueue.main.async
-        {
+//        DispatchQueue.main.async
+//        {
             self.collectionviews.scrollToItem(at: indexpath, at: .left, animated: true)
-        }
+//        }
     }
     
     required init?(coder aDecoder: NSCoder) {

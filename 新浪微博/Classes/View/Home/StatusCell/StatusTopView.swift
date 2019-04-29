@@ -10,13 +10,13 @@ import UIKit
 import SnapKit
 import QorumLogs
 class StatusTopView: UIView {
-
+    //MARK: - 生命周期
     var viewModel : StatusViewModel?{
         didSet{
            nameLabel.text = viewModel?.status.user?.screen_name
 //           QL1(viewModel?.status.created_at!)
             sourceLabel.text = viewModel?.source
-            QL1("来源：\(viewModel?.source)")
+//           QL1("来源：\(viewModel?.source)")
             timeLabel.text = viewModel?.created_at
             iconView.sd_setImage(with: viewModel?.profileURL, placeholderImage: viewModel?.defaultProfile, options: [], completed: nil)
             memberIconView.image = viewModel?.memberImage
@@ -32,6 +32,7 @@ class StatusTopView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    //MARK: - 懒加载控件
     ///用户头像
     private lazy var iconView : UIImageView = UIImageView.init(image: UIImage.init(named: "avatar_default"))
     ///用户名称
@@ -47,11 +48,12 @@ class StatusTopView: UIView {
     private lazy var sourceLabel : UILabel = UILabel.init(content: "来源", size: 11)
     
 }
-
+//MAKR: - 布局视图
 extension StatusTopView
 {
+    
    func setupUI(){
-//    self.backgroundColor = UIColor.gray
+    //self.backgroundColor = UIColor.gray
     //1,添加子控件
     let sepView = UIView()
     sepView.backgroundColor = UIColor.lightGray

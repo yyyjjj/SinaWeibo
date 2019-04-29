@@ -102,8 +102,7 @@ extension StatusListViewModel{
         group.notify(queue: DispatchQueue.main) {
             //print("缓存完成")
             //print("数据长度\(dataLength/1024)")
-            //print("缓存图像的地址:\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)")
-            
+            //print("缓存图像的地址:\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)")  
             finished(true)
         }
     }

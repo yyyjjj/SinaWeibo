@@ -45,7 +45,6 @@ class ComposeViewController: UIViewController {
     }
     @objc private func clickEmoticon()
     {
-        
         print("点击表情键盘")
         textview.resignFirstResponder()
         textview.inputView = textview.inputView == nil ? emoticonview : nil

@@ -51,7 +51,7 @@ class FPSLabel: UILabel {
         //这时候已经到一秒了，我们先把lastTime更新至当前时间以便下一次计算
         lastTime = link.timestamp
         //delta是1.0000000....
-//        print("delta :\(delta)")
+        //print("delta :\(delta)")
         let fps = Double(count)/delta
         
         count = 0

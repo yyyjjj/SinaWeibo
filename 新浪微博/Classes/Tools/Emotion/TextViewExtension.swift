@@ -69,6 +69,7 @@ extension UITextView
         //主动调用代理方法，把placeHolder替换掉
         delegate?.textViewDidChange?(self)
     }
+    
     ///处理插入图片表情
     func insertImageEmoticon(emoticon:Emoticon)
     {

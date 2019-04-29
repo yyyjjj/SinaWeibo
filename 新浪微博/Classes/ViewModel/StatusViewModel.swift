@@ -56,7 +56,7 @@ class StatusViewModel: NSObject {
     
     ///用户来源
     var source : String?{
-        return self.status.source?.RegexString?.text
+        return self.status.source?.sourceString?.text
     }
 
 

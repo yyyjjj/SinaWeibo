@@ -6,9 +6,11 @@
 //  Copyright © 2019 梁华建. All rights reserved.
 //
 
-import Foundation
+import UIKit
 extension String{
-    var RegexString:(link:String , text:String)?{
+    //MARK: - 微博时间
+    ///过滤出微博来源数据 正则式:<a href=\"(.*?)\" .*?>(.*?)</a>
+    var sourceString:(link:String , text:String)?{
         let str = self
         let patten = "<a href=\"(.*?)\" .*?>(.*?)</a>"
         let regex = try! NSRegularExpression.init(pattern: patten, options:[])
@@ -22,5 +24,6 @@ extension String{
 
         return (link,text)
     }
+    
 }
 
