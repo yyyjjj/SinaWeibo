@@ -95,10 +95,10 @@ extension StatusPictureView
         }
         
         //3,其他count
+        //防止浮点数的影响布局
+        let h = row * itemwidth + (row-1)*pictureMargins + 1
         
-        let h = row * itemwidth + (row-1)*pictureMargins
-        
-        let w = column * itemwidth + (column-1)*pictureMargins
+        let w = column * itemwidth + (column-1)*pictureMargins + 1
         
         //print("H = \(h) ----------------------------------- W = \(w)")
         

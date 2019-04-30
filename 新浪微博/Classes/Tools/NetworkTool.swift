@@ -199,9 +199,10 @@ extension NetworkTool{
     ///   - progress: 请求过程补抓
     ///   - success: 成功回调
     func request(RequestMethod : HTTPMethod,URLString : String, parameters :  [ String : Any]? , progress :((Progress)->Void)? , finished : @escaping (completion)){
-        
+        //iOS电池栏网络加载小圆圈
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         Alamofire.request(URLString, method: RequestMethod, parameters: parameters).responseJSON { (response) in
-            
+             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if response.error != nil{
                finished(nil,response.error!)
                 return
@@ -243,12 +244,14 @@ extension NetworkTool{
     func upload(URLString : String, data: Data ,name : String, parameters : [ String : Any]? , progress :((Progress)->Void)? , finished : @escaping (completion))
     {
          var para = parameters
-        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if !appendToken(parameters: &para)
         {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             finished(nil,NSError(domain: "cn.itcast.error", code: -1001, userInfo: ["message":"token为空"]))
         }
         Alamofire.upload(multipartFormData: { (multipartFormData) in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             //告诉服务器二进制流类型
             multipartFormData.append(data, withName: "xxx", mimeType: "application/octet-stream")
             //我们还需要拼接para到url上 如下
