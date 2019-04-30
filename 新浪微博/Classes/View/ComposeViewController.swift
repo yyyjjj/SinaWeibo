@@ -64,7 +64,6 @@ class ComposeViewController: UIViewController {
         }
         //跟新文本约束参照对象，改变参照物需要用remake不能用update
         textview.snp.remakeConstraints { (make) in
-        
             make.top.equalTo(topLayoutGuide.snp.bottom)
             make.left.equalTo(view.snp.left)
             make.right.equalTo(view.snp.right)

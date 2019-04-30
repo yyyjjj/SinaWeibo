@@ -8,6 +8,7 @@
 
 import UIKit
 let EmoticonCellID = "EmoticonCellID"
+
 class EmoticonView: UIView {
  
     ///表情点击闭包
@@ -23,7 +24,28 @@ class EmoticonView: UIView {
     //MARK: - 懒加载控件
     lazy var collectionviews = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: EmoticonLayout())
     lazy var toolbar = UIToolbar()
-    
+    ///表情包
+    lazy var packages = EmoticonsViewModel.shared.packages
+    //添加表情到最近分组
+    func addFavourite(em:Emoticon) {
+        //数组是结构体类型，会进行值拷贝，而不是指针拷贝
+        var ems = packages[0].emoticons
+        //1,判断表情包数组是否有该表情,
+        if packages[0].emoticons.contains(em)
+        {
+            packages[0].emoticons[packages[0].emoticons.index(of: em)!].times += 1
+            packages[0].emoticons.sort(){ $0.times > $1.times}
+//            packages[0].emoticons = ems
+            return
+        }
+        //数组头插入表情
+        packages[0].emoticons.insert(em, at: 0)
+        //移除最后一个表情，倒数第一个是删除按钮我们要保留
+        packages[0].emoticons.remove(at: ems.count-2)
+        packages[0].emoticons[packages[0].emoticons.index(of: em)!].times += 1
+        packages[0].emoticons.sort(){ $0.times > $1.times}
+//        packages[0].emoticons = ems
+    }
     //MARK: - 控件初始化
     init(didSelectEmoticon:@escaping (Emoticon) -> ()) {
         
@@ -50,9 +72,7 @@ class EmoticonView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    ///表情包
-    lazy var packages = EmoticonsViewModel.shared.packages
+
     
 }
 //MARK: - 布局视图
@@ -126,7 +146,7 @@ extension EmoticonView{
             minimumLineSpacing = 0
             minimumInteritemSpacing = 0
             scrollDirection = .horizontal
-            collectionView?.backgroundColor = .gray
+            collectionView?.backgroundColor = .white
             collectionView?.isPagingEnabled = true
             collectionView?.bounces = false
             collectionView?.showsHorizontalScrollIndicator = false
@@ -148,15 +168,21 @@ extension EmoticonView : UICollectionViewDataSource,UICollectionViewDelegate{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmoticonCellID, for: indexPath) as! EmoticonCell
         
-//        cell.backgroundColor = .white
+        //cell.backgroundColor = .white
         cell.emoticon = packages[indexPath.section].emoticons[indexPath.item]
         
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //我们点击了该表情，要传值出去给外部
-        didSelectEmoticonCallBack(packages[indexPath.section].emoticons[indexPath.row])
-        //print("indexpath = \(indexPath)")
+        let emoticon = packages[indexPath.section].emoticons[indexPath.row]
+        didSelectEmoticonCallBack(emoticon)
+        
+        if indexPath.section > 0{
+        //默认分组包进行表情热度排序，否则边点边刷新表情位置影响用户体验
+        addFavourite(em: emoticon)
+        }
+        print("indexpath = \(indexPath.section)")
     }
 }
 
