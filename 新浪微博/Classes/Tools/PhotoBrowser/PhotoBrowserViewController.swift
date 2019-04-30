@@ -120,8 +120,8 @@ extension PhotoBrowserViewController{
         
         //2，添加布局
         saveBtn.snp.makeConstraints { (make) in
-            make.right.equalTo(self.view.snp.right).offset(-16)
-            make.bottom.equalTo(self.view.snp.bottom).offset(-36)
+            make.right.equalTo(self.view.snp.right).offset(-36)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-16)
             make.size.equalTo(CGSize(width: 100, height: 36))
         }
         
