@@ -29,6 +29,7 @@ class StatusCell: UITableViewCell {
             contentLabel.attributedText = EmoticonsViewModel.shared.emoticonText(string: text, font: contentLabel.font)
 //            QL1(viewModel?.status.text)
             pictureView.viewModel = viewModel
+            
             pictureView.snp.updateConstraints{ (make) in
                 make.height.equalTo(pictureView.bounds.height)
                 make.width.equalTo(pictureView.bounds.width)
@@ -67,6 +68,7 @@ class StatusCell: UITableViewCell {
     lazy var contentLabel : FFLabel = FFLabel.init(content: "微博正文", size: 14, screenInset:StatusCellMargins)
     
     weak var clickdelegate : ClickLabelDelegate?
+    
 }
 
 extension StatusCell{
@@ -118,6 +120,5 @@ extension StatusCell : FFLabelDelegate{
             //由于我们在微博中点击的链接为短链接(节省资源)，都为httpl开头
             clickdelegate?.didClickURL(url: URL.init(string: text)!)
         }
-
     }
 }

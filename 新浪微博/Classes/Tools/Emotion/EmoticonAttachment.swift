@@ -25,7 +25,7 @@ class EmoticonAttachment: NSTextAttachment
        
         //获得图片文本
         let imageText = NSMutableAttributedString(attributedString: NSAttributedString(attachment: self))
-       
+        
         //设置该range下的imageText的字体大小
         imageText.addAttribute(NSAttributedString.Key.font, value: font , range: NSRange(location: 0, length: 1))
         
@@ -47,7 +47,7 @@ class EmoticonAttachment: NSTextAttachment
     {
         
         fatalError("init(coder:) has not been implemented")
-        
+
     }
     
     

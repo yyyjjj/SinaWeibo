@@ -33,7 +33,8 @@ class HomeTableViewController: VisitorTableViewController {
     }()
     ///刷新的Label
     lazy var refreshStatusLabel : UILabel = {
-        let label = UILabel.init(content: "", size: 18)
+        let label = UILabel.init(content: "", size: 14)
+        label.textColor = .black
         label.backgroundColor = UIColor.orange
         return label
     }()
@@ -59,7 +60,7 @@ class HomeTableViewController: VisitorTableViewController {
         let fpslabel = FPSLabel()
         //view.addSubview(fpslabel)
         //view.bringSubviewToFront(fpslabel)
-        
+
         UIApplication.shared.keyWindow?.addSubview(fpslabel)
         fpslabel.snp.makeConstraints { (make) in
             make.center.equalTo(UIApplication.shared.keyWindow!.snp.center)
@@ -77,19 +78,19 @@ class HomeTableViewController: VisitorTableViewController {
             guard let cell = notification.object as? PhotoBrowserPresentDelegate else{
                 return
             }
-            
+
             let vc = PhotoBrowserViewController(urls: urls, indexPath: indexpath)
-            
+
             vc.modalPresentationStyle = .custom
             //vc.modalTransitionStyle
             vc.transitioningDelegate = self?.PhotoTransitionDelegate
-            
+
             //通过回传的PhotoView把其设置为代理对象
             self?.PhotoTransitionDelegate.setPhotoDelegate(indexPath: indexpath, presentDelegate: cell, dismissDelegate: vc)
             //print(cell)
             self?.present(vc, animated: true
                 , completion: nil)
-            
+
         }
     }
     
@@ -162,7 +163,6 @@ class HomeTableViewController: VisitorTableViewController {
         guard let refreshCount = statuslistviewModel.pullDownStatusCount else {
             return
         }
-        
             //QL1("刷新到\(refreshCount)条数据")
         self.refreshStatusLabel.text = refreshCount != 0 ? "刷新到\(refreshCount)条数据" : "没有刷新到数据"
             //我们来改变他的y轴距离去让他显示
@@ -173,12 +173,15 @@ class HomeTableViewController: VisitorTableViewController {
             self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: -2*labelY)
         
             self.navigationController?.navigationBar.insertSubview(self.refreshStatusLabel, at: 0)
-        
             //我们在这里添加label在navibar上面还是下面
             UIView.animate(withDuration: 1.5, animations: {
                 self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: labelY)
             }, completion: { _ in
-                self.refreshStatusLabel.frame = CGRect.init(x: 0, y: -2*labelY, width: self.view.bounds.width, height: 44)
+                //让动画保持一秒
+                DispatchQueue.main.asyncAfter(deadline: .now()
+                    + 1, execute: {
+                    self.refreshStatusLabel.frame = CGRect.init(x: 0, y: -2*labelY, width: self.view.bounds.width, height: 44)
+                })
             })
         
     }

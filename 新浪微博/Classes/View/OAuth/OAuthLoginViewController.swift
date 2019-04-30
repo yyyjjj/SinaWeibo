@@ -28,8 +28,8 @@ class OAuthLoginViewController: UIViewController {
     }
     ///自动填充
     @objc func AutoFill(){
-        let js = "document.getElementById('userId').value = '13113771561';document.getElementById('passwd').value = 'Jb153297'"
-        webView.evaluateJavaScript(js)
+
+//        webView.evaluateJavaScript(js)
     }
     
     override func viewDidLoad() {

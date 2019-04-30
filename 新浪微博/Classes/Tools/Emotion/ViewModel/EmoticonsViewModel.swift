@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import QorumLogs
 class EmoticonsViewModel {
     ///单例
     static var shared = EmoticonsViewModel()
@@ -44,7 +44,7 @@ class EmoticonsViewModel {
     }
     //MAKR: - 微博带表情正文
     ///把字符串转化为属性字符串
-    func emoticonText(string : String = "我[爱你]啊[笑哈哈]" , font : UIFont = UIFont.systemFont(ofSize: 14)) -> NSAttributedString{
+    func emoticonText(string : String = "我[爱你]啊[笑哈哈]" , font : UIFont) -> NSAttributedString{
         //"我[爱你]啊[笑哈哈]"
         let strM = NSMutableAttributedString(string: string)
         //1,正则表达式[]是正则表达式关键字，需要转义
@@ -55,20 +55,29 @@ class EmoticonsViewModel {
         let results = regex.matches(in: string, options: [], range: NSRange.init(location: 0   , length: string.length))
         //获得匹配数量
         var count = results.count
-        
+        //倒着遍历，否则range会被改变
         while count > 0 {
-            
             count -= 1
+            QL1("count = \(count)")
             let range = results[count].range(at: 0)
             
             let emStr = (string as NSString).substring(with: range)
+            print("微博表情文字表情显示前: \(strM)")
             if let em = emoticonString(string: emStr)
-            {   //[笑哈哈]转化出attribute文字
-                let attrText = EmoticonAttachment(emoticon: em).imageText(font:font)
+            {
+//                QL1(string)
+//                QL1(range)
+                //[笑哈哈]转化出attribute文字
+                let attrText = EmoticonAttachment(emoticon: em).imageText(font: font)
+//                QL1(attrText.length)
+//                strM.replaceCharacters(in: NSRange.init(location: 0, length: 2), with: attrText)
                 strM.replaceCharacters(in: range, with: attrText)
             }
         }
-//        print("微博表情文字测试: \(strM)")
+        print("微博表情文字表情显示后: \(strM)")
+        //重新调整一下整段字体大小
+        strM.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange.init(location: 0, length: strM.length))
+        strM.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.lightGray, range: NSRange.init(location: 0, length: strM.length))
         return strM
     }
     ///根据表情包字符串，在表情包中找到对应的表情
@@ -77,7 +86,7 @@ class EmoticonsViewModel {
         for package in EmoticonsViewModel.shared.packages{
             
             let emoticon = package.emoticons.filter{$0.chs == string}.last
-            
+//            QL1("package.filter.count = \(package.emoticons.filter{$0.chs == string}.count)")
             if emoticon != nil
             {
                 return emoticon

@@ -19,6 +19,7 @@ class RetweetedStatusCell: StatusCell {
     override var viewModel: StatusViewModel?{
         didSet{
             let text = viewModel?.retweetedStatusText ?? ""
+            
             retweetlabel.attributedText = EmoticonsViewModel.shared.emoticonText(string: text, font: retweetlabel.font)
             //断点调试 发现先调用父类方法再调用子类
             //重写父类属性，不用super去调用，系统会自动调用父类操作，子类只需要专注子类的操作就可以了，类的继承
