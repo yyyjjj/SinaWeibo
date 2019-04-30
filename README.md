@@ -16,7 +16,8 @@
 ![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/ClickLinkInStatus.png)
 
 ### Post a status
-https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/KeyboardWithEmoticon.png
+![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/KeyboardWithEmoticon.png)
+
 
 ### Browsing photo
-https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/PhotoBrowser.png
+![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/PhotoBrowser.png)
