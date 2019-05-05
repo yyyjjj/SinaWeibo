@@ -21,7 +21,7 @@ class FMDBManager: NSObject {
         var path = URL.init(string: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)
         
         path?.appendPathComponent(tableName)
-        print(path?.absoluteString)
+//        print(path?.absoluteString)
         //如果不存在该数据库，队列会帮我们创建一个。
         DBqueue = FMDatabaseQueue.init(path: path!.absoluteString)
         CreateTable()
@@ -35,8 +35,10 @@ class FMDBManager: NSObject {
         let sql = try! String.init(contentsOf: path)
         
         DBqueue?.inDatabase({ (db) in
-//            if
+        if !db.tableExists("T_Status")
+        {
         db.executeUpdate(sql, withArgumentsIn: [])
+        }
 //            {
 //            print("创建表成功")
 //            }else{

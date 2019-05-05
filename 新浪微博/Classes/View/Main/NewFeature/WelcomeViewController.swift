@@ -16,9 +16,24 @@ class WelcomeViewController: UIViewController {
         
 //       print(UserAccountViewModel.shared) 
         
-        iconview.sd_setImage(with:UserAccountViewModel.shared.avatar_largeURL , placeholderImage: UIImage.init(named: "avatar_default_big"), options:.cacheMemoryOnly , completed: nil)
-        
+//        iconview.sd_setImage(with:UserAccountViewModel.shared.avatar_largeURL , placeholderImage: UIImage.init(named: "avatar_default_big"), options:.cacheMemoryOnly , completed: nil)
+        //
+        loadIcon()
     }
+    ///磁盘加载用户头像
+    func loadIcon(){
+        //会先去磁盘找到该文件
+        //如果没有就重新下载
+        SDWebImageManager.shared().loadImage(with: UserAccountViewModel.shared.avatar_largeURL, options: [.refreshCached,.retryFailed], progress: nil) { (image, data, _, _, _, _) in
+            guard let image = image else{
+                return
+            }
+            DispatchQueue.main.async {
+                self.iconview.image = image
+            }
+        }
+    }
+    
     //MARK: - 设置动画/键盘
     override func viewDidAppear(_ animated: Bool) {
         

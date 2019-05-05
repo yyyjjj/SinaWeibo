@@ -58,11 +58,11 @@ class EmoticonsViewModel {
         //倒着遍历，否则range会被改变
         while count > 0 {
             count -= 1
-            QL1("count = \(count)")
+//            QL1("count = \(count)")
             let range = results[count].range(at: 0)
             
             let emStr = (string as NSString).substring(with: range)
-            print("微博表情文字表情显示前: \(strM)")
+//            print("微博表情文字表情显示前: \(strM)")
             if let em = emoticonString(string: emStr)
             {
 //                QL1(string)
@@ -74,7 +74,7 @@ class EmoticonsViewModel {
                 strM.replaceCharacters(in: range, with: attrText)
             }
         }
-        print("微博表情文字表情显示后: \(strM)")
+//        print("微博表情文字表情显示后: \(strM)")
         //重新调整一下整段字体大小
         strM.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange.init(location: 0, length: strM.length))
         strM.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.lightGray, range: NSRange.init(location: 0, length: strM.length))

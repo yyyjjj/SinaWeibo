@@ -40,7 +40,7 @@ extension UIButton
     ///   - highlight: 高亮图片名字 ，可设可不设
     ///   - textSize: 文字大小
     ///   - isBack:是否为背景图片
-    convenience init(text : String? , textColor : UIColor? , backImage : String? ,highlight : String? = nil ,textSize : CGFloat = 14,isBack : Bool , backgroundColor : UIColor? = nil){
+    convenience init(text : String? , textColor : UIColor? , backImage : String? ,highlight : String? = nil ,textSize : CGFloat = 14, isBack : Bool  , backgroundColor : UIColor? = nil){
         //UIButton类的init会调用super.init()初始化UIView
         self.init()
         

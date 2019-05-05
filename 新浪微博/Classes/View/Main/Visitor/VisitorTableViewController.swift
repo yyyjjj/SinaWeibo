@@ -16,7 +16,7 @@ class VisitorTableViewController: UITableViewController {
     var visitorview : VisitorView? = VisitorView()
     
     override func loadView() {
-        //loadView -》load TableView
+        //loadView -> load TableView
         loginStatus == true ? super.loadView() : SetUpUI()
         
         visitorview?.delegate = self

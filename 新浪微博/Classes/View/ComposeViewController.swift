@@ -45,9 +45,25 @@ class ComposeViewController: UIViewController {
     }
     @objc private func clickEmoticon()
     {
-        print("点击表情键盘")
+
         textview.resignFirstResponder()
-        textview.inputView = textview.inputView == nil ? emoticonview : nil
+        //如果用户当前是表情键盘那么就把inputView置为nil,在becomeFirstResponder的时候会把键盘置为inputView
+        //如果当前用户是系统键盘那么就把inputView置为表情键盘，在becomeFirstResponder的时候就不会使用系统键盘
+        if textview.inputView == nil
+        {
+            textview.inputView = emoticonview
+
+            DispatchQueue.main.async {
+        (self.toolbar.items?[self.toolbar.items!.count-3].customView as! UIButton).setImage(UIImage.init(named: "compose_keyboardbutton_background"), for: .normal)
+            }
+        }
+        else
+        {
+            textview.inputView = nil
+            DispatchQueue.main.async {
+                (self.toolbar.items?[self.toolbar.items!.count-3].customView as! UIButton).setImage(UIImage.init(named: "compose_emoticonbutton_background"), for: .normal)
+            }
+        }
         textview.becomeFirstResponder()
     }
     
@@ -69,7 +85,8 @@ class ComposeViewController: UIViewController {
             make.right.equalTo(view.snp.right)
             make.bottom.equalTo(PicturePickerController.view.snp.top)
         }
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5)
+        {
             self.view.layoutIfNeeded()
         }
     }
@@ -89,7 +106,6 @@ class ComposeViewController: UIViewController {
         if PicturePickerController.view.frame.height == 0{
             textview.becomeFirstResponder()
         }
-        
     }
     
     override func viewDidLoad()
@@ -99,12 +115,13 @@ class ComposeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(KeyBoardChanged), name: UIResponder.keyboardWillChangeFrameNotification , object: nil)
     }
     
-    deinit {
+    deinit
+    {
         NotificationCenter.default.removeObserver(self)
     }
     ///监听键盘
     @objc func KeyBoardChanged(notification : NSNotification) {
-//       print(notification)
+        //print(notification)
         //1,拿到键盘每次完成布局后的高度
        let rect = (notification.userInfo!["UIKeyboardFrameEndUserInfoKey"] as! NSValue).cgRectValue
         //UIKeyboardAnimationCurveUserInfoKey
@@ -150,7 +167,6 @@ class ComposeViewController: UIViewController {
         { [weak self] (emoticon) in
         //获取当前文本，并拼接上表情包
         self?.textview.insertEmoticon(emoticon: emoticon)
-         
     }
     
     ///相册
@@ -195,7 +211,7 @@ extension ComposeViewController
         
         //2,布局控件
         toolbar.snp.makeConstraints
-            { (make) in
+        { (make) in
             make.left.equalTo(view.snp.left)
             make.right.equalTo(view.snp.right)
             make.bottom.equalTo(view.snp.bottom)

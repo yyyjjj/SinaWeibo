@@ -98,7 +98,6 @@ extension MainViewController{
         childController.tabBarItem.selectedImage = UIImage.init(named: highLightImage)
         
         let nav = UINavigationController.init(rootViewController: childController)
-        
         addChild(nav)
     }
     

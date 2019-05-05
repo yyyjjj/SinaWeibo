@@ -57,16 +57,16 @@ class HomeTableViewController: VisitorTableViewController {
         LoadStatus()
         prepareReloadButton()
         //测试帧数
-        let fpslabel = FPSLabel()
-        //view.addSubview(fpslabel)
-        //view.bringSubviewToFront(fpslabel)
-
-        UIApplication.shared.keyWindow?.addSubview(fpslabel)
-        fpslabel.snp.makeConstraints { (make) in
-            make.center.equalTo(UIApplication.shared.keyWindow!.snp.center)
-            make.height.equalTo(30)
-            make.width.equalTo(60)
-        }
+//        let fpslabel = FPSLabel()
+//        //view.addSubview(fpslabel)
+//        //view.bringSubviewToFront(fpslabel)
+//
+//        UIApplication.shared.keyWindow?.addSubview(fpslabel)
+//        fpslabel.snp.makeConstraints { (make) in
+//            make.center.equalTo(UIApplication.shared.keyWindow!.snp.center)
+//            make.height.equalTo(30)
+//            make.width.equalTo(60)
+//        }
         //通知单例为了给self发消息强引用self，self中也有通知才能一直监听该事件。
         NotificationCenter.default.addObserver(forName: NSNotification.Name.init(rawValue: WBPictureCellSelectNotification), object: nil, queue: nil) { [weak self] (notification) in
             guard let indexpath = notification.userInfo?[NSNotification.Name.init(rawValue: WBPictureCellIndexNotification)] as? IndexPath else{

@@ -26,10 +26,15 @@ class OAuthLoginViewController: UIViewController {
         navigationController?.popViewController(animated: true)
 //        self.dismiss(animated: true, completion: nil)
     }
+    
     ///自动填充
-    @objc func AutoFill(){
-
-//        webView.evaluateJavaScript(js)
+    @objc func AutoFill()
+    {
+        
+    let js = "document.getElementById('userId').value = '13113771561';document.getElementById('passwd').value = 'Jb153297'"
+        
+      webView.evaluateJavaScript(js)
+   
     }
     
     override func viewDidLoad() {
@@ -63,12 +68,14 @@ extension OAuthLoginViewController : WKNavigationDelegate
             decisionHandler(.allow)
             return
         }
+        
         guard let query = url.query , query.hasPrefix("code=") else{
             //取消授权
             self.Close()
             decisionHandler(.cancel)
             return
         }
+        
         //授权码获取
         let code = query.substring(fromIndex: "code=".count)
         

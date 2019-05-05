@@ -11,9 +11,9 @@ import UIKit
 @objcMembers  class UserAccount :NSObject,NSCoding,Codable{
     ///用户令牌
     var access_token : String?
-    //用户信息码
+    ///用户信息码
     var uid : String?
-    //access_token距离现在的过期时间，保护用户安全,秒为单位
+    ///access_token距离现在的过期时间，保护用户安全,秒为单位
     //使用监听属性的话，写入时候不能起到监听作用，expiresDate就会变成nil
     var expires_in : TimeInterval = 0
     ///过期日期

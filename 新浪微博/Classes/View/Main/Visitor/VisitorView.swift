@@ -10,10 +10,10 @@ import UIKit
 import SnapKit
 protocol VisitorViewDelegate : NSObjectProtocol {
     //用于是controller类对子控件的响应，所以其实可以直接给button addTarget
-    
     func ClickRegisteButton()
     
     func ClickLoginButton()
+    
 }
 
 class VisitorView: UIView {
@@ -78,7 +78,8 @@ class VisitorView: UIView {
     }
     
     //MARK: - 布局视图
-    func SetUpUI(){
+    func SetUpUI()
+    {
         
         self.addSubview(iconview)
         
