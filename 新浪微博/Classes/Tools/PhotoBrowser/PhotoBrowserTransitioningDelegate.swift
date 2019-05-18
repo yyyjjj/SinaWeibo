@@ -11,11 +11,13 @@ import UIKit
 protocol PhotoBrowserPresentDelegate : NSObjectProtocol{
     func PhotoBrowserPresentFromRect(indexPath : IndexPath) -> CGRect
     func PhotoBrowserPresentToRect(indexPath : IndexPath) -> CGRect
+    ///返回当前ImageView（在present中作为替身，完成动画后会被deinit）
     func PhotoPresentForAnimation(indexPath : IndexPath) -> UIImageView
 }
 //MARK: - 图片dismiss的代理
 /// 我们要拿到参与制作动画的替身及其位置，以及当前indexPath
 protocol PhotoBrowserDismissDelegate : NSObjectProtocol{
+    ///返回当前ImageView（在dismiss中作为替身，完成动画后会被deinit）
     func PhotoDimissForAnimation() -> UIImageView?
     func CurrentIndexPath() -> IndexPath?
 }

@@ -9,6 +9,7 @@
 import UIKit
 //用户初模型
 @objcMembers  class UserAccount :NSObject,NSCoding,Codable{
+    //MARK: - 属性
     ///用户令牌
     var access_token : String?
     ///用户信息码
@@ -23,8 +24,13 @@ import UIKit
     var avatar_large : String?
     ///用户名称
     var screen_name : String?
-    //是否是真名
+    ///是否是真名
     var isRealName : String?
+    ///用户所在t地
+    var location : String?
+    
+    ///个人描述
+    //var description : String?
     ///归档数据写入沙盒
     //    func saveToSandBox() {
     //
@@ -53,6 +59,7 @@ import UIKit
     //        }
     //    }
     //
+    
     func getPropertyNameList() -> [String] {
         
         var count : UInt32 = 0
@@ -76,6 +83,7 @@ import UIKit
         }
         return names
     }
+    //MARK: - 数据持久化(归档)
     ///归档数据存储到磁盘
     func encode(with aCoder: NSCoder)  {
         

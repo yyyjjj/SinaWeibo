@@ -45,7 +45,7 @@ class StatusViewModel: NSObject {
         }
         
     }
-    ///用户时间
+    ///用户发表微博时间
     var created_at : String?{
         
         if let created_at = self.status.created_at  {
@@ -101,6 +101,7 @@ class StatusViewModel: NSObject {
         //我们通过判断被转发的微博是否带图去控制图片来源
         if let urls = status.retweeted_status?.pic_urls ?? status.pic_urls {
             thumbnails = [URL]()
+            
             urls.forEach({
                 thumbnails!.append(URL.init(string: $0["thumbnail_pic"]!)!)
             })

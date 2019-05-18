@@ -53,6 +53,7 @@ extension StatusBottomView {
             make.height.equalTo(commentButton.snp.height)
             make.right.equalTo(self.snp.right)
         }
+        
         let line1 = sepLine()
         let line2 = sepLine()
         self.addSubview(line1)

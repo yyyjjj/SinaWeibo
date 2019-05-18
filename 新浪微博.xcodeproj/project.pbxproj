@@ -19,6 +19,7 @@
 		692A015D2251D8AD00131A21 /* OriginStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A015C2251D8AD00131A21 /* OriginStatusCell.swift */; };
 		692A01602252494500131A21 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A015F2252494500131A21 /* RefreshControl.swift */; };
 		692A01622252499600131A21 /* RefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 692A01612252499600131A21 /* RefreshView.xib */; };
+		692ACBC8228F0F4D00BC2804 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692ACBC7228F0F4D00BC2804 /* FLAnimatedImage.framework */; };
 		692B74A022647B5600C1030B /* ProgressImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692B749F22647B5600C1030B /* ProgressImageView.swift */; };
 		692C173E2272E60C00438774 /* QorumLogs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692C173D2272E60C00438774 /* QorumLogs.framework */; };
 		692C17402273259800438774 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692C173F2273259800438774 /* DateExtension.swift */; };
@@ -112,6 +113,7 @@
 		692A015C2251D8AD00131A21 /* OriginStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginStatusCell.swift; sourceTree = "<group>"; };
 		692A015F2252494500131A21 /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		692A01612252499600131A21 /* RefreshView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshView.xib; sourceTree = "<group>"; };
+		692ACBC7228F0F4D00BC2804 /* FLAnimatedImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FLAnimatedImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		692B749F22647B5600C1030B /* ProgressImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressImageView.swift; sourceTree = "<group>"; };
 		692C173D2272E60C00438774 /* QorumLogs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QorumLogs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		692C173F2273259800438774 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				692ACBC8228F0F4D00BC2804 /* FLAnimatedImage.framework in Frameworks */,
 				692C173E2272E60C00438774 /* QorumLogs.framework in Frameworks */,
 				69E65799227058EE002E2450 /* Alamofire.framework in Frameworks */,
 				69365E3E226CBEFA00E6E53E /* libsqlite3.tbd in Frameworks */,
@@ -234,6 +237,7 @@
 		4210C259D91CBD42A09CC072 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				692ACBC7228F0F4D00BC2804 /* FLAnimatedImage.framework */,
 				692C173D2272E60C00438774 /* QorumLogs.framework */,
 				69E65798227058EE002E2450 /* Alamofire.framework */,
 				69365E42226CBF9D00E6E53E /* FMDB.framework */,
@@ -772,6 +776,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-新浪微博/Pods-新浪微博-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/QorumLogs/QorumLogs.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
@@ -782,6 +787,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QorumLogs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",

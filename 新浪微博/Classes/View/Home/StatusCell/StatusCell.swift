@@ -22,12 +22,11 @@ class StatusCell: UITableViewCell {
     {
         didSet
         {
-            
             topView.viewModel = viewModel
             let text = viewModel?.status.text ?? ""
             
             contentLabel.attributedText = EmoticonsViewModel.shared.emoticonText(string: text, font: contentLabel.font)
-//            QL1(viewModel?.status.text)
+            //QL1(viewModel?.status.text)
             pictureView.viewModel = viewModel
             
             pictureView.snp.updateConstraints{ (make) in

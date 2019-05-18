@@ -43,26 +43,32 @@ class RetweetedStatusCell: StatusCell {
                                                    color: UIColor.darkGray,
                                                    size: 14,
                                                    screenInset: StatusCellMargins)
-}
+    }
+
 ///设置布局
 extension RetweetedStatusCell{
+    
      override func SetUpUI() {
         //我们的目的是在原有布局上面添加新的布局，改变不同view的位置
         //先调用父类方法 
         super.SetUpUI()
         //添加控件 注意转发微博要在图片下面
         contentView.insertSubview(backbutton, belowSubview: pictureView)
+        
         contentView.insertSubview(retweetlabel, aboveSubview: backbutton)
+        
         backbutton.snp.makeConstraints { (make) in
-            make.top.equalTo(contentLabel.snp.bottom).offset(StatusCellMargins)
+        make.top.equalTo(contentLabel.snp.bottom).offset(StatusCellMargins)
             make.left.equalTo(contentView.snp.left)
             make.right.equalTo(contentView.snp.right)
             make.bottom.equalTo(bottomView.snp.top)
         }
+        
         retweetlabel.snp.makeConstraints { (make) in
             make.top.equalTo(contentLabel.snp.bottom).offset(StatusCellMargins)
             make.left.equalTo(contentView.snp.left).offset(StatusCellMargins)
         }
+        
         pictureView.snp.makeConstraints { (make) in
             make.top.equalTo(retweetlabel.snp.bottom).offset(StatusCellMargins)
             make.left.equalTo(retweetlabel.snp.left)

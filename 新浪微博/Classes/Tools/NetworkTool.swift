@@ -63,7 +63,6 @@ extension NetworkTool
             }
             success(result, nil)
          }
-        
     }
 }
 
@@ -156,6 +155,7 @@ extension NetworkTool
 extension NetworkTool{
     
     func appendToken(parameters :inout [String:Any]?) -> Bool {
+        
         guard let token = UserAccountViewModel.shared.accessToken else {
             
             return false

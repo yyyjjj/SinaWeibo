@@ -9,15 +9,15 @@
 import UIKit
 ///原创微博
 class OriginStatusCell: StatusCell {
-    
+    ///这个重写不会覆盖父类的didSet方法
     override var viewModel: StatusViewModel?
         {
         didSet
         {
             pictureView.snp.updateConstraints
-                { (make) in
-                    make.height.equalTo(pictureView.bounds.height)
-                    make.width.equalTo(pictureView.bounds.width)
+            { (make) in
+//                    make.height.equalTo(pictureView.bounds.height)
+//                    make.width.equalTo(pictureView.bounds.width)
                     let topofs = (viewModel?.thumbnails?.count)! > 0 ? StatusCellMargins : 0
                     make.top.equalTo(contentLabel.snp.bottom).offset(topofs)
             }

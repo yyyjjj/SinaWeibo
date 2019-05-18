@@ -23,10 +23,6 @@ class HomeWebViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     //系统在发现view为nil的时候会调用该方法
-    override func loadView() {
-        view = webView
-        title = "网页"
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

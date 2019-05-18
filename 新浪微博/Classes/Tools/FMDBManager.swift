@@ -49,8 +49,7 @@ class FMDBManager: NSObject {
     }
     //MARK: - 查询数据
     func SearchRecord(sql : String) -> [[String : Any]]? {
-        //        let sql = "SELECT id , name , age , height FROM T_Person;"
-        
+        //let sql = "SELECT id , name , age , height FROM T_Person;"
         var array : [[String : Any]]? = [[String : Any]]()
         //由于该线程是同步线程，不需要返回闭包
         FMDBManager.shared.DBqueue?.inDatabase({ (db) in

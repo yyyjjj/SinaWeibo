@@ -1,9 +1,13 @@
 PODS:
   - Alamofire (4.8.1)
+  - FLAnimatedImage (1.0.12)
   - QorumLogs (0.9)
   - SDWebImage (4.4.6):
     - SDWebImage/Core (= 4.4.6)
   - SDWebImage/Core (4.4.6)
+  - SDWebImage/GIF (4.4.6):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
   - SnapKit (4.2.0)
   - SVProgressHUD (2.2.5)
 
@@ -11,12 +15,14 @@ DEPENDENCIES:
   - Alamofire
   - QorumLogs
   - SDWebImage (~> 4.0)
+  - SDWebImage/GIF
   - SnapKit
   - SVProgressHUD
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - FLAnimatedImage
     - QorumLogs
     - SDWebImage
     - SnapKit
@@ -24,11 +30,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   QorumLogs: 9a484df6973a3697ac79fe2273140fde6b36dccc
   SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 2c34347a9864958d51801787f6c9c78e5e7defa9
+PODFILE CHECKSUM: ab01415945a143563677ac5bed0a7bbe82869bad
 
 COCOAPODS: 1.5.3

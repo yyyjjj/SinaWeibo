@@ -57,16 +57,16 @@ class HomeTableViewController: VisitorTableViewController {
         LoadStatus()
         prepareReloadButton()
         //测试帧数
-//        let fpslabel = FPSLabel()
-//        //view.addSubview(fpslabel)
-//        //view.bringSubviewToFront(fpslabel)
-//
-//        UIApplication.shared.keyWindow?.addSubview(fpslabel)
-//        fpslabel.snp.makeConstraints { (make) in
-//            make.center.equalTo(UIApplication.shared.keyWindow!.snp.center)
-//            make.height.equalTo(30)
-//            make.width.equalTo(60)
-//        }
+        //        let fpslabel = FPSLabel()
+        //        //view.addSubview(fpslabel)
+        //        //view.bringSubviewToFront(fpslabel)
+        //
+        //        UIApplication.shared.keyWindow?.addSubview(fpslabel)
+        //        fpslabel.snp.makeConstraints { (make) in
+        //            make.center.equalTo(UIApplication.shared.keyWindow!.snp.center)
+        //            make.height.equalTo(30)
+        //            make.width.equalTo(60)
+        //        }
         //通知单例为了给self发消息强引用self，self中也有通知才能一直监听该事件。
         NotificationCenter.default.addObserver(forName: NSNotification.Name.init(rawValue: WBPictureCellSelectNotification), object: nil, queue: nil) { [weak self] (notification) in
             guard let indexpath = notification.userInfo?[NSNotification.Name.init(rawValue: WBPictureCellIndexNotification)] as? IndexPath else{
@@ -78,19 +78,19 @@ class HomeTableViewController: VisitorTableViewController {
             guard let cell = notification.object as? PhotoBrowserPresentDelegate else{
                 return
             }
-
+            
             let vc = PhotoBrowserViewController(urls: urls, indexPath: indexpath)
-
+            
             vc.modalPresentationStyle = .custom
             //vc.modalTransitionStyle
             vc.transitioningDelegate = self?.PhotoTransitionDelegate
-
+            
             //通过回传的PhotoView把其设置为代理对象
             self?.PhotoTransitionDelegate.setPhotoDelegate(indexPath: indexpath, presentDelegate: cell, dismissDelegate: vc)
             //print(cell)
             self?.present(vc, animated: true
                 , completion: nil)
-
+            
         }
     }
     
@@ -158,31 +158,32 @@ class HomeTableViewController: VisitorTableViewController {
             }
         }
     }
+    
     func addRefreshStatusLabel()  {
         
         guard let refreshCount = statuslistviewModel.pullDownStatusCount else {
             return
         }
-            //QL1("刷新到\(refreshCount)条数据")
+        //QL1("刷新到\(refreshCount)条数据")
         self.refreshStatusLabel.text = refreshCount != 0 ? "刷新到\(refreshCount)条数据" : "没有刷新到数据"
-            //我们来改变他的y轴距离去让他显示
-            let labelY : CGFloat = 44
+        //我们来改变他的y轴距离去让他显示
+        let labelY : CGFloat = 44
         
-            let rect = CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: 44)
+        let rect = CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: 44)
         
-            self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: -2*labelY)
+        self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: -2*labelY)
         
-            self.navigationController?.navigationBar.insertSubview(self.refreshStatusLabel, at: 0)
-            //我们在这里添加label在navibar上面还是下面
-            UIView.animate(withDuration: 1.5, animations: {
-                self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: labelY)
-            }, completion: { _ in
-                //让动画保持一秒
-                DispatchQueue.main.asyncAfter(deadline: .now()
-                    + 1, execute: {
+        self.navigationController?.navigationBar.insertSubview(self.refreshStatusLabel, at: 0)
+        //我们在这里添加label在navibar上面还是下面
+        UIView.animate(withDuration: 1.5, animations: {
+            self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: labelY)
+        }, completion: { _ in
+            //让动画保持一秒
+            DispatchQueue.main.asyncAfter(deadline: .now()
+                + 1, execute: {
                     self.refreshStatusLabel.frame = CGRect.init(x: 0, y: -2*labelY, width: self.view.bounds.width, height: 44)
-                })
             })
+        })
         
     }
 }
@@ -247,6 +248,6 @@ extension HomeTableViewController : ClickLabelDelegate
     func didClickURL(url: URL) {
         let webVC = HomeWebViewController.init(url: url)
         webVC.hidesBottomBarWhenPushed = true
-    self.navigationController?.pushViewController(webVC, animated:true)
+        self.navigationController?.pushViewController(webVC, animated:true)
     }
 }

@@ -7,8 +7,7 @@
 //
 
 import Foundation
-
-
+import QorumLogs
 /*
  *MVVM
  *UserAccountViewModel:
@@ -111,6 +110,7 @@ extension UserAccountViewModel {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .secondsSince1970
             let json = try! JSONSerialization.data(withJSONObject: data!, options: [])
+            
             self.account = try! decoder.decode(UserAccount.self, from: json)
             self.account?.expiresDate = Date(timeIntervalSinceNow:self.account!.expires_in)
             self.loadUserInfo(uid: (self.account?.uid)!, finished: finished)
@@ -134,9 +134,11 @@ extension UserAccountViewModel {
                 finished(false)
                 return
             }
+            QL1(dict["location"])
             
             account.screen_name = dict["screen_name"] as? String
             account.avatar_large = dict["avatar_large"] as? String
+            account.location = dict["location"] as? String
 //            print("userAountpath=\(self.accountPath)")
            //把数据写入沙盒
             //NSKeyedArchiver.archiveRootObject(account, toFile: self.accountPath.absoluteString)

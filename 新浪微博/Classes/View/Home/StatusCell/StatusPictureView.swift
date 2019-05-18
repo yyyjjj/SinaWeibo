@@ -116,6 +116,7 @@ extension StatusPictureView :UICollectionViewDataSource,UICollectionViewDelegate
                                                                                                     WBPictureArrayNotification: viewModel!.thumbnails!])
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel?.thumbnails?.count ?? 0
     }
@@ -131,6 +132,7 @@ extension StatusPictureView :UICollectionViewDataSource,UICollectionViewDelegate
     }
     
 }
+
 //MARK: - Present代理
 extension StatusPictureView : PhotoBrowserPresentDelegate
 {
@@ -206,18 +208,7 @@ extension StatusPictureView : PhotoBrowserPresentDelegate
 
 ///MARK :-图片cell
 private class PictrueViewCell: UICollectionViewCell {
-    var imageURL : URL?{
-        didSet{
-            iconView.sd_setImage(with: imageURL!, placeholderImage: nil, options: [SDWebImageOptions.retryFailed    //超过15s就记录防止再次访问
-                ,SDWebImageOptions.refreshCached  //防止URL不变数据源变了，及时更新
-                ], completed: nil)
-            if (imageURL!.absoluteString as NSString).pathExtension == "gif"
-         {self.gifView.isHidden = false
-         }else {
-            self.gifView.isHidden = true
-            }
-        }
-    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -240,6 +231,19 @@ private class PictrueViewCell: UICollectionViewCell {
         gifView.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.iconView.snp.bottom)
             make.right.equalTo(self.iconView.snp.right)
+        }
+    }
+
+    var imageURL : URL?{
+        didSet{
+            iconView.sd_setImage(with: imageURL!, placeholderImage: nil, options: [SDWebImageOptions.retryFailed    //超过15s就记录防止再次访问
+                ,SDWebImageOptions.refreshCached  //防止URL不变数据源变了，及时更新
+                ], completed: nil)
+            if (imageURL!.absoluteString as NSString).pathExtension == "gif"
+            {self.gifView.isHidden = false
+            }else {
+                self.gifView.isHidden = true
+            }
         }
     }
     //懒加载要指明类型，否则其他地方调用不清楚其属性

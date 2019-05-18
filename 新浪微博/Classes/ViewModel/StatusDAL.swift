@@ -70,6 +70,7 @@ class StatusDAL {
     }
     ///从本地加载数据
     private class func loadFromDatabase(since_id: Int, max_id: Int) -> [[String:Any]]?{
+        
         guard let userId = UserAccountViewModel.shared.account?.uid else{
             print("用户没登录无法拿到数据库内容")
             return nil

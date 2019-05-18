@@ -34,15 +34,18 @@ class PictureCollectionViewCell: UICollectionViewCell {
             resetScrollView()
             //1,加载缩略图地址
             let tmpimage =  SDWebImageManager.shared().imageCache?.imageFromDiskCache(forKey: pictrueurl?.absoluteString)
+            
             //imageview.sizeToFit()
             //imageview.center = scorllview.center
             setPlaceHolder(image: tmpimage)
-         
+//            if !pictrueurl!.absoluteString.contains("gif")
+//            {
             //2,加载大图
             let bigurl = bmiddle(urlStirng: pictrueurl!.absoluteString)
             //大多数第三方的progress闭包都是异步执行
             //他们回调次数太多，如果太多ui涉及progress同步会造成主线程卡顿
             //大多数是添加个菊花让用户等待
+            
             self.imageview.sd_setImage(with: bigurl, placeholderImage: tmpimage, options: [SDWebImageOptions.refreshCached,SDWebImageOptions.retryFailed], progress: { (current, total, _) in
                 
                 DispatchQueue.main.async {
@@ -61,7 +64,35 @@ class PictureCollectionViewCell: UICollectionViewCell {
 //
 //                self.setPosition(image: self.imageview.image!)
 //            }
+//            }else {
+//
+//                self.imageview = FLAnimatedImageView.init(frame: self.imageview.frame)
+//                //2,加载大图
+//                let bigurl = bmiddle(urlStirng: pictrueurl!.absoluteString)
+//                //大多数第三方的progress闭包都是异步执行
+//                //他们回调次数太多，如果太多ui涉及progress同步会造成主线程卡顿
+//                //大多数是添加个菊花让用户等待
+//                self.imageview.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchImage)))
+//
+//                self.imageview.isUserInteractionEnabled = true
+//                self.imageview.sd_setImage(with: bigurl, placeholderImage: tmpimage, options: [SDWebImageOptions.refreshCached,SDWebImageOptions.retryFailed], progress: { (current, total, _) in
+//
+//                    DispatchQueue.main.async {
+//                        self.placeholderImageView.progress = CGFloat(current)/CGFloat(total)
+//                    }
+//
+//                }) { (image, _, _, _) in
+//                    if image == nil{
+//                        SVProgressHUD.showInfo(withStatus: "图像加载失败")
+//                        return
+//                    }
+//
+//                    self.placeholderImageView.isHidden = true
+//                    self.setPosition(image: image!)
+//                }
+//            }
         }
+        
     }
     
     func setPlaceHolder(image:UIImage?)  {
@@ -136,7 +167,7 @@ class PictureCollectionViewCell: UICollectionViewCell {
     
     //MARK: - 懒加载控件
     lazy var scrollview = UIScrollView()
-    lazy var imageview = UIImageView()
+    lazy var imageview = FLAnimatedImageView()
     lazy var placeholderImageView = ProgressImageView()
     
 }
