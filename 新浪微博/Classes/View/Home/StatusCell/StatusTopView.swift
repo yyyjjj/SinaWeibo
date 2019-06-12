@@ -9,7 +9,15 @@
 import UIKit
 import SnapKit
 import QorumLogs
+
+protocol ClickUserIconProtocol : NSObjectProtocol {
+    func clickUserIcon(viewModel:StatusViewModel)
+}
+
 class StatusTopView: UIView {
+    
+    weak var clickdelegate : ClickUserIconProtocol?
+    
     //MARK: - 生命周期
     var viewModel : StatusViewModel?{
         didSet{
@@ -56,7 +64,7 @@ extension StatusTopView
     //self.backgroundColor = UIColor.gray
     //1,添加子控件
     let sepView = UIView()
-    sepView.backgroundColor = UIColor.lightGray
+    sepView.backgroundColor = UIColor.init(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1)
     self.addSubview(sepView)
     self.addSubview(iconView)
     self.addSubview(nameLabel)
@@ -103,5 +111,14 @@ extension StatusTopView
     make.bottom.equalTo(iconView.snp.bottom)
     make.left.equalTo(timeLabel.snp.right).offset(StatusCellMargins)
     }
+    
+    //设置监听
+    let tabGesture = UITapGestureRecognizer.init(target: self, action: #selector(clickIconView))
+        iconView.addGestureRecognizer(tabGesture)
+    iconView.isUserInteractionEnabled = true
+    }
+    
+    @objc func clickIconView(){
+        clickdelegate?.clickUserIcon(viewModel: self.viewModel!)
     }
 }

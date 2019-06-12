@@ -9,12 +9,37 @@
 import UIKit
 
 class StatusBottomView: UIView {
+    var viewModel : StatusViewModel?{
+        didSet
+        {
+            let reports_count =  viewModel!.status.reposts_count
+            
+            if reports_count != 0
+            {
+                retweetedButton.setTitle(" "+String(reports_count), for: .normal)
+            }
+            
+            let comments_count = viewModel!.status.comments_count
+            
+            if comments_count != 0
+            {
+                commentButton.setTitle(" "+String(comments_count), for: .normal)
+            }
+            
+            let attitudes_count =  viewModel!.status.attitudes_count
+            
+            if attitudes_count != 0
+            {
+                likeButton.setTitle(" "+String(attitudes_count), for: .normal)
+            }
+        }
+    }
     ///转发按钮
-    private lazy var retweetedButton = UIButton.init(text: "转发", textColor: UIColor.darkGray, backImage: "timeline_icon_retweet", textSize: 12,isBack:false);
+    private lazy var retweetedButton = UIButton.init(text: " 转发", textColor: UIColor.darkGray, backImage: "timeline_icon_retweet", textSize: 12,isBack:false);
     ///评论按钮
-    private lazy var commentButton = UIButton.init(text: "评论", textColor: UIColor.darkGray, backImage: "timeline_icon_comment", textSize: 12,isBack:false);
+    private lazy var commentButton = UIButton.init(text: " 评论", textColor: UIColor.darkGray, backImage: "timeline_icon_comment", textSize: 12,isBack:false);
     ///点赞按钮
-    private lazy var likeButton = UIButton.init(text: "转发", textColor: UIColor.darkGray, backImage: "timeline_icon_unlike", textSize: 12,isBack:false);
+    private lazy var likeButton = UIButton.init(text: " 点赞", textColor: UIColor.darkGray, backImage: "timeline_icon_unlike", textSize: 12,isBack:false);
     
     override init(frame: CGRect) {
         super.init(frame:frame)

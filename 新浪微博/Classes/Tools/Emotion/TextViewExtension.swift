@@ -12,14 +12,11 @@ extension UITextView
     ///发送给服务器的图文混排文本
     func emoticonText() -> String
     {
-        
         var strM = String()
-        
         
         if let attrText = attributedText{
             
             attributedText.enumerateAttributes(in: NSRange(location: 0, length:attrText.length), options: []) { (dict, range, _) in
-                //print(dict[NSAttributedString.Key])
                 
                 //range是只第几个图片
                 if  let attachment = dict[NSAttributedString.Key.attachment] as? EmoticonAttachment{

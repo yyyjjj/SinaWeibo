@@ -37,12 +37,12 @@ class UserAccountViewModel {
         return path.appendingPathComponent("account.plist")
     }
     
-     var avatar_largeURL : URL {
+     var avatar_largeURL : URL? {
 
-        if account != nil && !isExpired{
+        if account != nil && !isExpired && account!.avatar_large != nil{
             return URL.init(string: account!.avatar_large!)!
         }
-        return URL(string:"")!
+        return nil
     }
     
     private var isExpired : Bool{
@@ -74,6 +74,7 @@ class UserAccountViewModel {
         } catch {
             assert(true, "用户数据解档路径错误")
         }
+        
         //过期的解档方法
         //account = NSKeyedUnarchiver.unarchiveObject(withFile: accountPath) as? UserAccount
     }
@@ -83,8 +84,6 @@ class UserAccountViewModel {
         UserAccountViewModel.shared = UserAccountViewModel.init()
     }
 }
-
-
 
 //MARK: -封装网络请求
 extension UserAccountViewModel {
@@ -135,7 +134,11 @@ extension UserAccountViewModel {
                 return
             }
             QL1(dict["location"])
-            
+           
+            if  dict.keys.contains("error") && (dict["error"] as! String) == "User requests out of rate limit!"
+            {
+                QL4("超出一天最大请求次数")
+            }
             account.screen_name = dict["screen_name"] as? String
             account.avatar_large = dict["avatar_large"] as? String
             account.location = dict["location"] as? String

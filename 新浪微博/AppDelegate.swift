@@ -14,10 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-       
+//        FMDBManager.shared.DBqueue?.inDatabase({ (db) in
+//            do{ try db.executeUpdate("DROP TABLE T_Status", values: nil)
+//                print("删除T_Status成功")
+//            }
+//            catch{ print("删除T_Status失败")}
+//        })
         QorumLogs.enabled = true
         
-        SetUpAppearence()
+        setUpAppearence()
         // Override point for customization after application launch.
         window = UIWindow.init(frame: UIScreen.main.bounds)
         
@@ -31,13 +36,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             [weak self] (notification) in
             self!.window?.rootViewController = MainViewController()
         }
+        
+        //埋点
+        setHook()
         return true
     }
+
     deinit {
         NotificationCenter.default.removeObserver(self,name: NSNotification.Name(rawValue: WBSwitchVCControllerNotification), object: nil)
     }
+    
+    func setHook(){
+        //Hook用于在HomeWebViewController停留的时间
+        HomeWebViewController.initializeWithHook()
+    }
     //一般全局渲染的设置都放在Appdelegate,要在控件创建前设置,否则修改无效
-    func SetUpAppearence() {
+    func setUpAppearence() {
         
         UINavigationBar.appearance().tintColor = appearenceColor
         

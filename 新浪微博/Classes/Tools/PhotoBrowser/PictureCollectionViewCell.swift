@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 import SVProgressHUD
-
+import QorumLogs
 //MARK: - 点击图片代理
 protocol TouchPictureDelegate : NSObjectProtocol {
     func touchPicture()
@@ -34,18 +34,20 @@ class PictureCollectionViewCell: UICollectionViewCell {
             resetScrollView()
             //1,加载缩略图地址
             let tmpimage =  SDWebImageManager.shared().imageCache?.imageFromDiskCache(forKey: pictrueurl?.absoluteString)
-            
+           
             //imageview.sizeToFit()
             //imageview.center = scorllview.center
             setPlaceHolder(image: tmpimage)
-//            if !pictrueurl!.absoluteString.contains("gif")
-//            {
             //2,加载大图
             let bigurl = bmiddle(urlStirng: pictrueurl!.absoluteString)
             //大多数第三方的progress闭包都是异步执行
             //他们回调次数太多，如果太多ui涉及progress同步会造成主线程卡顿
             //大多数是添加个菊花让用户等待
-            
+            if bigurl.absoluteString.contains("gif")
+            {
+                 QL2(bigurl)
+            }
+                
             self.imageview.sd_setImage(with: bigurl, placeholderImage: tmpimage, options: [SDWebImageOptions.refreshCached,SDWebImageOptions.retryFailed], progress: { (current, total, _) in
                 
                 DispatchQueue.main.async {
@@ -92,7 +94,6 @@ class PictureCollectionViewCell: UICollectionViewCell {
 //                }
 //            }
         }
-        
     }
     
     func setPlaceHolder(image:UIImage?)  {
@@ -148,9 +149,10 @@ class PictureCollectionViewCell: UICollectionViewCell {
     func bmiddle(urlStirng: String) -> URL {
         
         let string = urlStirng.replacingOccurrences(of: "/thumbnail/", with: "/bmiddle/")
-        
+        //动图不动 则返回下面语句
         return URL(string: string)!
         
+//        return URL(string: "http://photocdn.sohu.com/20150721/mp23627612_1437451852870_2.gif")!
     }
     
     //MARK: - 生命周期函数

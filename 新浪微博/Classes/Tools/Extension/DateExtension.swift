@@ -10,6 +10,18 @@ import Foundation
 
 extension Date
 {
+    static var getCurrentTime : String{
+        let date = Date()
+        
+        let timeFormatter = DateFormatter()
+        
+        timeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        
+        let strNowTime = timeFormatter.string(from: date)
+        
+        return strNowTime
+    }
+    
     ///根据新浪微博提供的日期，生成相应的date对象
     static func sinaDate (dateString:String) -> Date?{
         

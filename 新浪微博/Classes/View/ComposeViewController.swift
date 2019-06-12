@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import QorumLogs
 //MARK: - 撰写控制器
 class ComposeViewController: UIViewController {
     
@@ -19,6 +19,7 @@ class ComposeViewController: UIViewController {
         dismiss(animated: true, completion: nil)
         
     }
+    
     @objc private func clickPush()
     {
         print(textview.emoticonText())
@@ -127,9 +128,9 @@ class ComposeViewController: UIViewController {
         //UIKeyboardAnimationCurveUserInfoKey
         //获取目标的动画时长
         let duration = (notification.userInfo!["UIKeyboardAnimationDurationUserInfoKey"] as! NSNumber).doubleValue
-        //动画曲线数值
+        //动画曲线数值 curve = 7
         let curve = (notification.userInfo!["UIKeyboardAnimationCurveUserInfoKey"] as! NSNumber).intValue
-        
+ 
         //UIKeyboardAnimationDurationUserInfoKey
         let offset = -UIScreen.main.bounds.height + rect.origin.y
         
@@ -137,14 +138,18 @@ class ComposeViewController: UIViewController {
         toolbar.snp.updateConstraints { (make) in
             make.bottom.equalTo(view.snp.bottom).offset(offset)
         }
-        //3.动画
+    //3.动画，键盘改变的时候，键盘会从缩到屏幕下放再上来，这时候toolbar约束跟着改变，就会出现toolbar弹跳的效果（及动画运动曲线过长）
         UIView.animate(withDuration: duration) {
+            //1,我们在拿到其将要运动到的地方，直接插入一个动画，系统会终止之前的动画，直接运行后面动画的位置
+            //2,animateBlock其实是对CAAnimation的封装，改变view的layer
+            //3,进行这一步骤后duration没有效果
             UIView.setAnimationCurve(UIView.AnimationCurve(rawValue: curve)!)
             self.view.layoutIfNeeded()
         }
+   
     }
     
-    //MAKR: -懒加载控件
+    //MARK: - 懒加载控件
     ///键盘上面的toolbar
     lazy var toolbar = UIToolbar()
     ///键盘输入的textVview
@@ -190,7 +195,7 @@ extension ComposeViewController
     
     ///布局图片选择器
     func preparePicturePicker() {
-        //如果不添加到childView，响应链条会断掉
+        //如果不添加到childView，响应链会断掉
         self.addChild(PicturePickerController)
         
         self.view.insertSubview(PicturePickerController.view, belowSubview: toolbar)
@@ -201,6 +206,7 @@ extension ComposeViewController
             make.right.equalTo(self.view.snp.right)
             make.height.equalTo(0)
         }
+        
     }
     
     ///布局键盘ToolBar
@@ -249,7 +255,7 @@ extension ComposeViewController
         textview.addSubview(placeHolderLabel)
         //2，设置布局
         textview.snp.makeConstraints { (make) in
-            make.top.equalTo(self.topLayoutGuide.snp.bottom)
+            make.top.equalTo(self.view.snp_top)
             make.left.equalTo(self.view.snp.left)
             make.right.equalTo(self.view.snp.right)
             make.bottom.equalTo(self.toolbar.snp.top)

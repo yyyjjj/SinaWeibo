@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import QorumLogs
 //MARK: - 进行逻辑操作
 class RefreshControl : UIRefreshControl {
     //反转零界点
@@ -24,9 +24,10 @@ class RefreshControl : UIRefreshControl {
         refreshView.startAnimation()
     }
     
-    //MARK: - KVO监听下拉高度
+    //MARK: - KVO监听RefreshController(外面ScrollView在下拉的时候，self的Y值会变化)下拉高度
     //控件始终在屏幕上面 x = 0 y初始值为0
     //下拉的时候Y值变小 上拉的时候Y值变大
+    //
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         //当y大于0就没有监听的意义了
         if frame.origin.y > 0 {
@@ -48,7 +49,11 @@ class RefreshControl : UIRefreshControl {
             //print("转回去")
             refreshView.reverseFlag = false
         }
-        //print(frame)
+        refreshView.snp.updateConstraints { (make) in
+            make.top.equalTo(-60-frame.origin.y)
+        }
+//        QL1(self.refreshView.frame)
+//        print(frame)
     }
     
     //MARK: - 初始化
@@ -62,20 +67,20 @@ class RefreshControl : UIRefreshControl {
         super.init(coder: aDecoder)
         self.setupUI()
     }
-    //MARK: -进行UI布局操作
+    //MARK: - 进行UI布局操作
     func setupUI(){
         //隐藏系统默认转轮
         tintColor = UIColor.clear
-        
         addSubview(refreshView)
         //从xib指定视图布局，需要设定xib大小
         refreshView.snp.makeConstraints { (make) in
-            make.center.equalTo(self.snp.center)
+            make.top.equalTo(self.snp.top).offset( -refreshView.bounds.size.height)
+            make.centerX.equalTo(self.snp_centerX)
             make.size.equalTo(refreshView.bounds.size)
         }
         
         //监听frame的变化，来改变下拉刷新
-        //把监听放到主队列去让其延迟监听，即刚刚开始的时候主线程在忙，先不执行主队列的任务，等下一次runloop开始(runloop接受到port,timer,source等用户开始滑动或加载网络数据)再去监听
+    //把监听放到主队列去让其延迟监听，即刚刚开始的时候主线程在忙，先不执行主队列的任务，等下一次runloop开始(runloop接受到port,timer,source等用户开始滑动或加载网络数据)再去监听
         DispatchQueue.main.async {
             self.addObserver(self, forKeyPath: "frame", options: [], context: nil)
         }
@@ -89,7 +94,7 @@ class RefreshControl : UIRefreshControl {
     private lazy var refreshView = RefreshView.refreshView
 }
 
-//MARK: -RefreshView类定义
+//MARK: - RefreshView类定义
 class RefreshView : UIView {
     
     @IBOutlet weak var tipView: UIView!
@@ -108,14 +113,17 @@ class RefreshView : UIView {
             return
         }
         
-        //        print("加载动画播放")
-        
         let anim = CABasicAnimation.init(keyPath: key)
         anim.toValue = 2*Double.pi
         anim.repeatCount = MAXFLOAT
         anim.duration = 20
         anim.isRemovedOnCompletion = false
         loadingIconView.layer.add(anim, forKey: key)
+        UIView.animate(withDuration: 1) {
+            self.snp.updateConstraints { (make) in
+                make.top.equalTo(0);
+            }
+        }
     }
     //MARK: -停止加载动画
     func stopAnimation() {
@@ -143,7 +151,7 @@ class RefreshView : UIView {
         //我们在angel加0.0001的话向左转要180.0001度，ios检测出走右边更近，就往右转
         //反过来就负数加了个正数，顺时针转下来更近
         angel += reverseFlag ? -0.0001 : 0.0001
-        //IOS图像旋转 就近原则 + 顺时针优先
+        //iOS图像旋转 就近原则 + 顺时针优先
         UIView.animate(withDuration: 0.5) {
             self.tip.transform = self.tip.transform.rotated(by:angel)
         }

@@ -55,6 +55,8 @@
 		69396A7D2248F3F30005E981 /* StatusTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69396A7C2248F3F30005E981 /* StatusTopView.swift */; };
 		69396A7F2248F4C20005E981 /* StatusBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69396A7E2248F4C20005E981 /* StatusBottomView.swift */; };
 		6939D95F2233660F004E7623 /* UserAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939D95E2233660F004E7623 /* UserAccountViewModel.swift */; };
+		693FCF232291A75D0048B4AE /* RTHook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FCF222291A75D0048B4AE /* RTHook.swift */; };
+		693FCF25229237360048B4AE /* UIViewController+Hook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FCF24229237360048B4AE /* UIViewController+Hook.swift */; };
 		6952C51E225E3A3B00A8DC97 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C51D225E3A3B00A8DC97 /* ComposeViewController.swift */; };
 		6952C522225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C521225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift */; };
 		6952C528225F646000A8DC97 /* EmoticonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C524225F646000A8DC97 /* EmoticonView.swift */; };
@@ -157,6 +159,8 @@
 		69396A7C2248F3F30005E981 /* StatusTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTopView.swift; sourceTree = "<group>"; };
 		69396A7E2248F4C20005E981 /* StatusBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBottomView.swift; sourceTree = "<group>"; };
 		6939D95E2233660F004E7623 /* UserAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewModel.swift; sourceTree = "<group>"; };
+		693FCF222291A75D0048B4AE /* RTHook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTHook.swift; sourceTree = "<group>"; };
+		693FCF24229237360048B4AE /* UIViewController+Hook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Hook.swift"; sourceTree = "<group>"; };
 		6952C51D225E3A3B00A8DC97 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		6952C521225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
 		6952C524225F646000A8DC97 /* EmoticonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonView.swift; sourceTree = "<group>"; };
@@ -274,6 +278,7 @@
 				69A306D522618AC900180F5A /* UIColor+Extension.swift */,
 				692C173F2273259800438774 /* DateExtension.swift */,
 				69327F632273EEF200D699CA /* String + Regex .swift */,
+				693FCF24229237360048B4AE /* UIViewController+Hook.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -381,6 +386,7 @@
 				69B0B3DB222EB3290020014B /* NetworkTool.swift */,
 				69693BE922584D0F001EB21B /* FPSLabel.swift */,
 				69365E40226CBF8100E6E53E /* FMDBManager.swift */,
+				693FCF222291A75D0048B4AE /* RTHook.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -869,6 +875,7 @@
 				69B0B3DC222EB3290020014B /* NetworkTool.swift in Sources */,
 				69365E5A226D41E600E6E53E /* FMDatabasePool.m in Sources */,
 				6936FC62222B7294002B9A19 /* MassageTableViewController.swift in Sources */,
+				693FCF232291A75D0048B4AE /* RTHook.swift in Sources */,
 				69215C092276E43C00962D46 /* HomeWebViewController.swift in Sources */,
 				69215C052276DA9C00962D46 /* FFLabel.swift in Sources */,
 				69396A7A2248F3930005E981 /* StatusCell.swift in Sources */,
@@ -883,6 +890,7 @@
 				69396A762248D5260005E981 /* User.swift in Sources */,
 				692A01602252494500131A21 /* RefreshControl.swift in Sources */,
 				6936FC64222B72A1002B9A19 /* DiscoverTableViewController.swift in Sources */,
+				693FCF25229237360048B4AE /* UIViewController+Hook.swift in Sources */,
 				6929BD7D222CD00E00EE13FA /* VisitorView.swift in Sources */,
 				69693BEA22584D0F001EB21B /* FPSLabel.swift in Sources */,
 				6936FC5E222B724C002B9A19 /* MainViewController.swift in Sources */,
@@ -1069,6 +1077,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NZW5MGH33R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1079,7 +1088,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lhj.----";
+				PRODUCT_BUNDLE_IDENTIFIER = "SinaWeiBo.lhj.----";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/lianghuajian/Desktop/iOS学习/Swift学习/项目/新浪微博/新浪微博/Weibo-Bridge.h";
@@ -1098,6 +1107,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NZW5MGH33R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1108,7 +1118,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lhj.----";
+				PRODUCT_BUNDLE_IDENTIFIER = "SinaWeiBo.lhj.----";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/lianghuajian/Desktop/iOS学习/Swift学习/项目/新浪微博/新浪微博/Weibo-Bridge.h";

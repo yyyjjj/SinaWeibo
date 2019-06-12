@@ -10,7 +10,7 @@ import UIKit
 let EmoticonCellID = "EmoticonCellID"
 
 class EmoticonView: UIView {
- 
+    
     ///表情点击闭包
     private var didSelectEmoticonCallBack : (Emoticon) -> ()
     
@@ -35,7 +35,7 @@ class EmoticonView: UIView {
         {
             packages[0].emoticons[packages[0].emoticons.index(of: em)!].times += 1
             packages[0].emoticons.sort(){ $0.times > $1.times}
-//            packages[0].emoticons = ems
+            //packages[0].emoticons = ems
             return
         }
         //数组头插入表情
@@ -44,7 +44,7 @@ class EmoticonView: UIView {
         packages[0].emoticons.remove(at: ems.count-2)
         packages[0].emoticons[packages[0].emoticons.index(of: em)!].times += 1
         packages[0].emoticons.sort(){ $0.times > $1.times}
-//        packages[0].emoticons = ems
+        //packages[0].emoticons = ems
     }
     //MARK: - 控件初始化
     init(didSelectEmoticon:@escaping (Emoticon) -> ()) {
@@ -63,16 +63,13 @@ class EmoticonView: UIView {
         //打开就滚到默认表情页
         let indexpath = IndexPath.init(item: 0, section: 1)
         
-//        DispatchQueue.main.async
-//        {
-            self.collectionviews.scrollToItem(at: indexpath, at: .left, animated: true)
-//        }
+        self.collectionviews.scrollToItem(at: indexpath, at: .left, animated: true)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     
 }
 //MARK: - 布局视图
@@ -111,12 +108,15 @@ extension EmoticonView{
         var items = [UIBarButtonItem]()
         
         var tag = 0
-        
+       
         packages.forEach {
+            
             items.append(UIBarButtonItem.init(title: $0.group_name_cn, style: .plain, target: self, action: #selector(didClickToolBar(item:))))
+            
             items.last?.tag = tag
             
             tag += 1
+            
             items.append(UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.fixedSpace, target: self, action: nil))
         }
         
@@ -179,8 +179,8 @@ extension EmoticonView : UICollectionViewDataSource,UICollectionViewDelegate{
         didSelectEmoticonCallBack(emoticon)
         
         if indexPath.section > 0{
-        //默认分组包进行表情热度排序，否则边点边刷新表情位置影响用户体验
-        addFavourite(em: emoticon)
+            //默认分组包进行表情热度排序，否则边点边刷新表情位置影响用户体验
+            addFavourite(em: emoticon)
         }
         print("indexpath = \(indexPath.section)")
     }

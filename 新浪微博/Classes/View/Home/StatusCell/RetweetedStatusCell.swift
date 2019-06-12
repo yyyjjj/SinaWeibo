@@ -22,11 +22,12 @@ class RetweetedStatusCell: StatusCell {
             
             retweetlabel.attributedText = EmoticonsViewModel.shared.emoticonText(string: text, font: retweetlabel.font)
             //断点调试 发现先调用父类方法再调用子类
-            //重写父类属性，不用super去调用，系统会自动调用父类操作，子类只需要专注子类的操作就可以了，类的继承
+        //重写父类属性，不用super去调用，系统会自动调用父类操作，子类只需要专注子类的操作就可以了，类的继承
             pictureView.snp.updateConstraints{ (make) in
                 let topofs = (viewModel?.thumbnails?.count)! > 0 ? StatusCellMargins : 0
                 make.top.equalTo(retweetlabel.snp.bottom).offset(topofs)
             }
+            pictureView.backgroundColor = UIColor.init(white: 0.95, alpha: 1.0)
         }
     }
     
@@ -72,7 +73,7 @@ extension RetweetedStatusCell{
         pictureView.snp.makeConstraints { (make) in
             make.top.equalTo(retweetlabel.snp.bottom).offset(StatusCellMargins)
             make.left.equalTo(retweetlabel.snp.left)
-            make.height.equalTo(300)
+            make.height.equalTo(200)
             make.width.equalTo(90)
         }
         //父类实现了对应的代理方法

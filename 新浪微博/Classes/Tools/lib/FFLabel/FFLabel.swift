@@ -52,9 +52,9 @@ public class FFLabel: UILabel {
         }
         
         let attrStringM = addLineBreak(attrString: attributedText!)
-        
+        //通过正则表达式给所有应该被标蓝的range封装成一个数组，复制给懒加载属性linkRanges
         regexLinkRanges(attrString: attrStringM)
-        
+        //把文字中ranges都标蓝
         addLinkAttribute(attrStringM: attrStringM)
         
         textStorage.setAttributedString(attrStringM)
@@ -150,6 +150,7 @@ public class FFLabel: UILabel {
         let location = touches.first!.location(in: self)
         
         selectedRange = linkRangeAtLocation(location: location)
+        
         modifySelectedAttribute(isSet: true)
     }
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

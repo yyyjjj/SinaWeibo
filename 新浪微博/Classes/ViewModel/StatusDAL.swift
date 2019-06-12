@@ -39,7 +39,8 @@ class StatusDAL {
         // 1,判断本地是否有缓存
         var array = loadFromDatabase(since_id: since_id, max_id: max_id)
         // 2,有的话从本地加载并返回字典数组
-        if array != nil {
+        
+        if array != nil  {
             print("使用了本地数据")
             finished(array!)
             return
@@ -124,7 +125,7 @@ class StatusDAL {
                     let status = try JSONSerialization.data(withJSONObject: dict, options: [])
                     
                     try db.executeUpdate(
-                        sql, values: [dict["id"]!,status,userId ?? ""])
+                        sql, values: [dict["id"]!,status,userId])
                 }
             }catch{
                 //补抓到错误进行数据库rollBack

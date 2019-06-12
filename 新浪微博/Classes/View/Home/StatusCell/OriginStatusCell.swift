@@ -16,21 +16,19 @@ class OriginStatusCell: StatusCell {
         {
             pictureView.snp.updateConstraints
             { (make) in
-//                    make.height.equalTo(pictureView.bounds.height)
-//                    make.width.equalTo(pictureView.bounds.width)
                     let topofs = (viewModel?.thumbnails?.count)! > 0 ? StatusCellMargins : 0
                     make.top.equalTo(contentLabel.snp.bottom).offset(topofs)
             }
         }
     }
-    
+    //重写父类方法，通过父类init调用这个
     override func SetUpUI() {
         super.SetUpUI()
         ///添加图片布局
         pictureView.snp.makeConstraints { (make) in
             make.top.equalTo(contentLabel.snp.bottom).offset(StatusCellMargins)
             make.left.equalTo(contentLabel.snp.left)
-            make.height.equalTo(300)
+            make.height.equalTo(200)
             make.width.equalTo(90)
         }
     }

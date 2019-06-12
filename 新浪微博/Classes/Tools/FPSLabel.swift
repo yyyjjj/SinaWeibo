@@ -57,8 +57,7 @@ class FPSLabel: UILabel {
         count = 0
         
         text = String.init(format: "%02.0f帧", round(fps))
-        
-//        print(text ?? "0")
+
     }
     
     /*

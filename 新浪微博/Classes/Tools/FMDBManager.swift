@@ -24,9 +24,11 @@ class FMDBManager: NSObject {
 //        print(path?.absoluteString)
         //如果不存在该数据库，队列会帮我们创建一个。
         DBqueue = FMDatabaseQueue.init(path: path!.absoluteString)
+        
         CreateTable()
         
     }
+    
     //MARK: - 创建表格
     func CreateTable(){
         
@@ -39,11 +41,6 @@ class FMDBManager: NSObject {
         {
         db.executeUpdate(sql, withArgumentsIn: [])
         }
-//            {
-//            print("创建表成功")
-//            }else{
-//            print("创建表失败")
-//            }
         })
         
     }

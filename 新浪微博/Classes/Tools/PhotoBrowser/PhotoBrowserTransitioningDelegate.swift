@@ -9,10 +9,12 @@
 import UIKit
 //MARK: - 图片present的代理
 protocol PhotoBrowserPresentDelegate : NSObjectProtocol{
+    
     func PhotoBrowserPresentFromRect(indexPath : IndexPath) -> CGRect
     func PhotoBrowserPresentToRect(indexPath : IndexPath) -> CGRect
     ///返回当前ImageView（在present中作为替身，完成动画后会被deinit）
     func PhotoPresentForAnimation(indexPath : IndexPath) -> UIImageView
+    
 }
 //MARK: - 图片dismiss的代理
 /// 我们要拿到参与制作动画的替身及其位置，以及当前indexPath
@@ -48,13 +50,14 @@ class PhotoBrowserTransitioningDelegate : NSObject, UIViewControllerTransitionin
         forPresented = true
         return self
     }
+    
     //返回完成dismiss转场动画的对象
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         forPresented = false
         return self
     }
 }
-//MARK: - 实现转场动画
+//MARK: - 实现转场动画的代理
 extension PhotoBrowserTransitioningDelegate: UIViewControllerAnimatedTransitioning {
     ///动画的时长
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -106,7 +109,7 @@ extension PhotoBrowserTransitioningDelegate: UIViewControllerAnimatedTransitioni
         }
        
     }
-    //dismiss转场动画
+    ///dismiss转场动画
     func AnimationForDismiss( transitionContext: UIViewControllerContextTransitioning){
         
         guard let PhotoPresentDelegate = PhotoPresentDelegate ,
@@ -126,6 +129,7 @@ extension PhotoBrowserTransitioningDelegate: UIViewControllerAnimatedTransitioni
         transitionContext.containerView.addSubview(imageView)
         
         let indexpath = PhotoDismissDelegate.CurrentIndexPath()!
+        
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
             
             imageView.frame = PhotoPresentDelegate.PhotoBrowserPresentFromRect(indexPath: indexpath)

@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-
+//API:https://open.weibo.com/wiki/微博API
 enum HttpRequestMethod {
     case GET
     case POST

@@ -15,7 +15,7 @@ class HomeTableViewController: VisitorTableViewController {
     
     var statuslistviewModel = StatusListViewModel()
     //MARK: - 懒加载控件
-    lazy var PhotoTransitionDelegate = PhotoBrowserTransitioningDelegate()
+    lazy var photoTransitionDelegate = PhotoBrowserTransitioningDelegate()
     ///刷新时的小转轮
     lazy var indicator : UIActivityIndicatorView = {
         let ind = UIActivityIndicatorView()
@@ -38,8 +38,8 @@ class HomeTableViewController: VisitorTableViewController {
         label.backgroundColor = UIColor.orange
         return label
     }()
-    ///用与在网络错误的时候，防止用户多次刷新
-    private var reloadSignal = 0
+///用与在网络错误的时候，防止用户多次刷新
+//    private var reloadSignal = 0
     //MARK: - 重新加载
     @objc func clickReloadButton(){
         LoadStatus()
@@ -53,8 +53,11 @@ class HomeTableViewController: VisitorTableViewController {
             visitorview?.SetUpInfo(imagename: nil, text:"关注一些人，回这里看看有什么惊喜")
             return
         }
+        
         prepareforTableView()
+        
         LoadStatus()
+        
         prepareReloadButton()
         //测试帧数
         //        let fpslabel = FPSLabel()
@@ -75,6 +78,7 @@ class HomeTableViewController: VisitorTableViewController {
             guard let urls = notification.userInfo?[NSNotification.Name.init(rawValue: WBPictureArrayNotification)] as? [URL] else{
                 return
             }
+            //PictureView的cell，PictureView遵循了PhotoBrowserPresentDelegate，协议的继承性
             guard let cell = notification.object as? PhotoBrowserPresentDelegate else{
                 return
             }
@@ -82,12 +86,12 @@ class HomeTableViewController: VisitorTableViewController {
             let vc = PhotoBrowserViewController(urls: urls, indexPath: indexpath)
             
             vc.modalPresentationStyle = .custom
-            //vc.modalTransitionStyle
-            vc.transitioningDelegate = self?.PhotoTransitionDelegate
+            
+            vc.transitioningDelegate = self?.photoTransitionDelegate
             
             //通过回传的PhotoView把其设置为代理对象
-            self?.PhotoTransitionDelegate.setPhotoDelegate(indexPath: indexpath, presentDelegate: cell, dismissDelegate: vc)
-            //print(cell)
+            self?.photoTransitionDelegate.setPhotoDelegate(indexPath: indexpath, presentDelegate: cell, dismissDelegate: vc)
+            
             self?.present(vc, animated: true
                 , completion: nil)
             
@@ -96,14 +100,19 @@ class HomeTableViewController: VisitorTableViewController {
     
     ///准备ReloadButton
     func prepareReloadButton() {
+        
         self.view.addSubview(reloadButton)
+        
         reloadButton.snp.makeConstraints { (make) in
             make.center.equalTo(self.view.snp.center)
             make.width.equalTo(100)
             make.height.equalTo(30)
         }
+        
         reloadButton.isHidden = true
+        
         reloadButton.addTarget(self, action: #selector(clickReloadButton), for: .touchUpInside)
+        
     }
     
     ///注册原创和转发微博cell
@@ -117,26 +126,31 @@ class HomeTableViewController: VisitorTableViewController {
         tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: RetweeetedStatusCellID)
         
         tableView.separatorStyle = .none
+        
         tableView.estimatedRowHeight = 400
-        refreshControl = UIRefreshControl()
-        //        refreshControl?.tintColor = .red
-        //RefreshControl()
-        //        let v = UIView()
-        //        v.backgroundColor = .red
-        //        v.frame = CGRect.init(x: 0, y: 0, width: 30, height: 30)
-        //        refreshControl?.addSubview(v)
-        refreshControl?.addTarget(self, action: #selector(LoadStatus), for: .valueChanged)
+        refreshControl = RefreshControl()
+//        refreshControl = UIRefreshControl()
+//        let redView = UIView.init(frame: CGRect(x: 0,y: 0,width: 50,height: 20))
+//        redView.backgroundColor = .red
+//        refreshControl?.addSubview(redView)
+//        refreshControl?.addTarget(self, action: #selector(LoadStatus), for: .valueChanged)
+//        UIControl.Event.touchDragExit
     }
-    
+    //MARK: - scrollViewDelegate
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        if scrollView.contentOffset.y <= -148
+        {
+            //刷新
+            print(scrollView.contentOffset.y)
+            LoadStatus()
+        }
+    }
     //MARK: - 加载Status数据到ListViewModel并刷新tableView
     @objc func LoadStatus(){
         refreshControl?.beginRefreshing()
-        reloadSignal += 1
-        if reloadSignal == 1{
             statuslistviewModel.LoadStatus(isPullUp: indicator.isAnimating)
             { (isSuccess) in
-                
-                self.refreshControl?.endRefreshing()
                 
                 self.indicator.stopAnimating()
                 
@@ -144,18 +158,15 @@ class HomeTableViewController: VisitorTableViewController {
                 {
                     SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
                     self.reloadButton.isHidden = false
-                    self.reloadSignal = 0
                     return
                 }
                 
                 self.addRefreshStatusLabel()
                 
                 self.reloadButton.isHidden = true
-                
-                self.reloadSignal = 0
-                
+              
                 self.tableView.reloadData()
-            }
+                self.refreshControl?.endRefreshing()
         }
     }
     
@@ -174,9 +185,11 @@ class HomeTableViewController: VisitorTableViewController {
         self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: -2*labelY)
         
         self.navigationController?.navigationBar.insertSubview(self.refreshStatusLabel, at: 0)
+        
         //我们在这里添加label在navibar上面还是下面
         UIView.animate(withDuration: 1.5, animations: {
             self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: labelY)
+            self.refreshControl?.endRefreshing()
         }, completion: { _ in
             //让动画保持一秒
             DispatchQueue.main.asyncAfter(deadline: .now()
@@ -184,17 +197,15 @@ class HomeTableViewController: VisitorTableViewController {
                     self.refreshStatusLabel.frame = CGRect.init(x: 0, y: -2*labelY, width: self.view.bounds.width, height: 44)
             })
         })
-        
     }
 }
-
 
 //MARK: - 数据源方法
 extension HomeTableViewController
 {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return statuslistviewModel.StatusList.count 
+//        QL1("调用了numberOfRowsInSection")
+        return statuslistviewModel.StatusList.count
     }
 }
 //MARK: - 代理方法
@@ -210,12 +221,15 @@ extension HomeTableViewController
         
         cell.viewModel = vm
         
-        cell.clickdelegate = self
+        cell.clickLabelDelegate = self
+        
+        cell.topView.clickdelegate = self
         
         if indexPath.row == statuslistviewModel.StatusList.count-1 && !indicator.isAnimating{
             indicator.startAnimating()
             LoadStatus()
         }
+//        QL1("调用了cellForRowAt")
         return cell
     }
     //MARK: - TODORowHeight
@@ -224,18 +238,25 @@ extension HomeTableViewController
     
     //情况一：设置了EstimateRowHeight
     //系统会根据填满界面Cell的数量，每个cell计算三次高度，其他的cell在用户滑动到再去调用
-    //调用顺序：行数 -> cell -> 行高
+    //调用顺序：行数 -> 行高 -> cell -> 行高
     //优化思路：我们可以把每一个model封装出一个rowHeight属性，缓存高度，防止多次计算Cell的高度
-    
     
     //情况二：没有设置EstimateRowHeight
     //系统一次计算所有的cell高度，并且每行计算3次，而且用户滑动的时候他仍然会计算高度,每个cell调用三次
     //系统会一次计算整个tableView的contentsize，假如cell的count是18，那么会计算18个cell的高度，这是因为UITableView继承于UIScrollView，为了增加用户滑动的时候的流畅性，会把所有需要的cell高度都提前计算好！
+    
     //苹果建议：如果设置了TableView.rowHeight 就不要使用下面方法，两者互斥。
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //print("计算了rowHeight----第\(indexPath.row)行")
+//        QL1("调用了行高计算")
+//        if cell != nil && (cell as! StatusCell).bottomView.frame.maxY != statuslistviewModel.StatusList[indexPath.row].rowHeight
+//        {
+//            statuslistviewModel.StatusList[indexPath.row].rowHeight = (cell as! StatusCell).bottomView.frame.maxY
+//        }
+        
         return statuslistviewModel.StatusList[indexPath.row].rowHeight
+//        return height
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -249,5 +270,12 @@ extension HomeTableViewController : ClickLabelDelegate
         let webVC = HomeWebViewController.init(url: url)
         webVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(webVC, animated:true)
+    }
+}
+
+extension HomeTableViewController : ClickUserIconProtocol
+{
+    func clickUserIcon(viewModel: StatusViewModel) {
+//        QL1("点击了\(viewModel.status.user!.screen_name)的头像")
     }
 }

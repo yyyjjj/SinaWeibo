@@ -24,6 +24,7 @@ class WelcomeViewController: UIViewController {
     func loadIcon(){
         //会先去磁盘找到该文件
         //如果没有就重新下载
+    
         SDWebImageManager.shared().loadImage(with: UserAccountViewModel.shared.avatar_largeURL, options: [.refreshCached,.retryFailed], progress: nil) { (image, data, _, _, _, _) in
             guard let image = image else{
                 return

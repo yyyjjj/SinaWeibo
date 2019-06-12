@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 import QorumLogs
-let pictureMargins : CGFloat = 8
+let pictureMargins : CGFloat = 6
 let CollectionViewCellID = "CollectionViewCellID"
 
 class StatusPictureView: UICollectionView {
@@ -55,7 +55,10 @@ extension StatusPictureView
         
         let count = viewModel?.thumbnails?.count ?? 0
         //print("viewModel?.thumbnails?.count = \(viewModel?.thumbnails?.count)")
-        if count == 0 {return CGSize.zero}
+        if count == 0
+        {
+            return CGSize.zero
+        }
         
         let itemwidth = ((UIScreen.main.bounds.size.width - 2 * StatusCellMargins)-2*pictureMargins)/3
         //拿到collectionItem 把他们都设置成正方形
@@ -68,6 +71,7 @@ extension StatusPictureView
             var size = CGSize.init(width: 150, height: 120)
             //key是URL的绝对地址 使用MD5加密
             if let url = viewModel?.thumbnails?.first?.absoluteString {
+                //小图
                 if let image = SDWebImageManager.shared().imageCache?.imageFromCache(forKey: url)
                 {
                 size = image.size
@@ -81,6 +85,7 @@ extension StatusPictureView
                 let h = size.height * w / size.width
                 size = CGSize(width: w, height: h)
             }
+            
             layout.itemSize = size
             
             return size
@@ -111,6 +116,7 @@ extension StatusPictureView :UICollectionViewDataSource,UICollectionViewDelegate
     ///点击事件
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //发布通知
+        
         //把选中的item，index和该条微博所有图片url
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: WBPictureCellSelectNotification), object: self, userInfo: [WBPictureCellIndexNotification:indexPath,
                                                                                                     WBPictureArrayNotification: viewModel!.thumbnails!])
@@ -137,9 +143,12 @@ extension StatusPictureView :UICollectionViewDataSource,UICollectionViewDelegate
 extension StatusPictureView : PhotoBrowserPresentDelegate
 {
     func PhotoPresentForAnimation(indexPath: IndexPath) -> UIImageView {
+        
         let iv = UIImageView()
+        
         //1,设置填充模式
         iv.contentMode = .scaleToFill
+        
         iv.clipsToBounds = true
         
         //2,从本地加载缩略图片
@@ -160,16 +169,22 @@ extension StatusPictureView : PhotoBrowserPresentDelegate
         guard  let image = SDWebImageManager.shared().imageCache?.imageFromDiskCache(forKey: url) else {
             return CGRect.zero
         }
+        
         //根据缩略图大小，计算全屏的大小
         //所以这里只需要拿到缩略图就行了
         let w = UIScreen.main.bounds.width
-        let h = image.size.height*w / image.size.width
+        
+        let h = image.size.height * w / image.size.width
         
         let screeenHeight =  UIScreen.main.bounds.height
+        
         var y : CGFloat = 0
+        
         //处理图片过长的情况
         if h < screeenHeight {
+            
             y = (screeenHeight - h) * 0.5
+            
         }
         
         let rect = CGRect.init(x: 0, y: y, width: w, height: h)
@@ -186,8 +201,10 @@ extension StatusPictureView : PhotoBrowserPresentDelegate
     }
     ///获取缩略图的rect
     func PhotoBrowserPresentFromRect(indexPath: IndexPath) -> CGRect {
+        
         //1,获取图片所在cell
         let cell = self.cellForItem(at: indexPath)
+        
         //2,坐标转换
         //当前cell在UIScreen的位置
         //self(collectionView)是cell的父视图
@@ -208,7 +225,6 @@ extension StatusPictureView : PhotoBrowserPresentDelegate
 
 ///MARK :-图片cell
 private class PictrueViewCell: UICollectionViewCell {
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -246,6 +262,7 @@ private class PictrueViewCell: UICollectionViewCell {
             }
         }
     }
+    
     //懒加载要指明类型，否则其他地方调用不清楚其属性
     private lazy var iconView : UIImageView = {
         

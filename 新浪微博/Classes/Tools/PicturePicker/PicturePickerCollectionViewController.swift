@@ -26,13 +26,11 @@ class PicturePickerCollectionViewController: UICollectionViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //collectionview != view
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
         // Register cell classes
         self.collectionView!.register(PictureItem.self, forCellWithReuseIdentifier: PictureIdentifier)
         
@@ -63,14 +61,14 @@ class PicturePickerCollectionViewController: UICollectionViewController {
         
     }
 }
+
 //MARK: - item点击事件代理
-extension PicturePickerCollectionViewController : PictureItemDelegate{
+extension PicturePickerCollectionViewController : PictureItemProtocol{
     
     func didClickAdd(cell : PictureItem) {
         
         if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
         {
-//            print("无法访问相册，请去系统设置允许当前app访问相册")
             return
         }
         
@@ -97,9 +95,9 @@ extension PicturePickerCollectionViewController : PictureItemDelegate{
         
         pictureArray.remove(at: indexpath.item)
         //deleteItems会把items删除，并且去检查itemCount是否跟删除后的一样，如果不一样就报错
-        //collectionView.deleteItems(at: [indexpath])
+        collectionView.deleteItems(at: [indexpath])
         //牺牲动画效果,规避检查机制
-        collectionView.reloadData()
+//        collectionView.reloadData()
 //        if pictureArray.count == maxSelections{
 //            collectionView.insertItems(at: [indexpath])
 //        }
@@ -114,8 +112,6 @@ extension PicturePickerCollectionViewController : UIImagePickerControllerDelegat
         let scaleImage = image.scaleTo(width: 600)
         
         //判断是添加图片还是更换图片
-        
-        
         if selectIndex >= pictureArray.count{
 //              print("进来了")
             pictureArray.append(scaleImage)
@@ -130,7 +126,7 @@ extension PicturePickerCollectionViewController : UIImagePickerControllerDelegat
 }
 
 //MARK: -PictureItem的代理方法
-@objc protocol PictureItemDelegate {
+@objc protocol PictureItemProtocol {
     
     @objc optional func didClickAdd(cell : PictureItem)
     @objc optional func didClickDelete(cell : PictureItem)
@@ -141,7 +137,7 @@ extension PicturePickerCollectionViewController : UIImagePickerControllerDelegat
 //由于我们的Item会被复用，我们会add太多target到self上面，我们要把点击方法绑到控制器
 class PictureItem : UICollectionViewCell{
     
-    var pictureDelegate : PictureItemDelegate!
+    var pictureDelegate : PictureItemProtocol!
     
     var image : UIImage?
     {
@@ -201,13 +197,11 @@ class PictureItem : UICollectionViewCell{
 extension PicturePickerCollectionViewController{
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return pictureArray.count+(maxSelections == pictureArray.count ? 0 : 1)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureIdentifier, for: indexPath) as! PictureItem
-        
         // Configure the cell
         //看看有没有图片，当前图像
         

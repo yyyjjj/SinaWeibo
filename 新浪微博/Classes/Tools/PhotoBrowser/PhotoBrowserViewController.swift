@@ -49,8 +49,7 @@ class PhotoBrowserViewController: UIViewController {
         bounds.size.width += 20
         
         view = UIView(frame:bounds)
-//        view.backgroundColor = .yellow
-//        self.collectionView.backgroundColor = .white
+
         setupUI()
         
     }
@@ -154,11 +153,13 @@ extension PhotoBrowserViewController : UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: pictureCellID, for: indexPath) as! PictureCollectionViewCell
         
-        //cell.backgroundColor = UIColor.randomColor
         cell.pictrueurl = urls[indexPath.item]
+        
         cell.pictureDelegate = self
+        
         return cell
     }
 }
@@ -194,7 +195,9 @@ extension PhotoBrowserViewController : TouchPictureDelegate
 
 //MARK: - 图片dismiss代理
 extension PhotoBrowserViewController : PhotoBrowserDismissDelegate{
+    ///制作动画的大图替身，做完动画后被deinit
     func PhotoDimissForAnimation() -> UIImageView? {
+        
         guard let cell = self.collectionView.visibleCells[0] as? PictureCollectionViewCell else{
             return nil
         }
@@ -208,6 +211,7 @@ extension PhotoBrowserViewController : PhotoBrowserDismissDelegate{
         imageView.image = cell.imageview.image
         
         imageView.frame = cell.scrollview.convert(cell.imageview.frame, to: UIApplication.shared.keyWindow!)
+        
         
         return imageView
     }
