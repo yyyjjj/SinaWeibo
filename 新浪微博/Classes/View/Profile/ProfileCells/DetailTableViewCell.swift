@@ -26,11 +26,14 @@ class DetailTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUpUI()
-        prepareCollectionView()
+        prepareCollectionView() 
     }
     
     //MARK: - 视图布局
     func setUpUI() {
+        //0,设置cell
+        self.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: screenWidth)
+        self.selectionStyle = .none
         //1,添加控件
         self.addSubview(spaView)
         self.addSubview(collectionView)
@@ -48,6 +51,7 @@ class DetailTableViewCell: UITableViewCell {
             make.height.equalTo(cellHeight-spaHeight)
         }
     }
+    
     func prepareCollectionView()
     {
         collectionView.backgroundColor = .white

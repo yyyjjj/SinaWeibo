@@ -37,6 +37,7 @@ class IconTableViewCell: UITableViewCell {
     //MARK: - 视图布局
     func setUpUI(){
         //0.设置cell的样式
+        self.selectionStyle = .none
         //1.添加视图
         self.addSubview(spaView)
         self.addSubview(iconImageView)
@@ -44,6 +45,7 @@ class IconTableViewCell: UITableViewCell {
         self.addSubview(introductionLabel)
         self.addSubview(vipCenterLabel)
         self.addSubview(vipImageView)
+        
         //2.添加布局
         spaView.snp.makeConstraints { (make) in
             make.left.equalTo(self.contentView.snp_left)

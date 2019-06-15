@@ -40,6 +40,9 @@ class InfoTableViewCell: UITableViewCell {
     
     //MARK: - 视图布局
     func setUpUI() {
+        //0,设置cell
+        self.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: screenWidth)
+        self.selectionStyle = .none
         //1,添加控件
         self.addSubview(weiboCountLabel)
         self.addSubview(followCountLabel)

@@ -109,6 +109,8 @@ class ProfileTableViewController: VisitorTableViewController {
                 make.width.equalTo(screenWidth)
                 make.height.equalTo(spaHeight)
             }
+            cell.selectionStyle = .none
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: screenWidth)
             cell.contentView.addSubview(refreshButton)
             refreshButton.snp.makeConstraints { (make) in
                 make.centerX.equalTo(cell.contentView.snp.centerX)
@@ -123,6 +125,8 @@ class ProfileTableViewController: VisitorTableViewController {
                 make.width.equalTo(screenWidth)
                 make.height.equalTo(spaHeight)
             }
+            cell.selectionStyle = .none
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: screenWidth)
             cell.contentView.addSubview(logoutButton)
             logoutButton.snp.makeConstraints { (make) in
                 make.centerX.equalTo(cell.contentView.snp.centerX)
