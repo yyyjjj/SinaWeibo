@@ -48,8 +48,8 @@ class ComposeViewController: UIViewController {
     {
 
         textview.resignFirstResponder()
-        //如果用户当前是表情键盘那么就把inputView置为nil,在becomeFirstResponder的时候会把键盘置为inputView
-        //如果当前用户是系统键盘那么就把inputView置为表情键盘，在becomeFirstResponder的时候就不会使用系统键盘
+    //如果用户当前是表情键盘那么就把inputView置为nil,在becomeFirstResponder的时候会把键盘置为inputView
+    //如果当前用户是系统键盘那么就把inputView置为表情键盘，在becomeFirstResponder的时候就不会使用系统键盘
         if textview.inputView == nil
         {
             textview.inputView = emoticonview
@@ -70,6 +70,8 @@ class ComposeViewController: UIViewController {
     
     @objc private func clickAddPhoto()
     {
+        if PicturePickerController.view.bounds.size.height == 0
+        {
         //退掉键盘
         textview.resignFirstResponder()
         //防止多次重新布局
@@ -89,6 +91,17 @@ class ComposeViewController: UIViewController {
         UIView.animate(withDuration: 0.5)
         {
             self.view.layoutIfNeeded()
+        }
+        }else {
+            textview.snp.remakeConstraints { (make) in
+                make.top.equalTo(topLayoutGuide.snp.bottom)
+                make.left.equalTo(view.snp.left)
+                make.right.equalTo(view.snp.right)
+                make.bottom.equalTo(toolbar.snp.top)
+            }
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
         }
     }
     //MARK: - 生命周期
@@ -184,7 +197,6 @@ extension ComposeViewController
     func setupUI()
     {
         //ios7-11需要设置下面为false，否则他认为你collection默认有个导航条
-//        automaticallyAdjustsScrollViewInsets
         //1，设置背景颜色
         view.backgroundColor = .white
         prepareNavigationBar()

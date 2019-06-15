@@ -8,7 +8,7 @@
 
 import UIKit
 //用户初模型
-@objcMembers  class UserAccount :NSObject,NSCoding,Codable{
+@objcMembers class UserAccount :NSObject,NSCoding,Codable{
     //MARK: - 属性
     ///用户令牌
     var access_token : String?
@@ -28,7 +28,12 @@ import UIKit
     var isRealName : String?
     ///用户所在t地
     var location : String?
-    
+    ///粉丝数
+    var followers_count : String?
+    ///关注数
+    var friends_count : String?
+    ///微博数
+    var statuses_count : String?
     ///个人描述
     //var description : String?
     ///归档数据写入沙盒

@@ -142,6 +142,10 @@ extension UserAccountViewModel {
             account.screen_name = dict["screen_name"] as? String
             account.avatar_large = dict["avatar_large"] as? String
             account.location = dict["location"] as? String
+            account.friends_count = String(dict["friends_count"]as! Int)
+            account.followers_count = String(dict["followers_count"] as! Int)
+            account.statuses_count = String(dict["statuses_count"] as! Int)
+            
 //            print("userAountpath=\(self.accountPath)")
            //把数据写入沙盒
             //NSKeyedArchiver.archiveRootObject(account, toFile: self.accountPath.absoluteString)

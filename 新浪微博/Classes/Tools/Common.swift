@@ -7,6 +7,9 @@
 //
 //类似与OC的pch文件
 import UIKit
+let screenHeight = UIApplication.shared.keyWindow!.frame.size.height
+let screenWidth = UIApplication.shared.keyWindow!.frame.size.width
+let spaHeight = screenHeight * 0.017
 //window切换MainVC通知
 let WBSwitchVCControllerNotification = "WBSwitchVCControllerNotification"
 
@@ -17,6 +20,8 @@ let WBPictureCellIndexNotification = "WBPictureCellIndexNotification"
 //当前图片组
 let WBPictureArrayNotification = "WBPictureArrayNotification"
 
+//MARK: - 颜色
 //设置全局颜色
 let appearenceColor = UIColor.orange
-
+//分割条颜色
+let spaColor = UIColor.init(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1)

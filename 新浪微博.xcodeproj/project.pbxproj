@@ -45,7 +45,6 @@
 		6936FC64222B72A1002B9A19 /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC63222B72A1002B9A19 /* DiscoverTableViewController.swift */; };
 		6936FC66222B72B2002B9A19 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC65222B72B2002B9A19 /* ProfileTableViewController.swift */; };
 		6938D1F322389130004390DE /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6938D1F222389130004390DE /* SDWebImage.framework */; };
-		6938D1F522389523004390DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6938D1F422389523004390DE /* Assets.xcassets */; };
 		6938D1F72238B2E0004390DE /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6938D1F62238B2E0004390DE /* SVProgressHUD.framework */; };
 		69396A7222487A020005E981 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69396A7122487A020005E981 /* Status.swift */; };
 		69396A742248C84E0005E981 /* StatusVListiewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69396A732248C84E0005E981 /* StatusVListiewModel.swift */; };
@@ -70,8 +69,12 @@
 		6952C5D32260E22100A8DC97 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C5D22260E22100A8DC97 /* UIImage+Extension.swift */; };
 		6952C5D62260E24500A8DC97 /* PicturePickerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C5D52260E24500A8DC97 /* PicturePickerCollectionViewController.swift */; };
 		6952C5D92260FF0C00A8DC97 /* PhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C5D82260FF0C00A8DC97 /* PhotoBrowserViewController.swift */; };
+		6962705522B49F5400E9B8D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6962705422B49F5400E9B8D5 /* Assets.xcassets */; };
 		696370B52237B61E00DBAC0C /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696370B42237B61E00DBAC0C /* SnapKit.framework */; };
 		69693BEA22584D0F001EB21B /* FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69693BE922584D0F001EB21B /* FPSLabel.swift */; };
+		697078C422B24B7300EECF84 /* IconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697078C322B24B7300EECF84 /* IconTableViewCell.swift */; };
+		697078C622B24B8800EECF84 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697078C522B24B8800EECF84 /* InfoTableViewCell.swift */; };
+		697078C822B24B9B00EECF84 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697078C722B24B9B00EECF84 /* DetailTableViewCell.swift */; };
 		6976DA3C2236834D009E17EC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6976DA3B2236834D009E17EC /* WelcomeViewController.swift */; };
 		69A306D622618AC900180F5A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A306D522618AC900180F5A /* UIColor+Extension.swift */; };
 		69A306D8226193A800180F5A /* PictureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A306D7226193A800180F5A /* PictureCollectionViewCell.swift */; };
@@ -149,7 +152,6 @@
 		6936FC63222B72A1002B9A19 /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
 		6936FC65222B72B2002B9A19 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		6938D1F222389130004390DE /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6938D1F422389523004390DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6938D1F62238B2E0004390DE /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69396A7122487A020005E981 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		69396A732248C84E0005E981 /* StatusVListiewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusVListiewModel.swift; sourceTree = "<group>"; };
@@ -174,10 +176,14 @@
 		6952C5D22260E22100A8DC97 /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		6952C5D52260E24500A8DC97 /* PicturePickerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturePickerCollectionViewController.swift; sourceTree = "<group>"; };
 		6952C5D82260FF0C00A8DC97 /* PhotoBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserViewController.swift; sourceTree = "<group>"; };
+		6962705422B49F5400E9B8D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		696370B22237B61E00DBAC0C /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		696370B42237B61E00DBAC0C /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69693BE922584D0F001EB21B /* FPSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPSLabel.swift; sourceTree = "<group>"; };
 		69693BEB22584DCB001EB21B /* Pods_新浪微博.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "Pods_新浪微博.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		697078C322B24B7300EECF84 /* IconTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTableViewCell.swift; sourceTree = "<group>"; };
+		697078C522B24B8800EECF84 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		697078C722B24B9B00EECF84 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		6976DA3B2236834D009E17EC /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		69A306D522618AC900180F5A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		69A306D7226193A800180F5A /* PictureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -429,6 +435,7 @@
 		6936FC58222B70A1002B9A19 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				697078C222B24B3800EECF84 /* ProfileCells */,
 				6936FC65222B72B2002B9A19 /* ProfileTableViewController.swift */,
 			);
 			path = Profile;
@@ -541,6 +548,16 @@
 			path = PhotoBrowser;
 			sourceTree = "<group>";
 		};
+		697078C222B24B3800EECF84 /* ProfileCells */ = {
+			isa = PBXGroup;
+			children = (
+				697078C322B24B7300EECF84 /* IconTableViewCell.swift */,
+				697078C522B24B8800EECF84 /* InfoTableViewCell.swift */,
+				697078C722B24B9B00EECF84 /* DetailTableViewCell.swift */,
+			);
+			path = ProfileCells;
+			sourceTree = "<group>";
+		};
 		69DFBD6122360B3C007AF947 /* NewFeature */ = {
 			isa = PBXGroup;
 			children = (
@@ -578,7 +595,7 @@
 				6936FC53222B705C002B9A19 /* Classes */,
 				69E59F4422296D1C00497ECF /* AppDelegate.swift */,
 				69365E44226CC14200E6E53E /* Weibo-Bridge.h */,
-				6938D1F422389523004390DE /* Assets.xcassets */,
+				6962705422B49F5400E9B8D5 /* Assets.xcassets */,
 				69E59F5022296D1C00497ECF /* Info.plist */,
 			);
 			path = "新浪微博";
@@ -728,8 +745,8 @@
 				6952C529225F646000A8DC97 /* Emoticons.bundle in Resources */,
 				69365E55226D41E600E6E53E /* README.markdown in Resources */,
 				69365E56226D41E600E6E53E /* LICENSE.txt in Resources */,
+				6962705522B49F5400E9B8D5 /* Assets.xcassets in Resources */,
 				69365E5D226D45D000E6E53E /* db.sql in Resources */,
-				6938D1F522389523004390DE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,6 +879,7 @@
 				6936FC66222B72B2002B9A19 /* ProfileTableViewController.swift in Sources */,
 				6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */,
 				69365E5B226D41E600E6E53E /* FMResultSet.m in Sources */,
+				697078C622B24B8800EECF84 /* InfoTableViewCell.swift in Sources */,
 				6952C53A225F655300A8DC97 /* EmoticonPackage.swift in Sources */,
 				6952C51E225E3A3B00A8DC97 /* ComposeViewController.swift in Sources */,
 				6929BD7F222CE5E900EE13FA /* UILabel+Extension.swift in Sources */,
@@ -884,6 +902,7 @@
 				6931F237222FB335008B4948 /* String+Extension.swift in Sources */,
 				692B74A022647B5600C1030B /* ProgressImageView.swift in Sources */,
 				69A306D622618AC900180F5A /* UIColor+Extension.swift in Sources */,
+				697078C822B24B9B00EECF84 /* DetailTableViewCell.swift in Sources */,
 				692A015D2251D8AD00131A21 /* OriginStatusCell.swift in Sources */,
 				6976DA3C2236834D009E17EC /* WelcomeViewController.swift in Sources */,
 				6929BD7A222CC9B300EE13FA /* VisitorTableViewController.swift in Sources */,
@@ -905,6 +924,7 @@
 				6952C528225F646000A8DC97 /* EmoticonView.swift in Sources */,
 				69396A782248EF1E0005E981 /* StatusViewModel.swift in Sources */,
 				6952C539225F655300A8DC97 /* Emoticon.swift in Sources */,
+				697078C422B24B7300EECF84 /* IconTableViewCell.swift in Sources */,
 				6929BD78222CB16200EE13FA /* UIButton+Extension.swift in Sources */,
 				69365E57226D41E600E6E53E /* FMDatabaseQueue.m in Sources */,
 				6952C5D92260FF0C00A8DC97 /* PhotoBrowserViewController.swift in Sources */,

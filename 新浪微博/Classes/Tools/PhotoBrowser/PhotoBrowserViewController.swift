@@ -79,7 +79,7 @@ class PhotoBrowserViewController: UIViewController {
     lazy var collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: PictureCollectionsFlowLayout())
     lazy var saveBtn = UIButton.init(text: "保存", textColor: .white, backImage: nil, isBack: false,backgroundColor : .lightGray)
     lazy var closeBtn = UIButton.init(text: "取消", textColor: .white, backImage: nil, isBack: false,backgroundColor : .lightGray)
-    
+
     //MAKR: - collectionView布局
     private class PictureCollectionsFlowLayout : UICollectionViewFlowLayout{
         override func prepare() {
@@ -120,13 +120,13 @@ extension PhotoBrowserViewController{
         //2，添加布局
         saveBtn.snp.makeConstraints { (make) in
             make.right.equalTo(self.view.snp.right).offset(-36)
-            make.bottom.equalTo(self.view.snp.bottom).offset(-16)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-36)
             make.size.equalTo(CGSize(width: 100, height: 36))
         }
         
         closeBtn.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(16)
-            make.bottom.equalTo(self.view.snp.bottom).offset(-16)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-36)
             make.size.equalTo(CGSize(width: 100, height: 36))
         }
         

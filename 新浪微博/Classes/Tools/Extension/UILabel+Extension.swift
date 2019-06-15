@@ -40,4 +40,14 @@ extension UILabel{
         sizeToFit()
         
     }
+    
+    convenience init( size : CGFloat , content : String , color : UIColor , alignment : NSTextAlignment , lines : Int , breakMode : NSLineBreakMode) {
+        self.init()
+        font = UIFont.systemFont(ofSize: size)
+        text = content
+        textColor = color
+        textAlignment = alignment
+        numberOfLines = lines
+        lineBreakMode = breakMode
+    }
 }

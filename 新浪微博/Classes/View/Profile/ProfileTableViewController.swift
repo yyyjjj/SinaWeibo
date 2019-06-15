@@ -8,13 +8,24 @@
 
 import UIKit
 import QorumLogs
+let IconTableViewCellID = "IconTableViewCell"
+let InfoTableViewCellID = "InfoTableViewCell"
+let DetailTableViewCellID = "DetailTableViewCell"
+let normalCellID = "normalCellID"
+//总共有多少个Cell
+let cellConunt = 5
 
-let profileCellId = "profileCellId"
-
+enum CellID : String{
+    case
+     IconTableViewCellID = "IconTableViewCell",
+     InfoTableViewCellID = "InfoTableViewCell",
+     DetailTableViewCellID = "DetailTableViewCell"
+}
 class ProfileTableViewController: VisitorTableViewController {
-    
+   
     var userAccountViewModel = UserAccountViewModel.shared
     //MARK: - 生命周期
+   
     override func viewDidLoad() {
     
         super.viewDidLoad()
@@ -27,50 +38,100 @@ class ProfileTableViewController: VisitorTableViewController {
         }
         
         setUpUI()
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: profileCellId)
-        
+        prepareForTableView()
+    }
+    
+    func prepareForTableView(){
+        tableView.backgroundColor = spaColor
+        tableView.register(IconTableViewCell.self, forCellReuseIdentifier:IconTableViewCellID)
+        tableView.register(InfoTableViewCell.self, forCellReuseIdentifier:InfoTableViewCellID)
+        tableView.register(DetailTableViewCell.self, forCellReuseIdentifier:DetailTableViewCellID)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: normalCellID)
     }
     
     //MARK: - 懒加载属性
-    lazy var refreshButton = UIButton.init(text: "更新用户", textColor: .blue, backImage: nil, isBack: false)
-    lazy var logoutButton = UIButton.init(text: "退出", textColor: .red, backImage: nil, isBack: false)
+    lazy var refreshButton : UIButton = {
+        let button = UIButton.init(text: "更新用户", textColor: .blue, backImage: nil, isBack: false)
+         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        return button
+    }()
+    lazy var logoutButton : UIButton =  {
+       let button = UIButton.init(text: "退出", textColor: .red, backImage: nil, isBack: false)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        return button
+        
+    }()
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return cellConunt
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 100
-        default:
-            return 44
+            return screenHeight*0.157
+        case 1:
+            return screenHeight*0.093
+        case 2:
+            return screenHeight*0.310
+        default :
+            return 44+spaHeight
         }
     }
+    var spaView1 : UIView = {
+        let spaView = UIView()
+        spaView.backgroundColor = spaColor
+        return spaView
+    }()
+    var spaView2 : UIView = {
+        let spaView = UIView()
+        spaView.backgroundColor = spaColor
+        return spaView
+    }()
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: profileCellId)
-        print(indexPath.row)
-        if cell == nil{
-            cell = UITableViewCell.init(style: .value1, reuseIdentifier: profileCellId)
-        }
-        
+        var cell : UITableViewCell!
         switch indexPath.row {
         case 0:
-            cell?.textLabel?.text = userAccountViewModel.account?.screen_name
-            cell?.imageView?.sd_setImage(with: userAccountViewModel.avatar_largeURL, completed: nil)
-            cell?.imageView?.layer.cornerRadius = 50
-            cell?.imageView?.clipsToBounds = true
-            cell?.detailTextLabel?.textColor = .red
-            cell?.accessoryType = .disclosureIndicator
+            cell = tableView.dequeueReusableCell(withIdentifier: CellID.IconTableViewCellID.rawValue)
+            (cell as! IconTableViewCell).viewModel = userAccountViewModel
         case 1:
-            cell?.textLabel?.text = "所在地：   \(userAccountViewModel.account!.location!)"
-            //        case 2:
-//        cell.textLabel?.text = userAccountViewModel.account.
+            cell = tableView.dequeueReusableCell(withIdentifier: CellID.InfoTableViewCellID.rawValue)
+            (cell as! InfoTableViewCell).viewModel = userAccountViewModel
+        case 2:
+            cell = tableView.dequeueReusableCell(withIdentifier: CellID.DetailTableViewCellID.rawValue)
+        case 3:
+            cell = tableView.dequeueReusableCell(withIdentifier: normalCellID)
+            cell.contentView.addSubview(spaView1)
+            spaView1.snp.makeConstraints { (make) in
+                make.top.equalTo(cell.contentView.snp.top)
+                make.left.equalTo(cell.contentView.snp.left)
+                make.width.equalTo(screenWidth)
+                make.height.equalTo(spaHeight)
+            }
+            cell.contentView.addSubview(refreshButton)
+            refreshButton.snp.makeConstraints { (make) in
+                make.centerX.equalTo(cell.contentView.snp.centerX)
+                make.centerY.equalTo(spaView1.snp.bottom).offset(22)
+            }
+        case 4:
+            cell = tableView.dequeueReusableCell(withIdentifier: normalCellID)
+            cell.contentView.addSubview(spaView2)
+            spaView2.snp.makeConstraints { (make) in
+                make.top.equalTo(cell.contentView.snp.top)
+                make.left.equalTo(cell.contentView.snp.left)
+                make.width.equalTo(screenWidth)
+                make.height.equalTo(spaHeight)
+            }
+            cell.contentView.addSubview(logoutButton)
+            logoutButton.snp.makeConstraints { (make) in
+                make.centerX.equalTo(cell.contentView.snp.centerX)
+                make.centerY.equalTo(spaView2.snp.bottom).offset(22)
+            }
         default:
-            return cell!
+            cell = tableView.dequeueReusableCell(withIdentifier: normalCellID)
         }
+        
         return cell!
     }
 }
@@ -79,22 +140,7 @@ class ProfileTableViewController: VisitorTableViewController {
 extension ProfileTableViewController {
     func setUpUI(){
         //0,控件设置
-        refreshButton.titleLabel?.textAlignment = .center
-        logoutButton.titleLabel?.textAlignment = .center
-        //1,添加控件
-//        UIApplication.shared.keyWindow?.addSubview(refreshButton)
-//        UIApplication.shared.keyWindow?.addSubview(logoutButton)
-        self.view.addSubview(refreshButton)
-        self.view.addSubview(logoutButton)
-        //2,添加约束
-        refreshButton.snp.makeConstraints { (make) in
-            make.center.equalTo(self.view.snp.center)
-        }
-        logoutButton.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.view.snp.centerY).offset(40)
-            make.centerX.equalTo(self.view.snp.centerX)
-        }
-        
+      
         //3,设置按钮监听
         refreshButton.addTarget(self, action: #selector(refresh) , for: .touchUpInside)
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)

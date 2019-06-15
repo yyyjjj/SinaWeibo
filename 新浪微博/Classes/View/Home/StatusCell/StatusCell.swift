@@ -93,7 +93,7 @@ extension StatusCell{
         
         contentLabel.snp.makeConstraints { (make) in
             make.top.equalTo(topView.snp.bottom).offset(StatusCellMargins)
-            make.left.equalTo(contentView.snp.left).offset(StatusCellMargins)
+           make.left.equalTo(contentView.snp.left).offset(StatusCellMargins)
         }
         
         bottomView.snp.makeConstraints { (make) in
