@@ -70,6 +70,10 @@
 		6952C5D62260E24500A8DC97 /* PicturePickerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C5D52260E24500A8DC97 /* PicturePickerCollectionViewController.swift */; };
 		6952C5D92260FF0C00A8DC97 /* PhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C5D82260FF0C00A8DC97 /* PhotoBrowserViewController.swift */; };
 		6962705522B49F5400E9B8D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6962705422B49F5400E9B8D5 /* Assets.xcassets */; };
+		6962709322B624E000E9B8D5 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6962709222B624E000E9B8D5 /* MessageTableViewController.swift */; };
+		6962709522B6260A00E9B8D5 /* MessageTableViewCellTypeOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6962709422B6260A00E9B8D5 /* MessageTableViewCellTypeOne.swift */; };
+		6962709822B6262700E9B8D5 /* MessageTableViewCellTypeTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6962709722B6262700E9B8D5 /* MessageTableViewCellTypeTwo.swift */; };
+		6962709A22B62F9400E9B8D5 /* NotifyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6962709922B62F9400E9B8D5 /* NotifyTableViewController.swift */; };
 		696370B52237B61E00DBAC0C /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696370B42237B61E00DBAC0C /* SnapKit.framework */; };
 		69693BEA22584D0F001EB21B /* FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69693BE922584D0F001EB21B /* FPSLabel.swift */; };
 		697078C422B24B7300EECF84 /* IconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697078C322B24B7300EECF84 /* IconTableViewCell.swift */; };
@@ -177,6 +181,10 @@
 		6952C5D52260E24500A8DC97 /* PicturePickerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturePickerCollectionViewController.swift; sourceTree = "<group>"; };
 		6952C5D82260FF0C00A8DC97 /* PhotoBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserViewController.swift; sourceTree = "<group>"; };
 		6962705422B49F5400E9B8D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6962709222B624E000E9B8D5 /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
+		6962709422B6260A00E9B8D5 /* MessageTableViewCellTypeOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCellTypeOne.swift; sourceTree = "<group>"; };
+		6962709722B6262700E9B8D5 /* MessageTableViewCellTypeTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCellTypeTwo.swift; sourceTree = "<group>"; };
+		6962709922B62F9400E9B8D5 /* NotifyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyTableViewController.swift; sourceTree = "<group>"; };
 		696370B22237B61E00DBAC0C /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		696370B42237B61E00DBAC0C /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69693BE922584D0F001EB21B /* FPSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPSLabel.swift; sourceTree = "<group>"; };
@@ -425,7 +433,7 @@
 				6931F235222F6A16008B4948 /* OAuth */,
 				6936FC5B222B70A9002B9A19 /* Main */,
 				6936FC5C222B70CD002B9A19 /* Home */,
-				6936FC59222B70A4002B9A19 /* Massage */,
+				6936FC59222B70A4002B9A19 /* Message */,
 				6936FC5A222B70A6002B9A19 /* Discover */,
 				6936FC58222B70A1002B9A19 /* Profile */,
 			);
@@ -441,12 +449,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		6936FC59222B70A4002B9A19 /* Massage */ = {
+		6936FC59222B70A4002B9A19 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				6962709122B6249A00E9B8D5 /* NotifyTableViewController */,
+				6962709022B6247700E9B8D5 /* MessageTableViewController */,
 				6936FC61222B7294002B9A19 /* MassageTableViewController.swift */,
 			);
-			path = Massage;
+			path = Message;
 			sourceTree = "<group>";
 		};
 		6936FC5A222B70A6002B9A19 /* Discover */ = {
@@ -546,6 +556,32 @@
 				692E0D062265B4D9002F84C2 /* PhotoBrowserTransitioningDelegate.swift */,
 			);
 			path = PhotoBrowser;
+			sourceTree = "<group>";
+		};
+		6962709022B6247700E9B8D5 /* MessageTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6962709222B624E000E9B8D5 /* MessageTableViewController.swift */,
+				6962709622B6261200E9B8D5 /* Cell */,
+			);
+			path = MessageTableViewController;
+			sourceTree = "<group>";
+		};
+		6962709122B6249A00E9B8D5 /* NotifyTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6962709922B62F9400E9B8D5 /* NotifyTableViewController.swift */,
+			);
+			path = NotifyTableViewController;
+			sourceTree = "<group>";
+		};
+		6962709622B6261200E9B8D5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6962709422B6260A00E9B8D5 /* MessageTableViewCellTypeOne.swift */,
+				6962709722B6262700E9B8D5 /* MessageTableViewCellTypeTwo.swift */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		697078C222B24B3800EECF84 /* ProfileCells */ = {
@@ -896,6 +932,7 @@
 				693FCF232291A75D0048B4AE /* RTHook.swift in Sources */,
 				69215C092276E43C00962D46 /* HomeWebViewController.swift in Sources */,
 				69215C052276DA9C00962D46 /* FFLabel.swift in Sources */,
+				6962709522B6260A00E9B8D5 /* MessageTableViewCellTypeOne.swift in Sources */,
 				69396A7A2248F3930005E981 /* StatusCell.swift in Sources */,
 				69327F642273EEF200D699CA /* String + Regex .swift in Sources */,
 				69396A7F2248F4C20005E981 /* StatusBottomView.swift in Sources */,
@@ -906,7 +943,10 @@
 				692A015D2251D8AD00131A21 /* OriginStatusCell.swift in Sources */,
 				6976DA3C2236834D009E17EC /* WelcomeViewController.swift in Sources */,
 				6929BD7A222CC9B300EE13FA /* VisitorTableViewController.swift in Sources */,
+				6962709322B624E000E9B8D5 /* MessageTableViewController.swift in Sources */,
 				69396A762248D5260005E981 /* User.swift in Sources */,
+				6962709822B6262700E9B8D5 /* MessageTableViewCellTypeTwo.swift in Sources */,
+				6962709A22B62F9400E9B8D5 /* NotifyTableViewController.swift in Sources */,
 				692A01602252494500131A21 /* RefreshControl.swift in Sources */,
 				6936FC64222B72A1002B9A19 /* DiscoverTableViewController.swift in Sources */,
 				693FCF25229237360048B4AE /* UIViewController+Hook.swift in Sources */,

@@ -11,11 +11,11 @@ import UIKit
  *第三行cell
  */
 let detailCellID = "detailCellID"
-fileprivate let cellHeight = screenHeight*0.310
+
 ///Cell加载所需数据:存储结构[(label名字，图片名字)]
 fileprivate let dict = [("Albums","popover_icon_album"),("Weibo Wallet","wblive_icon_buy"),("My Story","story_redpack_head"),("Weibo Store","story_icon_shoppingbag"),("Likes","story_icon_liked"),("Fanstop","YXLBuffing"),("Fans service","popover_icon_text"),("Help","video_my_video_service")]
 class DetailTableViewCell: UITableViewCell {
-    
+    let cellHeight = screenHeight*0.310
     //MARK: - 生命周期
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

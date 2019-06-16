@@ -10,9 +10,10 @@ import UIKit
 /*
  *第二行cell
  */
-fileprivate let cellHeight = screenHeight*0.093
-fileprivate let cellMargin = cellHeight*0.18
+
 class InfoTableViewCell: UITableViewCell {
+    let cellHeight = screenHeight*0.093
+    let cellMargin = screenHeight*0.093*0.18
     var viewModel : UserAccountViewModel?
     {
         didSet

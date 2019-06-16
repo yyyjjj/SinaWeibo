@@ -15,14 +15,13 @@ let normalCellID = "normalCellID"
 //总共有多少个Cell
 let cellConunt = 5
 
-enum CellID : String{
-    case
-     IconTableViewCellID = "IconTableViewCell",
-     InfoTableViewCellID = "InfoTableViewCell",
-     DetailTableViewCellID = "DetailTableViewCell"
-}
 class ProfileTableViewController: VisitorTableViewController {
-   
+    enum CellID : String{
+        case
+        IconTableViewCellID = "IconTableViewCell",
+        InfoTableViewCellID = "InfoTableViewCell",
+        DetailTableViewCellID = "DetailTableViewCell"
+    }
     var userAccountViewModel = UserAccountViewModel.shared
     //MARK: - 生命周期
    

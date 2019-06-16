@@ -10,8 +10,7 @@
  */
 import UIKit
 
-fileprivate let cellHeight = screenHeight*0.157
-fileprivate let cellMargin = cellHeight*0.14
+
 /*
  *布局
  * 高度
@@ -24,7 +23,8 @@ fileprivate let cellMargin = cellHeight*0.14
  *个人介绍：0.31
  */
 class IconTableViewCell: UITableViewCell {
-    
+    let cellHeight = screenHeight*0.157
+    let cellMargin = screenHeight*0.157*0.14
     //MARK: - 生命周期
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

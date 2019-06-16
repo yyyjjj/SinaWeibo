@@ -8,7 +8,9 @@
 
 import UIKit
 var currenPage = 1
-fileprivate let titleCellID = "titleCellID"
+private let titleCellID = "titleCellID"
+let backColor = UIColor.init(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
+
 class MassageTableViewController: VisitorTableViewController {
     //MARK: - 生命周期
     override func loadView() {
@@ -18,9 +20,11 @@ class MassageTableViewController: VisitorTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if !UserAccountViewModel.shared.userLoginStatus {
+            self.navigationItem.title = "消息"
             visitorview?.SetUpInfo(imagename: "visitordiscover_image_message", text: "登录后，别人评论你的微博，发给你的消息，都会在这里收到通知。")
             return
         }
+       self.navigationItem.title = nil
         //添加数据
         setUp()
         preparePageViewController()
@@ -31,29 +35,41 @@ class MassageTableViewController: VisitorTableViewController {
     func setUp()
     {
         titles = ["Notice","Massage"]
-        for _ in 0..<2
-        {
-        let tbv = UITableViewController.init()
-            tbv.tableView.backgroundColor = .randomColor
-            controllers.append(tbv)
-        }
+        
+//            let tbv = UITableViewController.init()
+//            if i == 0{
+//             tbv.view.backgroundColor = UIColor.init(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1)
+//            tbv.tableView.isHidden = true
+//            }else {
+//            tbv.tableView.backgroundColor = backColor
+//            }
+            controllers.append(NotifyTableViewController())
+            controllers.append(MessageTableViewController())
     }
+    
     func preparePageViewController()
     {
         pageViewController.delegate = self
         pageViewController.dataSource = self
         self.addChild(pageViewController)
         self.view.addSubview(pageViewController.view)
+        
+        pageViewController.view.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top)
+make.bottom.equalTo(self.view.snp.bottom).offset(self.tabBarController!.tabBar.bounds.size.height)
+            make.left.equalTo(self.view.snp.left)
+            make.right.equalTo(self.view.snp.right)
+        }
     }
     func prepareTitleCollectionView()
     {
         self.navigationController?.view.addSubview(titleCollectionView)
         titleCollectionView.snp.makeConstraints { (make) in
             make.width.equalTo(screenWidth*0.6)
-            make.height.equalTo(self.navigationController!.navigationBar.bounds.size.height)
+    make.height.equalTo(self.navigationController!.navigationBar.bounds.size.height)
         make.top.equalTo(self.navigationController!.navigationBar.snp.top)
         make.centerX.equalTo(self.navigationController!.view.snp.centerX)
-        }
+}
         titleCollectionView.delegate = self
         titleCollectionView.dataSource = self
         titleCollectionView.register(TitleCollectionCell.self, forCellWithReuseIdentifier: titleCellID)
@@ -75,7 +91,7 @@ class MassageTableViewController: VisitorTableViewController {
     ///头部collectionView
     lazy var titleCollectionView : UICollectionView = {
         let cv = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: TitleFlowLayout())
-        cv.backgroundColor = .white
+        cv.backgroundColor = .clear
         return cv
     }()
     ///头部collectionView的item布局
@@ -111,7 +127,6 @@ extension MassageTableViewController : UICollectionViewDelegate,UICollectionView
         }
         switch indexPath.row {
         case 0:
-           
             cell.title.text = "Notice"
 //            cell.backgroundColor = .randomColor
         case 1:
@@ -161,21 +176,26 @@ extension MassageTableViewController : UIPageViewControllerDelegate,UIPageViewCo
         return controllers[index]
     }
     
-    //准备开始滚动 更新currentPage
+    //准备开始动画 更新currentPage
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        
         pending = controllers.index(of: pendingViewControllers.first!)!
     }
-    //滚动完成，提醒titleCollectionView更新
+    //动画完成，提醒titleCollectionView更新
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if previousViewControllers.first! == controllers[currenPage]
+        //判断是否真的有滚动到下一个界面
+        if pageViewController.viewControllers!.first!.isEqual(previousViewControllers.first)
         {
+            return
+        }
+        
         currenPage = pending
         titleCollectionView.scrollToItem(at: IndexPath.init(row: currenPage, section: 0), at: .centeredHorizontally, animated: true)
         titleCollectionView.reloadData()
-        }
+        
     }
-    
 }
+
 
 //MARK: - 自定义titleCell
 class TitleCollectionCell: UICollectionViewCell {
