@@ -49,6 +49,5 @@ class EmoticonAttachment: NSTextAttachment
         fatalError("init(coder:) has not been implemented")
 
     }
-    
 
 }

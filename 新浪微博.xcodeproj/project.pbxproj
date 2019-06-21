@@ -10,6 +10,7 @@
 		37F93FBCD7A75B1BBFCE2AA4 /* Pods_____UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0E9620A00771451CD681F6 /* Pods_____UITests.framework */; };
 		69215C052276DA9C00962D46 /* FFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69215C042276DA9B00962D46 /* FFLabel.swift */; };
 		69215C092276E43C00962D46 /* HomeWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69215C082276E43C00962D46 /* HomeWebViewController.swift */; };
+		6927D5F222BC8E5D005FDAB9 /* LHJSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6927D5F122BC8E5D005FDAB9 /* LHJSearchBar.swift */; };
 		6929BD78222CB16200EE13FA /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD77222CB16200EE13FA /* UIButton+Extension.swift */; };
 		6929BD7A222CC9B300EE13FA /* VisitorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD79222CC9B300EE13FA /* VisitorTableViewController.swift */; };
 		6929BD7D222CD00E00EE13FA /* VisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929BD7C222CD00E00EE13FA /* VisitorView.swift */; };
@@ -113,6 +114,7 @@
 		57BE8FF9ACD0C183D4453DB3 /* Pods-新浪微博.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-新浪微博.debug.xcconfig"; path = "Pods/Target Support Files/Pods-新浪微博/Pods-新浪微博.debug.xcconfig"; sourceTree = "<group>"; };
 		69215C042276DA9B00962D46 /* FFLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFLabel.swift; sourceTree = "<group>"; };
 		69215C082276E43C00962D46 /* HomeWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWebViewController.swift; sourceTree = "<group>"; };
+		6927D5F122BC8E5D005FDAB9 /* LHJSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHJSearchBar.swift; sourceTree = "<group>"; };
 		6929BD77222CB16200EE13FA /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		6929BD79222CC9B300EE13FA /* VisitorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorTableViewController.swift; sourceTree = "<group>"; };
 		6929BD7C222CD00E00EE13FA /* VisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorView.swift; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 		6962709022B6247700E9B8D5 /* MessageTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				6927D5F122BC8E5D005FDAB9 /* LHJSearchBar.swift */,
 				6962709222B624E000E9B8D5 /* MessageTableViewController.swift */,
 				6962709622B6261200E9B8D5 /* Cell */,
 			);
@@ -973,6 +976,7 @@
 				6952C52A225F646000A8DC97 /* EmoticonAttachment.swift in Sources */,
 				6952C53B225F655300A8DC97 /* EmoticonsViewModel.swift in Sources */,
 				69DFBD6322360B57007AF947 /* NewFeatureCollectionViewController.swift in Sources */,
+				6927D5F222BC8E5D005FDAB9 /* LHJSearchBar.swift in Sources */,
 				6952C5D62260E24500A8DC97 /* PicturePickerCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

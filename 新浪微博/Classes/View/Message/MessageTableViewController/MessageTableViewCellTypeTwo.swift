@@ -10,8 +10,11 @@ import UIKit
 
 //消息的Cell，带有时间
 class MessageTableViewCellTypeTwo: UITableViewCell {
+    
     let cellHeight = screenHeight*0.115
+    
     let cellMargin = screenWidth*0.04
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpUI()

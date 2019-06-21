@@ -9,17 +9,33 @@
 import UIKit
 
 class NotifyTableViewController: UITableViewController {
-
+    
+    override func loadView() {
+        view = UIView.init(frame: CGRect.init(x: 0, y: 20, width: screenWidth, height: screenHeight))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+//        self.tableView.isHidden = true
+        self.view.backgroundColor = backColor
+        
+        self.view.addSubview(label)
+        
+        label.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view.snp.centerX)
+            make.centerY.equalTo(self.view.snp.centerY)
+            make.width.equalTo(160)
+            make.height.equalTo(20)
+        }
     }
-
+    
+    lazy var label = UILabel.init(size: 18, content: "还没有收到消息哦", color: .lightGray, alignment: .center, lines: 0, breakMode: .byTruncatingTail)
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

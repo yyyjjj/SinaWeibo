@@ -25,7 +25,9 @@ class MessageTableViewController: UITableViewController {
     //把多余的cell去掉
     self.tableView.tableHeaderView = topSearchBar
     self.tableView.tableHeaderView?.frame = CGRect.init(x: 0, y: 0, width: screenWidth, height: screenHeight*0.08)
-        topSearchBar.bounds = CGRect.init(x: 0, y: 0, width: screenWidth, height: 44)
+    topSearchBar.frame = CGRect.init(x: 0, y: 0, width: screenWidth, height: 44)
+      
+    topSearchBar.contentInset = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
     self.tableView.tableFooterView = UIView.init(frame: CGRect.zero)
     self.tableView.backgroundColor = backColor
     self.tableView.rowHeight = screenHeight*0.115
@@ -53,13 +55,11 @@ class MessageTableViewController: UITableViewController {
     }
     
     //MARK: - 懒加载属性
-    lazy var topSearchBar : UISearchBar = {
-        let sb = UISearchBar.init()
+    lazy var topSearchBar : LHJSearchBar = {
+        let sb = LHJSearchBar.init()
         sb.placeholder = "Search"
         sb.backgroundColor = backColor
-
-         sb.sizeToFit()
-        return sb
+    return sb
     }()
 //    extension
     /*

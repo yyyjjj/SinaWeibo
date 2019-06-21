@@ -7,7 +7,7 @@
 //
 
 import UIKit
-var currenPage = 1
+//var currenPage = 1
 private let titleCellID = "titleCellID"
 let backColor = UIColor.init(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
 
@@ -70,6 +70,7 @@ make.bottom.equalTo(self.view.snp.bottom).offset(self.tabBarController!.tabBar.b
         make.top.equalTo(self.navigationController!.navigationBar.snp.top)
         make.centerX.equalTo(self.navigationController!.view.snp.centerX)
 }
+        titleCollectionView.addSubview(bottomTail)
         titleCollectionView.delegate = self
         titleCollectionView.dataSource = self
         titleCollectionView.register(TitleCollectionCell.self, forCellWithReuseIdentifier: titleCellID)
@@ -84,8 +85,15 @@ make.bottom.equalTo(self.view.snp.bottom).offset(self.tabBarController!.tabBar.b
         let pgvc = UIPageViewController.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewController.OptionsKey.interPageSpacing:0])
         return pgvc
     }()
+    var itemSize = CGSize.init(width: screenWidth*0.3, height: 30)
     ///头部标题数组
     lazy var titles = [String]()
+    ///存储当前VC的index
+    var currentIndex = 1
+    
+    ///存储将要移动到的VC的index
+    var pendingIndex = 0
+    
     ///控制器数组
     lazy var controllers = [UIViewController]()
     ///头部collectionView
@@ -93,6 +101,14 @@ make.bottom.equalTo(self.view.snp.bottom).offset(self.tabBarController!.tabBar.b
         let cv = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: TitleFlowLayout())
         cv.backgroundColor = .clear
         return cv
+    }()
+    
+    lazy var bottomTail : UIView = {
+        let v = UIView.init(frame: CGRect.init(x: CGFloat(currentIndex)*self.itemSize.width + self.itemSize.width/3, y: 34, width: self.itemSize.width/3, height: 5))
+        v.backgroundColor = .orange
+        v.layer.cornerRadius = 2.5
+        v.clipsToBounds = true
+        return v
     }()
     ///头部collectionView的item布局
     private class TitleFlowLayout : UICollectionViewFlowLayout
@@ -107,6 +123,10 @@ make.bottom.equalTo(self.view.snp.bottom).offset(self.tabBarController!.tabBar.b
             collectionView?.showsHorizontalScrollIndicator = false
         }
     }
+    func currentItemRect(i : Int) ->CGRect
+    {
+        return CGRect.init(x: self.itemSize.width/3 + (CGFloat(i)*self.itemSize.width), y: 34, width: itemSize.width/3, height: 5)
+    }
 }
 
 //MARK: - titleCollectionView代理
@@ -118,7 +138,7 @@ extension MassageTableViewController : UICollectionViewDelegate,UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: titleCellID, for: indexPath) as! TitleCollectionCell
-        if currenPage == indexPath.row
+        if currentIndex == indexPath.row
         {
             cell.title.textColor = .orange
         }else
@@ -128,10 +148,8 @@ extension MassageTableViewController : UICollectionViewDelegate,UICollectionView
         switch indexPath.row {
         case 0:
             cell.title.text = "Notice"
-//            cell.backgroundColor = .randomColor
         case 1:
             cell.title.text = "Message"
-//            cell.backgroundColor = .randomColor
         default:
             return cell
         }
@@ -139,21 +157,27 @@ extension MassageTableViewController : UICollectionViewDelegate,UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row > currenPage
-        {currenPage = indexPath.row
-            pageViewController.setViewControllers([controllers[currenPage]], direction: .forward, animated: true) { (_) in
-                self.titleCollectionView.reloadData()
-            }
+        if indexPath.row > currentIndex
+        {       currentIndex = indexPath.row
+            pageViewController.setViewControllers([controllers[currentIndex]], direction: .forward, animated: true)
         }else
         {
-            currenPage = indexPath.row
-            pageViewController.setViewControllers([controllers[currenPage]], direction: .reverse, animated: true) { (_) in
-                self.titleCollectionView.reloadData()
+                currentIndex = indexPath.row
+            pageViewController.setViewControllers([controllers[currentIndex]], direction: .reverse, animated: true)
+        }
+        
+        let newRect = self.currentItemRect(i: indexPath.row)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.bottomTail.frame = newRect
+        }) { (finished) in
+            if finished
+            {
+                collectionView.reloadData()
             }
         }
     }
 }
-var pending = 0
+
 //MARK: - pageViewController代理
 extension MassageTableViewController : UIPageViewControllerDelegate,UIPageViewControllerDataSource
 {
@@ -176,23 +200,28 @@ extension MassageTableViewController : UIPageViewControllerDelegate,UIPageViewCo
         return controllers[index]
     }
     
-    //准备开始动画 更新currentPage
+    //将要滑动，更新currentIndex
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        
-        pending = controllers.index(of: pendingViewControllers.first!)!
+        pendingIndex = self.controllers.firstIndex(of: pendingViewControllers.first!)!
     }
-    //动画完成，提醒titleCollectionView更新
+    //滑动结束，把titleCV滚动到新的地方
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        //判断是否真的有滚动到下一个界面
-        if pageViewController.viewControllers!.first!.isEqual(previousViewControllers.first)
+        //看看动画完成后当前展示的view和想要展示的view是不是一样，如果一样就证明的确翻页了，更新titleCollectionView
+        if controllers.firstIndex(of: pageViewController.viewControllers!.first!) == pendingIndex
         {
-            return
+            self.currentIndex = pendingIndex
+            
+            self.titleCollectionView.scrollToItem(at: IndexPath.init(row: self.currentIndex, section: 0), at: .centeredHorizontally, animated: true)
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.bottomTail.frame = self.currentItemRect(i: self.currentIndex)
+            }) { (finished) in
+                if finished
+                {
+                    self.titleCollectionView.reloadData()
+                }
+            }
         }
-        
-        currenPage = pending
-        titleCollectionView.scrollToItem(at: IndexPath.init(row: currenPage, section: 0), at: .centeredHorizontally, animated: true)
-        titleCollectionView.reloadData()
-        
     }
 }
 
