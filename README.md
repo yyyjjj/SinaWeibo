@@ -3,13 +3,14 @@
 
 ### Register & Login VC
 ![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/Login1.png)
+![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/Refresh.gif)
 
 ### Status VC
 ![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/Status.gif)
-![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/Refresh.gif)
 
 ### Post a status
 ![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/Compose.gif)
+
 ![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/PicturePicker.png)
 
 ### Message
