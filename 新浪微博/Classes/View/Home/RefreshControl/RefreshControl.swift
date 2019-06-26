@@ -15,12 +15,14 @@ class RefreshControl : UIRefreshControl {
     //MARK: - 重写系统的Refresh方法
     override func endRefreshing() {
         super.endRefreshing()
+    
         //停止动画
         refreshView.stopAnimation()
     }
     
     override func beginRefreshing() {
         super.beginRefreshing()
+        
         refreshView.startAnimation()
     }
     
@@ -41,19 +43,19 @@ class RefreshControl : UIRefreshControl {
         
         if frame.origin.y < reverseOffSet && !refreshView.reverseFlag
         {
-            //            print("反过来")
+            //print("反过来")
+            refreshView.tipLabel.text = "释放"
             refreshView.reverseFlag = true
         }
         else if frame.origin.y >= reverseOffSet && refreshView.reverseFlag
         {
             //print("转回去")
+            refreshView.tipLabel.text = "下拉"
             refreshView.reverseFlag = false
         }
         refreshView.snp.updateConstraints { (make) in
             make.top.equalTo(-60-frame.origin.y)
         }
-//        QL1(self.refreshView.frame)
-//        print(frame)
     }
     
     //MARK: - 初始化
@@ -70,7 +72,7 @@ class RefreshControl : UIRefreshControl {
     //MARK: - 进行UI布局操作
     func setupUI(){
         //隐藏系统默认转轮
-        tintColor = UIColor.clear
+        self.tintColor = UIColor.clear
         addSubview(refreshView)
         //从xib指定视图布局，需要设定xib大小
         refreshView.snp.makeConstraints { (make) in
@@ -85,19 +87,32 @@ class RefreshControl : UIRefreshControl {
             self.addObserver(self, forKeyPath: "frame", options: [], context: nil)
         }
     }
-    
+    ///重载父类方法，顺便改变属性背景颜色
+    override var backgroundColor: UIColor?
+        {
+        didSet
+        {
+            refreshView.backgroundColor = backgroundColor
+            refreshView.tipView.backgroundColor = backgroundColor
+        }
+    }
     deinit {
         //移除监听
         removeObserver(self, forKeyPath: "frame")
     }
     //MARK: -refreshView懒加载
-    private lazy var refreshView = RefreshView.refreshView
+    lazy var refreshView : RefreshView = {
+        let nib = UINib.init(nibName: "RefreshView", bundle: nil)
+    return nib.instantiate(withOwner: nil, options: nil)[0] as! RefreshView
+    }()
 }
 
 //MARK: - RefreshView类定义
 class RefreshView : UIView {
     
     @IBOutlet weak var tipView: UIView!
+    
+    @IBOutlet weak var tipLabel: UILabel!
     
     @IBOutlet weak var tip: UIImageView!
     
@@ -106,7 +121,7 @@ class RefreshView : UIView {
     func startAnimation()  {
         
         tipView.isHidden = true
-        
+      
         let key = "transform.rotation"
         //动画是否被添加
         if loadingIconView.layer.animation(forKey:key) != nil{
@@ -129,7 +144,7 @@ class RefreshView : UIView {
     func stopAnimation() {
         
         tipView.isHidden = false
-        
+      
         loadingIconView.layer.removeAllAnimations()
         
     }
@@ -139,11 +154,7 @@ class RefreshView : UIView {
             TipRotate()
         }
     }
-    
-    static var refreshView : RefreshView = {
-        let nib = UINib.init(nibName: "RefreshView", bundle: nil)
-        return nib.instantiate(withOwner: nil, options: nil)[0] as! RefreshView
-    }()
+
     //MARK :-反转动画
     func TipRotate()
     {
@@ -152,7 +163,7 @@ class RefreshView : UIView {
         //反过来就负数加了个正数，顺时针转下来更近
         angel += reverseFlag ? -0.0001 : 0.0001
         //iOS图像旋转 就近原则 + 顺时针优先
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.15) {
             self.tip.transform = self.tip.transform.rotated(by:angel)
         }
     }

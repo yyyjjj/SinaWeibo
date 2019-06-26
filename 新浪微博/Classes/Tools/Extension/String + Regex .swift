@@ -25,6 +25,5 @@ extension String{
         
         return (link,text)
     }
-    
 }
 

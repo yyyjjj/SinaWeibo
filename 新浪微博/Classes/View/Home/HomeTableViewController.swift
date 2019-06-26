@@ -38,8 +38,8 @@ class HomeTableViewController: VisitorTableViewController {
         label.backgroundColor = UIColor.orange
         return label
     }()
-///用与在网络错误的时候，防止用户多次刷新
-//    private var reloadSignal = 0
+    ///用与在网络错误的时候，防止用户多次刷新
+    //    private var reloadSignal = 0
     //MARK: - 重新加载
     @objc func clickReloadButton(){
         LoadStatus()
@@ -72,9 +72,11 @@ class HomeTableViewController: VisitorTableViewController {
         //        }
         //通知单例为了给self发消息强引用self，self中也有通知才能一直监听该事件。
         NotificationCenter.default.addObserver(forName: NSNotification.Name.init(rawValue: WBPictureCellSelectNotification), object: nil, queue: nil) { [weak self] (notification) in
+            
             guard let indexpath = notification.userInfo?[NSNotification.Name.init(rawValue: WBPictureCellIndexNotification)] as? IndexPath else{
                 return
             }
+            
             guard let urls = notification.userInfo?[NSNotification.Name.init(rawValue: WBPictureArrayNotification)] as? [URL] else{
                 return
             }
@@ -129,12 +131,12 @@ class HomeTableViewController: VisitorTableViewController {
         
         tableView.estimatedRowHeight = 400
         refreshControl = RefreshControl()
-//        refreshControl = UIRefreshControl()
-//        let redView = UIView.init(frame: CGRect(x: 0,y: 0,width: 50,height: 20))
-//        redView.backgroundColor = .red
-//        refreshControl?.addSubview(redView)
-//        refreshControl?.addTarget(self, action: #selector(LoadStatus), for: .valueChanged)
-//        UIControl.Event.touchDragExit
+        //        refreshControl = UIRefreshControl()
+        //        let redView = UIView.init(frame: CGRect(x: 0,y: 0,width: 50,height: 20))
+        //        redView.backgroundColor = .red
+        //        refreshControl?.addSubview(redView)
+        //        refreshControl?.addTarget(self, action: #selector(LoadStatus), for: .valueChanged)
+        //        UIControl.Event.touchDragExit
     }
     //MARK: - scrollViewDelegate
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -149,24 +151,24 @@ class HomeTableViewController: VisitorTableViewController {
     //MARK: - 加载Status数据到ListViewModel并刷新tableView
     @objc func LoadStatus(){
         refreshControl?.beginRefreshing()
-            statuslistviewModel.LoadStatus(isPullUp: indicator.isAnimating)
-            { (isSuccess) in
-                
-                self.indicator.stopAnimating()
-                
-                if isSuccess == false
-                {
-                    SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
-                    self.reloadButton.isHidden = false
-                    return
-                }
-                
-                self.addRefreshStatusLabel()
-                
-                self.reloadButton.isHidden = true
-              
-                self.tableView.reloadData()
-                self.refreshControl?.endRefreshing()
+        statuslistviewModel.LoadStatus(isPullUp: indicator.isAnimating)
+        { (isSuccess) in
+            
+            self.indicator.stopAnimating()
+            
+            if isSuccess == false
+            {
+                SVProgressHUD.showInfo(withStatus: "加载数据错误，请稍后再试")
+                self.reloadButton.isHidden = false
+                return
+            }
+            
+            self.addRefreshStatusLabel()
+            
+            self.reloadButton.isHidden = true
+            
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
         }
     }
     
@@ -204,7 +206,7 @@ class HomeTableViewController: VisitorTableViewController {
 extension HomeTableViewController
 {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        QL1("调用了numberOfRowsInSection")
+        //        QL1("调用了numberOfRowsInSection")
         return statuslistviewModel.StatusList.count
     }
 }
@@ -230,7 +232,7 @@ extension HomeTableViewController
             LoadStatus()
         }
         
-//        QL1("调用了cellForRowAt")
+        //        QL1("调用了cellForRowAt")
         return cell
     }
     //MARK: - TODORowHeight
@@ -250,14 +252,14 @@ extension HomeTableViewController
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //print("计算了rowHeight----第\(indexPath.row)行")
-//        QL1("调用了行高计算")
-//        if cell != nil && (cell as! StatusCell).bottomView.frame.maxY != statuslistviewModel.StatusList[indexPath.row].rowHeight
-//        {
-//            statuslistviewModel.StatusList[indexPath.row].rowHeight = (cell as! StatusCell).bottomView.frame.maxY
-//        }
+        //        QL1("调用了行高计算")
+        //        if cell != nil && (cell as! StatusCell).bottomView.frame.maxY != statuslistviewModel.StatusList[indexPath.row].rowHeight
+        //        {
+        //            statuslistviewModel.StatusList[indexPath.row].rowHeight = (cell as! StatusCell).bottomView.frame.maxY
+        //        }
         
         return statuslistviewModel.StatusList[indexPath.row].rowHeight
-//        return height
+        //        return height
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -277,6 +279,6 @@ extension HomeTableViewController : ClickLabelDelegate
 extension HomeTableViewController : ClickUserIconProtocol
 {
     func clickUserIcon(viewModel: StatusViewModel) {
-//        QL1("点击了\(viewModel.status.user!.screen_name)的头像")
+        //        QL1("点击了\(viewModel.status.user!.screen_name)的头像")
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 //我们做了桥接，框架已经内嵌与swift，可以直接在任何文件中使用
 //import FMDB
 let tableName = "status.db"
+
 class FMDBManager: NSObject {
     //请不要多线程使用该对象
     static let shared = FMDBManager()

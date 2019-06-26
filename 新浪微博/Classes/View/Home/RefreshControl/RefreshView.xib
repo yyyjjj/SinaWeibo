@@ -16,30 +16,30 @@
             <rect key="frame" x="0.0" y="0.0" width="160" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="compose_photo_close" translatesAutoresizingMaskIntoConstraints="NO" id="wBZ-Ae-clJ">
-                    <rect key="frame" x="38" y="15" width="30" height="30"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="common_loading" translatesAutoresizingMaskIntoConstraints="NO" id="wBZ-Ae-clJ">
+                    <rect key="frame" x="48" y="15" width="30" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="正在加载数据..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPa-dR-4cF" userLabel="正在加载数据">
-                    <rect key="frame" x="65" y="21" width="98" height="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="正在加载..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPa-dR-4cF" userLabel="正在加载数据">
+                    <rect key="frame" x="81" y="21" width="70" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kgx-24-pL6">
-                    <rect key="frame" x="0.0" y="0.0" width="160" height="60"/>
+                    <rect key="frame" x="0.0" y="-1" width="160" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="拖拽" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRA-si-zfQ">
-                            <rect key="frame" x="85" y="22" width="29" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="下拉" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRA-si-zfQ">
+                            <rect key="frame" x="81" y="22" width="29" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tableview_pull_refresh" translatesAutoresizingMaskIntoConstraints="NO" id="6NO-Jd-l7O">
-                            <rect key="frame" x="37" y="15" width="30" height="30"/>
+                            <rect key="frame" x="48" y="15" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                     </subviews>
@@ -52,13 +52,14 @@
             <connections>
                 <outlet property="loadingIconView" destination="wBZ-Ae-clJ" id="GJ6-6H-Hhx"/>
                 <outlet property="tip" destination="6NO-Jd-l7O" id="bW3-pF-p4r"/>
+                <outlet property="tipLabel" destination="mRA-si-zfQ" id="4z7-rv-t8u"/>
                 <outlet property="tipView" destination="Kgx-24-pL6" id="RG9-ay-xOM"/>
             </connections>
             <point key="canvasLocation" x="-73.599999999999994" y="124.13793103448276"/>
         </view>
     </objects>
     <resources>
-        <image name="compose_photo_close" width="24" height="24"/>
+        <image name="common_loading" width="32" height="32"/>
         <image name="tableview_pull_refresh" width="32" height="32"/>
     </resources>
 </document>
