@@ -6,10 +6,11 @@
 
 ### Status VC
 ![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/Status.gif)
+![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/Compose.gif)
+### Post a status
+
 ![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/Refresh.gif)
 
-### Post a status
-![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/Compose.gif)
 ![avatar](https://github.com/Lianghuajian/WeiBo-social-media-app-/blob/master/ReadmeImages/PicturePicker.png)
 
 ### Message
