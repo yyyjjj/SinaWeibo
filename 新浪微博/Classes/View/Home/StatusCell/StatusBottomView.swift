@@ -54,10 +54,18 @@ class StatusBottomView: UIView {
 extension StatusBottomView {
     func setupUI()
     {
+        //1.添加控件
         self.addSubview(retweetedButton)
         self.addSubview(commentButton)
         self.addSubview(likeButton)
+        let line1 = sepLine()
+        let line2 = sepLine()
+        self.addSubview(line1)
+        self.addSubview(line2)
+        let w = 0.5
+        let scale = 0.4
         
+        //2.添加约束
         retweetedButton.snp.makeConstraints { (make) in
             make.top.equalTo(self.snp.top)
             make.left.equalTo(self.snp.left)
@@ -79,12 +87,6 @@ extension StatusBottomView {
             make.right.equalTo(self.snp.right)
         }
         
-        let line1 = sepLine()
-        let line2 = sepLine()
-        self.addSubview(line1)
-        self.addSubview(line2)
-        let w = 0.5
-        let scale = 0.4
         line1.snp.makeConstraints { (make) in
             make.height.equalTo(retweetedButton.snp.height).multipliedBy(scale)
             make.width.equalTo(w)
@@ -98,6 +100,13 @@ extension StatusBottomView {
             make.left.equalTo(commentButton.snp.right)
             make.centerY.equalTo(retweetedButton.snp.centerY)
         }
+        
+        //3.设置监听
+        commentButton.addTarget(self, action: #selector(commentClicked), for: .touchUpInside)
+    }
+    @objc func commentClicked(){
+        //1.给HomeTable发送评论按钮点击通知
+        NotificationCenter.default.post(name: .init(rawValue: WBCellCommentBottomClickedNotification), object: self, userInfo: [WBCellCommentCountsNotification:viewModel!.status.comments_count])
     }
     //分割线
     func sepLine() -> UIView{

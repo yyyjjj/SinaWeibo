@@ -54,16 +54,22 @@ class MassageTableViewController: VisitorTableViewController {
         self.addChild(pageViewController)
         self.view.addSubview(pageViewController.view)
         
-        pageViewController.view.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top)
-make.bottom.equalTo(self.view.snp.bottom).offset(self.tabBarController!.tabBar.bounds.size.height)
-            make.left.equalTo(self.view.snp.left)
-            make.right.equalTo(self.view.snp.right)
-        }
+    }
+    override func viewSafeAreaInsetsDidChange() {
+
+        super.viewSafeAreaInsetsDidChange()
+
+        let insets = self.view.safeAreaInsets
+
+        self.pageViewController.view.frame = CGRect.init(x: 0, y: insets.top, width: screenWidth, height:screenHeight -  insets.bottom + insets.top)
+        //让notifyTableViewControllerd的label在safeArea中间
+        (controllers.first as! NotifyTableViewController).label.frame =  CGRect.init(x: screenWidth/2-80, y: (screenHeight/2-insets.top-insets.bottom)/2-(insets.top-insets.bottom)/2-20,width: 160 ,height:20)
+        
+        
     }
     func prepareTitleCollectionView()
     {
-        self.navigationController?.view.addSubview(titleCollectionView)
+    self.navigationController?.view.addSubview(titleCollectionView)
         titleCollectionView.snp.makeConstraints { (make) in
             make.width.equalTo(screenWidth*0.6)
     make.height.equalTo(self.navigationController!.navigationBar.bounds.size.height)
@@ -77,7 +83,7 @@ make.bottom.equalTo(self.view.snp.bottom).offset(self.tabBarController!.tabBar.b
 //        titleCollectionView.scrollToItem(at: IndexPath.init(row: 1, section: 0), at: .centeredHorizontally, animated: true)
     }
     func setFirstViewController(){
-        self.pageViewController.setViewControllers([controllers.last!], direction: .forward, animated: true, completion: nil)
+    self.pageViewController.setViewControllers([controllers[currentIndex]], direction: .forward, animated: true, completion: nil)
     }
     //MARK: - 懒加载属性
     ///pageViewController
@@ -104,7 +110,7 @@ make.bottom.equalTo(self.view.snp.bottom).offset(self.tabBarController!.tabBar.b
     }()
     
     lazy var bottomTail : UIView = {
-        let v = UIView.init(frame: CGRect.init(x: CGFloat(currentIndex)*self.itemSize.width + self.itemSize.width/3, y: 34, width: self.itemSize.width/3, height: 5))
+        let v = UIView.init(frame: CGRect.init(x: CGFloat(currentIndex)*self.itemSize.width + self.itemSize.width/3, y: 34, width: self.itemSize.width/3, height: 4))
         v.backgroundColor = .orange
         v.layer.cornerRadius = 2.5
         v.clipsToBounds = true
@@ -125,7 +131,7 @@ make.bottom.equalTo(self.view.snp.bottom).offset(self.tabBarController!.tabBar.b
     }
     func currentItemRect(i : Int) ->CGRect
     {
-        return CGRect.init(x: self.itemSize.width/3 + (CGFloat(i)*self.itemSize.width), y: 34, width: itemSize.width/3, height: 5)
+        return CGRect.init(x: self.itemSize.width/3 + (CGFloat(i)*self.itemSize.width), y: 34, width: itemSize.width/3, height: 4)
     }
 }
 

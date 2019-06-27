@@ -37,7 +37,7 @@ class RefreshControl : UIRefreshControl {
         }
         
         if isRefreshing{
-            refreshView.startAnimation()
+//            refreshView.startAnimation()
             return
         }
         

@@ -27,14 +27,9 @@ class NotifyTableViewController: UITableViewController {
         
         self.view.addSubview(label)
         
-        label.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view.snp.centerX)
-            make.centerY.equalTo(self.view.snp.centerY)
-            make.width.equalTo(160)
-            make.height.equalTo(20)
-        }
+        
     }
-    
+    ///中间提示label，注意该Label的布局放到pageViewController中布局
     lazy var label = UILabel.init(size: 18, content: "还没有收到消息哦", color: .lightGray, alignment: .center, lines: 0, breakMode: .byTruncatingTail)
     // MARK: - Table view data source
 

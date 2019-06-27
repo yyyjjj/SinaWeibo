@@ -12,14 +12,18 @@ let screenWidth = UIApplication.shared.keyWindow!.frame.size.width
 let spaHeight = screenHeight * 0.017
 //window切换MainVC通知
 let WBSwitchVCControllerNotification = "WBSwitchVCControllerNotification"
-
-//statusCell中PictureView的点击通知
+//MARK: - 通知注册
+///statusCell中PictureView的点击通知
 let WBPictureCellSelectNotification = "WBPictureCellSelectNotification"
-//当前选中图片的索引
+///当前微博选中图片的索引
 let WBPictureCellIndexNotification = "WBPictureCellIndexNotification"
-//当前图片组
+///当前微博图片组
 let WBPictureArrayNotification = "WBPictureArrayNotification"
 
+///评论按钮的点击通知
+let WBCellCommentBottomClickedNotification = "WBCellCommentBottomClickedNotification"
+///当前微博的评论数
+let WBCellCommentCountsNotification = "WBCellCommentCountsNotification"
 //MARK: - 颜色
 //设置全局颜色
 let appearenceColor = UIColor.orange
