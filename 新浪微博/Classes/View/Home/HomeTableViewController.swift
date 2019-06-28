@@ -9,18 +9,24 @@
 import UIKit
 //var currenPage = 1
 private let titleCellID = "titleCellID"
-
-class HomeTableViewController: VisitorTableViewController {
+private let titleItemSize = CGSize.init(width: screenWidth*0.25, height: 30)
+class HomeTableViewController: VisitorViewController {
     //MARK: - 生命周期
-    override func loadView() {
-        view = UIView()
-    }
+//    override func loadView() {
+//        if !UserAccountViewModel.shared.userLoginStatus
+//            {
+//                view = visitorview
+//            }else
+//        {
+//            view = UIView()
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if !UserAccountViewModel.shared.userLoginStatus {
-            self.navigationItem.title = "消息"
-            visitorview?.SetUpInfo(imagename: "visitordiscover_image_message", text: "登录后，别人评论你的微博，发给你的消息，都会在这里收到通知。")
+            self.navigationItem.title = "首页"
+            visitorview?.SetUpInfo(imagename: nil, text:"关注一些人，回这里看看有什么惊喜")
             return
         }
         self.navigationItem.title = nil
@@ -43,24 +49,29 @@ class HomeTableViewController: VisitorTableViewController {
         pageViewController.delegate = self
         pageViewController.dataSource = self
         self.addChild(pageViewController)
-        self.view.addSubview(pageViewController.view)
+    self.view.addSubview(pageViewController.view)
         
     }
     override func viewSafeAreaInsetsDidChange() {
         
         super.viewSafeAreaInsetsDidChange()
         
+        if controllers.isEmpty
+        {
+            return
+        }
         let insets = self.view.safeAreaInsets
         
-        self.pageViewController.view.frame = CGRect.init(x: 0, y: insets.top, width: screenWidth, height:screenHeight -  insets.bottom + insets.top)
-
-        
+        self.pageViewController.view.frame = CGRect.init(x: 0, y: 0, width: screenWidth, height:screenHeight -  insets.bottom + insets.top)
+        (self.controllers.first as! StatusTableViewController).tableView.snp.updateConstraints { (make) in
+            make.top.equalTo((self.controllers.first as! StatusTableViewController).view).offset(insets.top)
+        }
     }
     func prepareTitleCollectionView()
     {
         self.navigationController?.view.addSubview(titleCollectionView)
         titleCollectionView.snp.makeConstraints { (make) in
-            make.width.equalTo(screenWidth*0.6)
+            make.width.equalTo(screenWidth*0.5)
             make.height.equalTo(self.navigationController!.navigationBar.bounds.size.height)
             make.top.equalTo(self.navigationController!.navigationBar.snp.top)
             make.centerX.equalTo(self.navigationController!.view.snp.centerX)
@@ -80,7 +91,7 @@ class HomeTableViewController: VisitorTableViewController {
         let pgvc = UIPageViewController.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewController.OptionsKey.interPageSpacing:0])
         return pgvc
     }()
-    var itemSize = CGSize.init(width: screenWidth*0.3, height: 30)
+    var itemSize = CGSize.init(width: screenWidth*0.25, height: 30)
     ///头部标题数组
     lazy var titles = [String]()
     ///存储当前VC的index
@@ -99,7 +110,7 @@ class HomeTableViewController: VisitorTableViewController {
     }()
     
     lazy var bottomTail : UIView = {
-        let v = UIView.init(frame: CGRect.init(x: CGFloat(currentIndex)*self.itemSize.width + self.itemSize.width/3, y: 34, width: self.itemSize.width/3, height: 4))
+        let v = UIView.init(frame: CGRect.init(x: CGFloat(currentIndex)*itemSize.width + itemSize.width*0.325, y: 34, width: itemSize.width*0.35, height: 4))
         v.backgroundColor = .orange
         v.layer.cornerRadius = 2.5
         v.clipsToBounds = true
@@ -110,7 +121,7 @@ class HomeTableViewController: VisitorTableViewController {
     {
         override func prepare() {
             super.prepare()
-            itemSize = CGSize.init(width: screenWidth*0.3, height: 30)
+            itemSize = titleItemSize
             scrollDirection = .horizontal
             minimumLineSpacing = 0
             minimumInteritemSpacing = 0
@@ -120,7 +131,7 @@ class HomeTableViewController: VisitorTableViewController {
     }
     func currentItemRect(i : Int) ->CGRect
     {
-        return CGRect.init(x: self.itemSize.width/3 + (CGFloat(i)*self.itemSize.width), y: 34, width: itemSize.width/3, height: 4)
+        return CGRect.init(x: itemSize.width*0.325 + (CGFloat(i)*itemSize.width), y: 34, width: itemSize.width*0.35, height: 4)
     }
 }
 
@@ -162,6 +173,7 @@ extension HomeTableViewController : UICollectionViewDelegate,UICollectionViewDat
         }
         
         let newRect = self.currentItemRect(i: indexPath.row)
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.bottomTail.frame = newRect
         }) { (finished) in

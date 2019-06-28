@@ -8,7 +8,9 @@
 
 import UIKit
 import QorumLogs
+
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?

@@ -138,6 +138,7 @@ class ComposeViewController: UIViewController {
         //print(notification)
         //1,拿到键盘每次完成布局后的高度
         let rect = (notification.userInfo!["UIKeyboardFrameEndUserInfoKey"] as! NSValue).cgRectValue
+        QL1(rect)
         //UIKeyboardAnimationCurveUserInfoKey
         //获取目标的动画时长
         let duration = (notification.userInfo!["UIKeyboardAnimationDurationUserInfoKey"] as! NSNumber).doubleValue

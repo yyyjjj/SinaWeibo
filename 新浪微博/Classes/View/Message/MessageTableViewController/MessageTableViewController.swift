@@ -47,6 +47,7 @@ class MessageTableViewController: UITableViewController {
         self.tableView.rowHeight = screenHeight*0.115
         self.tableView.register(MessageTableViewCellTypeOne.self, forCellReuseIdentifier: CellID.TypeOneCellID.rawValue)
         self.tableView.register(MessageTableViewCellTypeTwo.self, forCellReuseIdentifier: CellID.TypeTwoCellID.rawValue)
+        
     }
     
     // MARK: - Table view data source

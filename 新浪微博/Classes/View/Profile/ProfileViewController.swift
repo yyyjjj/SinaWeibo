@@ -15,7 +15,7 @@ let normalCellID = "normalCellID"
 //总共有多少个Cell
 let cellConunt = 5
 
-class ProfileTableViewController: VisitorTableViewController {
+class ProfileViewController: VisitorViewController {
     enum CellID : String{
         case
         IconTableViewCellID = "IconTableViewCell",
@@ -37,10 +37,21 @@ class ProfileTableViewController: VisitorTableViewController {
         }
         
         setUpUI()
-        prepareForTableView()
+        prepareTableView()
     }
     
-    func prepareForTableView(){
+    func prepareTableView(){
+        self.view.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top)
+        make.bottom.equalTo(self.view.snp.bottom)
+            make.left.equalTo(self.view.snp.left)
+            
+            make.right.equalTo(self.view.snp.right)
+            
+        }
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.backgroundColor = spaColor
         tableView.register(IconTableViewCell.self, forCellReuseIdentifier:IconTableViewCellID)
         tableView.register(InfoTableViewCell.self, forCellReuseIdentifier:InfoTableViewCellID)
@@ -49,6 +60,7 @@ class ProfileTableViewController: VisitorTableViewController {
     }
     
     //MARK: - 懒加载属性
+    lazy var tableView : UITableView = UITableView.init()
     lazy var refreshButton : UIButton = {
         let button = UIButton.init(text: "更新用户", textColor: .blue, backImage: nil, isBack: false)
          button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -58,15 +70,27 @@ class ProfileTableViewController: VisitorTableViewController {
        let button = UIButton.init(text: "退出", textColor: .red, backImage: nil, isBack: false)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         return button
-        
     }()
-    
+    var spaView1 : UIView = {
+        let spaView = UIView()
+        spaView.backgroundColor = spaColor
+        return spaView
+    }()
+    var spaView2 : UIView = {
+        let spaView = UIView()
+        spaView.backgroundColor = spaColor
+        return spaView
+    }()
+}
+
+extension ProfileViewController : UITableViewDelegate,UITableViewDataSource
+{
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return cellConunt
     }
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
             return screenHeight*0.157
@@ -78,17 +102,8 @@ class ProfileTableViewController: VisitorTableViewController {
             return 44+spaHeight
         }
     }
-    var spaView1 : UIView = {
-        let spaView = UIView()
-        spaView.backgroundColor = spaColor
-        return spaView
-    }()
-    var spaView2 : UIView = {
-        let spaView = UIView()
-        spaView.backgroundColor = spaColor
-        return spaView
-    }()
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : UITableViewCell!
         switch indexPath.row {
         case 0:
@@ -140,7 +155,7 @@ class ProfileTableViewController: VisitorTableViewController {
 }
 
 //MARK: - 布局视图
-extension ProfileTableViewController {
+extension ProfileViewController {
     func setUpUI(){
         //0,控件设置
       

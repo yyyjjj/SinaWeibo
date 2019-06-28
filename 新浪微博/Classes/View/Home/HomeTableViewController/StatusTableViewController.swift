@@ -13,10 +13,11 @@ import QorumLogs
 let OriginStatusCellID = "OriginStatusCellID"
 let RetweeetedStatusCellID = "RetweeetedStatusCellID"
 
-class StatusTableViewController: UITableViewController {
+class StatusTableViewController: UIViewController {
     
     ///用与在网络错误的时候，防止用户多次刷新
     //    private var reloadSignal = 0
+    
     //MARK: - 重新加载
     @objc func clickReloadButton(){
         LoadStatus()
@@ -32,7 +33,7 @@ class StatusTableViewController: UITableViewController {
         
         super.viewDidLoad()
         //没有登录才去设置
-        prepareForTableView()
+        prepareTableView()
         
         LoadStatus()
         
@@ -89,16 +90,14 @@ class StatusTableViewController: UITableViewController {
                 return
             }
             //1.创建文本框
-            
-            self?.tableView.addGestureRecognizer(self!.tapGesture)
-            self?.tableView.addGestureRecognizer(self!.tapGesture)
+            self?.viewAboveTableView.isHidden = false
             self?.textView.becomeFirstResponder()
         }
     }
-    //
+    
     @objc func tapViewOutSideOfKeyBoard() {
+        self.viewAboveTableView.isHidden = true
         self.textView.resignFirstResponder()
-        self.tableView.removeGestureRecognizer(tapGesture)
     }
     
     @objc func HomeTVCKeyBoardWillChange(_ notification : NSNotification)
@@ -108,15 +107,16 @@ class StatusTableViewController: UITableViewController {
         let duration = (notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let curve = (notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! NSNumber).intValue
         
-        let offSet = -screenHeight + rect.origin.y
-        
-        
-        self.textView.frame = CGRect.init(x: 0, y: screenWidth+offSet-100, width: screenWidth, height: 100)
+        UIView.animate(withDuration: duration) {
+        self.textView.snp.updateConstraints { (make) in
+        make.bottom.equalTo(self.viewAboveTableView.snp.bottom).offset(-rect.size.height)
+        }
+        }
         
         
         UIView.animate(withDuration: duration) {
             UIView.setAnimationCurve(UIView.AnimationCurve.init(rawValue: curve)!)
-            self.view.setNeedsDisplay()
+            self.view.layoutIfNeeded()
         }
     }
     //func prepareFPSLabel(){
@@ -131,7 +131,6 @@ class StatusTableViewController: UITableViewController {
     //                    make.width.equalTo(60)
     //                }
     //    }
-    
     ///准备ReloadButton
     func prepareReloadButton() {
         
@@ -152,9 +151,35 @@ class StatusTableViewController: UITableViewController {
     ///注册原创和转发微博cell
     ///设置预估高度
     ///取消tableView的分割线
-    func prepareForTableView()
+    func prepareTableView()
     {
-        // print(tableView)
+        //1.添加子控件
+        self.view.addSubview(tableView)
+        self.view.insertSubview(viewAboveTableView, aboveSubview: tableView)
+        self.viewAboveTableView.addSubview(self.textView)
+        //2.设置布局
+        viewAboveTableView.snp.makeConstraints { (make) in
+            make.height.equalTo(screenHeight)
+        make.bottom.equalTo(self.view.snp.bottom)
+            make.left.equalTo(self.view.snp.left)
+            make.right.equalTo(self.view.snp.right)
+        }
+        
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top)
+            make.bottom.equalTo(self.view.snp.bottom)
+            make.left.equalTo(self.view.snp.left)
+            make.right.equalTo(self.view.snp.right)
+        }
+        
+        self.textView.snp.makeConstraints { (make) in
+        make.bottom.equalTo(viewAboveTableView.snp.bottom)
+        make.width.equalTo(screenWidth)
+        make.height.equalTo(100)
+        }
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         tableView.register(OriginStatusCell.self, forCellReuseIdentifier: OriginStatusCellID)
         
         tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: RetweeetedStatusCellID)
@@ -163,39 +188,28 @@ class StatusTableViewController: UITableViewController {
         
         tableView.estimatedRowHeight = 400
         
-        refreshControl = RefreshControl()
-
+        tableView.refreshControl = RefreshControl()
+        
         //        refreshControl = UIRefreshControl()
         //        let redView = UIView.init(frame: CGRect(x: 0,y: 0,width: 50,height: 20))
         //        redView.backgroundColor = .red
         //        refreshControl?.addSubview(redView)
         //        refreshControl?.addTarget(self, action: #selector(LoadStatus), for: .valueChanged)
         //        UIControl.Event.touchDragExit
-        self.view.addSubview(self.textView)
         
-//        refreshControl?.isRefreshing
-        refreshControl?.addTarget(self, action: #selector(startRefreshing), for: .valueChanged)
+       
+        viewAboveTableView.isHidden = true
+        
+        tableView.refreshControl?.addTarget(self, action: #selector(startRefreshing), for: .valueChanged)
     }
     ///TargetAction通知
     @objc func startRefreshing() {
         LoadStatus()
     }
     
-    //MARK: - scrollViewDelegate
-//    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//
-//        if scrollView.contentOffset.y <= -128
-//        {
-//            //刷新
-//            print(scrollView.contentOffset.y)
-//            LoadStatus()
-//        }
-//
-//    }
-    
     //MARK: - 加载Status数据到ListViewModel并刷新tableView
     @objc func LoadStatus(){
-        refreshControl?.beginRefreshing()
+        tableView.refreshControl?.beginRefreshing()
         statuslistviewModel.LoadStatus(isPullUp: indicator.isAnimating)
         { (isSuccess) in
             
@@ -216,7 +230,7 @@ class StatusTableViewController: UITableViewController {
             
             Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false
                 , block: { (_) in
-                self.refreshControl?.endRefreshing()
+                    self.tableView.refreshControl?.endRefreshing()
             })
         }
     }
@@ -240,7 +254,7 @@ class StatusTableViewController: UITableViewController {
         //我们在这里添加label在navibar上面还是下面
         UIView.animate(withDuration: 1.5, animations: {
             self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: labelY)
-//            self.refreshControl?.endRefreshing()
+            //            self.refreshControl?.endRefreshing()
         }, completion: { _ in
             //让动画保持一秒
             DispatchQueue.main.asyncAfter(deadline: .now()
@@ -249,7 +263,17 @@ class StatusTableViewController: UITableViewController {
             })
         })
     }
+    
     //MARK: - 懒加载控件
+    lazy var tableView : UITableView = UITableView.init()
+    
+    lazy var viewAboveTableView : UIView = {
+        let view = UIView.init()
+        view.addGestureRecognizer(self.tapGesture)
+        view.backgroundColor = UIColor.init(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 0.3)
+        
+        return view
+    }()
     
     var statuslistviewModel = StatusListViewModel()
     
@@ -279,7 +303,7 @@ class StatusTableViewController: UITableViewController {
     ///键盘上的textView
     lazy var textView : UITextView = {
         let tf = UITextView.init(frame: CGRect.init(x: 0, y: screenHeight, width: screenWidth, height: 0))
-        tf.backgroundColor = .red
+        tf.backgroundColor = backColor
         return tf
     }()
     ///键盘出现时的外部点击手势
@@ -290,13 +314,13 @@ class StatusTableViewController: UITableViewController {
 //extension HomeTableViewController :
 
 //MARK: - tableView代理方法
-extension StatusTableViewController
+extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
 {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //        QL1("调用了numberOfRowsInSection")
         return statuslistviewModel.StatusList.count
     }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let vm = statuslistviewModel.StatusList[indexPath.row]
         
@@ -333,7 +357,7 @@ extension StatusTableViewController
     
     //苹果建议：如果设置了TableView.rowHeight 就不要使用下面方法，两者互斥。
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //print("计算了rowHeight----第\(indexPath.row)行")
         //        QL1("调用了行高计算")
         //        if cell != nil && (cell as! StatusCell).bottomView.frame.maxY != statuslistviewModel.StatusList[indexPath.row].rowHeight
@@ -342,10 +366,10 @@ extension StatusTableViewController
         //        }
         
         return statuslistviewModel.StatusList[indexPath.row].rowHeight
-        //        return height
+    
     }
     
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return indicator
     }
 }

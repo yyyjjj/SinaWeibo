@@ -7,8 +7,9 @@
 //
 //类似与OC的pch文件
 import UIKit
-let screenHeight = UIApplication.shared.keyWindow!.frame.size.height
-let screenWidth = UIApplication.shared.keyWindow!.frame.size.width
+let screenHeight : CGFloat = 568.0
+let screenWidth : CGFloat = 320.0
+
 let spaHeight = screenHeight * 0.017
 //window切换MainVC通知
 let WBSwitchVCControllerNotification = "WBSwitchVCControllerNotification"

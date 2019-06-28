@@ -21,7 +21,7 @@ class MainViewController: UITabBarController {
         }
         else
         {
-            vc = VisitorTableViewController()
+            vc = VisitorViewController()
         }
         
         let nav = UINavigationController.init(rootViewController: vc)
@@ -74,13 +74,13 @@ extension MainViewController{
         
         addChild(childController: HomeTableViewController(), title: "首页", barImage:"tabbar_home", highLightImage: "tabbar_home_selected")
         
-        addChild(childController: MassageTableViewController(), title: "消息", barImage:"tabbar_message_center", highLightImage: "tabbar_message_center_selected")
+        addChild(childController: MessageViewController(), title: "消息", barImage:"tabbar_message_center", highLightImage: "tabbar_message_center_selected")
         
         addChild(childController: UIViewController(), title: nil, barImage:"tabbar_compose_icon_add_highlighted", highLightImage: nil)
         
-        addChild(childController: DiscoverTableViewController(), title: "发现", barImage:"tabbar_discover", highLightImage: "tabbar_discover_selected")
+        addChild(childController: DiscoverViewController(), title: "发现", barImage:"tabbar_discover", highLightImage: "tabbar_discover_selected")
         
-        addChild(childController: ProfileTableViewController(), title: "我", barImage:"tabbar_profile", highLightImage: "tabbar_profile_selected")
+        addChild(childController: ProfileViewController(), title: "我", barImage:"tabbar_profile", highLightImage: "tabbar_profile_selected")
         
     }
     private func addChild(childController : UIViewController,title : String?,barImage : String? ,highLightImage : String?) {

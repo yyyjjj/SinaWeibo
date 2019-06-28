@@ -9,13 +9,22 @@
 import UIKit
 //var currenPage = 1
 private let titleCellID = "titleCellID"
+private let titleItemSize = CGSize.init(width: screenWidth*0.25, height: 30)
+
 let backColor = UIColor.init(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
 
-class MassageTableViewController: VisitorTableViewController {
+class MessageViewController: VisitorViewController {
     //MARK: - 生命周期
-    override func loadView() {
-        view = UIView()
-    }
+//    override func loadView() {
+////        if !UserAccountViewModel.shared.userLoginStatus
+////        {
+////            view = visitorview
+////            visitorview?.delegate = self
+////        }else
+////        {
+////            view = UIView()
+////        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,12 +67,15 @@ class MassageTableViewController: VisitorTableViewController {
     override func viewSafeAreaInsetsDidChange() {
 
         super.viewSafeAreaInsetsDidChange()
-
+        if controllers.isEmpty
+        {
+            return
+        }
         let insets = self.view.safeAreaInsets
 
         self.pageViewController.view.frame = CGRect.init(x: 0, y: insets.top, width: screenWidth, height:screenHeight -  insets.bottom + insets.top)
         //让notifyTableViewControllerd的label在safeArea中间
-        (controllers.first as! NotifyTableViewController).label.frame =  CGRect.init(x: screenWidth/2-80, y: (screenHeight/2-insets.top-insets.bottom)/2-(insets.top-insets.bottom)/2-20,width: 160 ,height:20)
+        (controllers.first as! NotifyTableViewController).label.frame =  CGRect.init(x: screenWidth/2-80, y: (screenHeight-insets.top-insets.bottom)/2-10,width: 160 ,height:20)
         
         
     }
@@ -71,7 +83,7 @@ class MassageTableViewController: VisitorTableViewController {
     {
     self.navigationController?.view.addSubview(titleCollectionView)
         titleCollectionView.snp.makeConstraints { (make) in
-            make.width.equalTo(screenWidth*0.6)
+            make.width.equalTo(screenWidth*0.5)
     make.height.equalTo(self.navigationController!.navigationBar.bounds.size.height)
         make.top.equalTo(self.navigationController!.navigationBar.snp.top)
         make.centerX.equalTo(self.navigationController!.view.snp.centerX)
@@ -80,7 +92,7 @@ class MassageTableViewController: VisitorTableViewController {
         titleCollectionView.delegate = self
         titleCollectionView.dataSource = self
         titleCollectionView.register(TitleCollectionCell.self, forCellWithReuseIdentifier: titleCellID)
-//        titleCollectionView.scrollToItem(at: IndexPath.init(row: 1, section: 0), at: .centeredHorizontally, animated: true)
+
     }
     func setFirstViewController(){
     self.pageViewController.setViewControllers([controllers[currentIndex]], direction: .forward, animated: true, completion: nil)
@@ -91,7 +103,7 @@ class MassageTableViewController: VisitorTableViewController {
         let pgvc = UIPageViewController.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewController.OptionsKey.interPageSpacing:0])
         return pgvc
     }()
-    var itemSize = CGSize.init(width: screenWidth*0.3, height: 30)
+
     ///头部标题数组
     lazy var titles = [String]()
     ///存储当前VC的index
@@ -110,7 +122,8 @@ class MassageTableViewController: VisitorTableViewController {
     }()
     
     lazy var bottomTail : UIView = {
-        let v = UIView.init(frame: CGRect.init(x: CGFloat(currentIndex)*self.itemSize.width + self.itemSize.width/3, y: 34, width: self.itemSize.width/3, height: 4))
+        let v = UIView.init(frame: CGRect.init(x: titleItemSize.width*0.325 + (CGFloat(currentIndex)*titleItemSize.width), y: 34, width: titleItemSize.width*0.35, height: 4))
+       
         v.backgroundColor = .orange
         v.layer.cornerRadius = 2.5
         v.clipsToBounds = true
@@ -121,7 +134,7 @@ class MassageTableViewController: VisitorTableViewController {
     {
         override func prepare() {
             super.prepare()
-            itemSize = CGSize.init(width: screenWidth*0.3, height: 30)
+            itemSize = titleItemSize
             scrollDirection = .horizontal
             minimumLineSpacing = 0
             minimumInteritemSpacing = 0
@@ -131,12 +144,12 @@ class MassageTableViewController: VisitorTableViewController {
     }
     func currentItemRect(i : Int) ->CGRect
     {
-        return CGRect.init(x: self.itemSize.width/3 + (CGFloat(i)*self.itemSize.width), y: 34, width: itemSize.width/3, height: 4)
+        return  CGRect.init(x: titleItemSize.width*0.325 + (CGFloat(i)*titleItemSize.width), y: 34, width: titleItemSize.width*0.35, height: 4)
     }
 }
 
 //MARK: - titleCollectionView代理
-extension MassageTableViewController : UICollectionViewDelegate,UICollectionViewDataSource
+extension MessageViewController : UICollectionViewDelegate,UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return titles.count
@@ -185,7 +198,7 @@ extension MassageTableViewController : UICollectionViewDelegate,UICollectionView
 }
 
 //MARK: - pageViewController代理
-extension MassageTableViewController : UIPageViewControllerDelegate,UIPageViewControllerDataSource
+extension MessageViewController : UIPageViewControllerDelegate,UIPageViewControllerDataSource
 {
     
     //往前滚

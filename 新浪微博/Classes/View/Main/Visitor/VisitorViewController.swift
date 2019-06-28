@@ -8,7 +8,7 @@
 
 import UIKit
 ///注意:这里的tableview数据源和代理方法不能实现，不然子类的会被覆盖
-class VisitorTableViewController: UITableViewController {
+class VisitorViewController: UIViewController {
     
     //MARK: - 用户登录状态
     private var loginStatus = UserAccountViewModel.shared.userLoginStatus
@@ -41,7 +41,7 @@ class VisitorTableViewController: UITableViewController {
         super.viewDidLoad()
     }
 }
-extension VisitorTableViewController : VisitorViewDelegate{
+extension VisitorViewController : VisitorViewDelegate{
     @objc func ClickRegisteButton() {
         print("注册")
     }
