@@ -7,8 +7,10 @@
 //
 //类似与OC的pch文件
 import UIKit
-let screenHeight : CGFloat = 568.0
-let screenWidth : CGFloat = 320.0
+
+let screenHeight : CGFloat = UIApplication.shared.keyWindow!.frame.height
+
+let screenWidth : CGFloat = UIApplication.shared.keyWindow!.frame.width
 
 let spaHeight = screenHeight * 0.017
 //window切换MainVC通知
@@ -23,6 +25,8 @@ let WBPictureArrayNotification = "WBPictureArrayNotification"
 
 ///评论按钮的点击通知
 let WBCellCommentBottomClickedNotification = "WBCellCommentBottomClickedNotification"
+///当前评论按钮相对于windows的位置
+let CurrentCommentBottonPoint = "CurrentCommentBottonPoint"
 ///当前微博的评论数
 let WBCellCommentCountsNotification = "WBCellCommentCountsNotification"
 //MARK: - 颜色

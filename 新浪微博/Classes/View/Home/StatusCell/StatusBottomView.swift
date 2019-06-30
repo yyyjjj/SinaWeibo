@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import QorumLogs
 class StatusBottomView: UIView {
     var viewModel : StatusViewModel?{
         didSet
@@ -105,8 +105,11 @@ extension StatusBottomView {
         commentButton.addTarget(self, action: #selector(commentClicked), for: .touchUpInside)
     }
     @objc func commentClicked(){
+        
+      let point = self.convert(CGPoint.init(x: 0, y: self.frame.size.height-20), to: UIApplication.shared.keyWindow)
+        
         //1.给HomeTable发送评论按钮点击通知
-        NotificationCenter.default.post(name: .init(rawValue: WBCellCommentBottomClickedNotification), object: self, userInfo: [WBCellCommentCountsNotification:viewModel!.status.comments_count])
+        NotificationCenter.default.post(name: .init(rawValue: WBCellCommentBottomClickedNotification), object: self, userInfo: [WBCellCommentCountsNotification:viewModel!.status.comments_count,CurrentCommentBottonPoint:point])
     }
     //分割线
     func sepLine() -> UIView{

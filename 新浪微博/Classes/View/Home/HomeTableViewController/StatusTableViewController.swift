@@ -18,11 +18,6 @@ class StatusTableViewController: UIViewController {
     ///用与在网络错误的时候，防止用户多次刷新
     //    private var reloadSignal = 0
     
-    //MARK: - 重新加载
-    @objc func clickReloadButton(){
-        LoadStatus()
-    }
-    
     //MARK: - 生命周期
     override func viewWillAppear(_ animated: Bool) {
         //键盘高度改变的通知
@@ -49,7 +44,7 @@ class StatusTableViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
-    
+    //MARK: - 控件初始化和布局
     func prepareNotification()
     {
         //接收微博中图片点击通知
@@ -89,36 +84,57 @@ class StatusTableViewController: UIViewController {
             {
                 return
             }
+            
+            guard let commentPoint = notification.userInfo?[CurrentCommentBottonPoint] as? CGPoint else
+            {
+                return
+            }
             //1.创建文本框
+            self?.commentPoint = commentPoint
             self?.viewAboveTableView.isHidden = false
-            self?.textView.becomeFirstResponder()
+            self?.commentView.textView.becomeFirstResponder()
         }
     }
     
     @objc func tapViewOutSideOfKeyBoard() {
         self.viewAboveTableView.isHidden = true
-        self.textView.resignFirstResponder()
+        
+        self.commentView.textView.resignFirstResponder()
     }
     
     @objc func HomeTVCKeyBoardWillChange(_ notification : NSNotification)
     {
-        //拿到键盘改变前后的高度
+        //拿到键盘改变前后的高度,相对于window
         let rect = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration = (notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let curve = (notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! NSNumber).intValue
+            
+        var contentOffset : CGPoint!
+        
+        if rect.origin.y == screenHeight
+        {
+            //键盘收回到屏幕下方
+            contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y-(commentPoint.y -  (screenHeight-rect.size.height-commentView.frame.height)))
+        }else
+        {
+            //键盘弹出
+            contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y+(commentPoint.y -  (screenHeight-rect.size.height-commentView.frame.height)))
+        }
+        //滚动tableView到被textView遮挡
+        self.tableView.setContentOffset(contentOffset, animated: true)
         
         UIView.animate(withDuration: duration) {
-        self.textView.snp.updateConstraints { (make) in
-        make.bottom.equalTo(self.viewAboveTableView.snp.bottom).offset(-rect.size.height)
+            self.commentView.snp.updateConstraints { (make) in
+            make.bottom.equalTo(self.viewAboveTableView.snp.bottom).offset(-rect.size.height)
+            }
         }
-        }
-        
         
         UIView.animate(withDuration: duration) {
-            UIView.setAnimationCurve(UIView.AnimationCurve.init(rawValue: curve)!)
+        UIView.setAnimationCurve(UIView.AnimationCurve.init(rawValue: curve)!)
             self.view.layoutIfNeeded()
         }
     }
+    
     //func prepareFPSLabel(){
     //                let fpslabel = FPSLabel()
     //                //view.addSubview(fpslabel)
@@ -156,11 +172,11 @@ class StatusTableViewController: UIViewController {
         //1.添加子控件
         self.view.addSubview(tableView)
         self.view.insertSubview(viewAboveTableView, aboveSubview: tableView)
-        self.viewAboveTableView.addSubview(self.textView)
+        self.viewAboveTableView.addSubview(self.commentView)
         //2.设置布局
         viewAboveTableView.snp.makeConstraints { (make) in
             make.height.equalTo(screenHeight)
-        make.bottom.equalTo(self.view.snp.bottom)
+            make.bottom.equalTo(self.view.snp.bottom)
             make.left.equalTo(self.view.snp.left)
             make.right.equalTo(self.view.snp.right)
         }
@@ -172,10 +188,10 @@ class StatusTableViewController: UIViewController {
             make.right.equalTo(self.view.snp.right)
         }
         
-        self.textView.snp.makeConstraints { (make) in
-        make.bottom.equalTo(viewAboveTableView.snp.bottom)
-        make.width.equalTo(screenWidth)
-        make.height.equalTo(100)
+        self.commentView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(viewAboveTableView.snp.bottom)
+            make.width.equalTo(screenWidth)
+            make.height.equalTo(130)
         }
         tableView.delegate = self
         tableView.dataSource = self
@@ -197,17 +213,14 @@ class StatusTableViewController: UIViewController {
         //        refreshControl?.addTarget(self, action: #selector(LoadStatus), for: .valueChanged)
         //        UIControl.Event.touchDragExit
         
-       
+        
         viewAboveTableView.isHidden = true
         
         tableView.refreshControl?.addTarget(self, action: #selector(startRefreshing), for: .valueChanged)
     }
-    ///TargetAction通知
-    @objc func startRefreshing() {
-        LoadStatus()
-    }
     
-    //MARK: - 加载Status数据到ListViewModel并刷新tableView
+    //MARK: - 功能函数
+    ///加载微博数据，里面会进行本地缓存判断。
     @objc func LoadStatus(){
         tableView.refreshControl?.beginRefreshing()
         statuslistviewModel.LoadStatus(isPullUp: indicator.isAnimating)
@@ -233,6 +246,10 @@ class StatusTableViewController: UIViewController {
                     self.tableView.refreshControl?.endRefreshing()
             })
         }
+    }
+    ///TargetAction通知
+    @objc func startRefreshing() {
+        LoadStatus()
     }
     
     func addRefreshStatusLabel()  {
@@ -263,7 +280,10 @@ class StatusTableViewController: UIViewController {
             })
         })
     }
-    
+    ///重新加载
+    @objc func clickReloadButton(){
+        LoadStatus()
+    }
     //MARK: - 懒加载控件
     lazy var tableView : UITableView = UITableView.init()
     
@@ -301,14 +321,14 @@ class StatusTableViewController: UIViewController {
         return label
     }()
     ///键盘上的textView
-    lazy var textView : UITextView = {
-        let tf = UITextView.init(frame: CGRect.init(x: 0, y: screenHeight, width: screenWidth, height: 0))
+    lazy var commentView : CommentKeyBoardView = {
+        let tf = CommentKeyBoardView.init(frame: CGRect.init(x: 0, y: screenHeight, width: screenWidth, height: 0))
         tf.backgroundColor = backColor
         return tf
     }()
     ///键盘出现时的外部点击手势
     lazy var tapGesture : UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(tapViewOutSideOfKeyBoard))
-    
+    var commentPoint = CGPoint.init(x: 0, y: 0)
 }
 
 //extension HomeTableViewController :
@@ -316,11 +336,11 @@ class StatusTableViewController: UIViewController {
 //MARK: - tableView代理方法
 extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
 {
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //        QL1("调用了numberOfRowsInSection")
         return statuslistviewModel.StatusList.count
     }
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let vm = statuslistviewModel.StatusList[indexPath.row]
         
@@ -366,12 +386,13 @@ extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
         //        }
         
         return statuslistviewModel.StatusList[indexPath.row].rowHeight
-    
+        
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return indicator
     }
+    
 }
 //MAKR: - 正文蓝色Label点击代理
 extension StatusTableViewController : ClickLabelDelegate
