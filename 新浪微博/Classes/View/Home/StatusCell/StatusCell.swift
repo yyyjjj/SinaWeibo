@@ -17,7 +17,9 @@ protocol ClickLabelDelegate : NSObjectProtocol{
 }
 
 class StatusCell: UITableViewCell {
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
     var viewModel : StatusViewModel?
     {
         didSet

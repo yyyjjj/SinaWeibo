@@ -85,22 +85,43 @@ class StatusTableViewController: UIViewController {
                 return
             }
             
-            guard let commentPoint = notification.userInfo?[CurrentCommentBottonPoint] as? CGPoint else
+            guard let commentViewPositionToWindows = notification.userInfo?[CurrentCommentBottonPoint] as? CGPoint else
             {
                 return
             }
+            
+            guard let statusTag = notification.userInfo?["StatusID"] as? Int else
+            {
+                return
+            }
+            //评论区没有人数
+            if commentCount <= 0
+            {
             //1.创建文本框
-            self?.commentPoint = commentPoint
+            self?.commentViewPosition = commentViewPositionToWindows
+            
+            self?.lastTextViewTag = statusTag
+            ///如果在表中找到上次编辑的评论内容，那么就赋值
+            self?.commentView.textView.text = self?.commentTable.keys.contains(statusTag) ?? false ? self?.commentTable[statusTag] : nil
+            self?.lastTextViewTag = statusTag
             self?.viewAboveTableView.isHidden = false
             self?.commentView.textView.becomeFirstResponder()
+            }else
+            {//评论有人评论，进入对于当前微博的评论View
+                self?.navigationController?.pushViewController(CommentViewController(), animated: true)
+            }
+            
         }
     }
     
     @objc func tapViewOutSideOfKeyBoard() {
+        
         self.viewAboveTableView.isHidden = true
         
         self.commentView.textView.resignFirstResponder()
     }
+    
+    
     
     @objc func HomeTVCKeyBoardWillChange(_ notification : NSNotification)
     {
@@ -108,17 +129,23 @@ class StatusTableViewController: UIViewController {
         let rect = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration = (notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let curve = (notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! NSNumber).intValue
-            
+        //第一次打开键盘输入字母会再次进入这个方法，即使rect没有改变
+        if rect != lastKeyBoardRect
+        {
+        lastKeyBoardRect = rect
+        
         var contentOffset : CGPoint!
         
         if rect.origin.y == screenHeight
         {
             //键盘收回到屏幕下方
-            contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y-(commentPoint.y -  (screenHeight-rect.size.height-commentView.frame.height)))
+            contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y-(commentViewPosition.y -  (screenHeight-rect.size.height-commentView.frame.height)))
+            //更新文字
+            commentTable[lastTextViewTag] = commentView.textView.text
         }else
         {
             //键盘弹出
-            contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y+(commentPoint.y -  (screenHeight-rect.size.height-commentView.frame.height)))
+            contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y+(commentViewPosition.y -  (screenHeight-rect.size.height-commentView.frame.height)))
         }
         //滚动tableView到被textView遮挡
         self.tableView.setContentOffset(contentOffset, animated: true)
@@ -132,6 +159,7 @@ class StatusTableViewController: UIViewController {
         UIView.animate(withDuration: duration) {
         UIView.setAnimationCurve(UIView.AnimationCurve.init(rawValue: curve)!)
             self.view.layoutIfNeeded()
+        }
         }
     }
     
@@ -246,6 +274,7 @@ class StatusTableViewController: UIViewController {
                     self.tableView.refreshControl?.endRefreshing()
             })
         }
+        
     }
     ///TargetAction通知
     @objc func startRefreshing() {
@@ -328,7 +357,15 @@ class StatusTableViewController: UIViewController {
     }()
     ///键盘出现时的外部点击手势
     lazy var tapGesture : UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(tapViewOutSideOfKeyBoard))
-    var commentPoint = CGPoint.init(x: 0, y: 0)
+    ///评论View的位置
+    var commentViewPosition = CGPoint.init(x: 0, y: 0)
+    ///评论记录表，key为微博的id，下一次评论该微博可以找到之前编辑的内容
+    var commentTable = [Int : String]()
+    ///保存上一次的StatusID，用于更新评论表的内容
+    var lastTextViewTag : Int = 0
+    ///防止键盘弹出后打字再次改变高度
+    var lastKeyBoardRect : CGRect = CGRect.init()
+    
 }
 
 //extension HomeTableViewController :
@@ -336,6 +373,9 @@ class StatusTableViewController: UIViewController {
 //MARK: - tableView代理方法
 extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
 {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //        QL1("调用了numberOfRowsInSection")
         return statuslistviewModel.StatusList.count
@@ -349,6 +389,8 @@ extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
         cell.selectionStyle = .none
         
         cell.viewModel = vm
+        
+        cell.bottomView.tag = vm.status.id
         
         cell.clickLabelDelegate = self
         
@@ -400,10 +442,14 @@ extension StatusTableViewController : ClickLabelDelegate
     func didClickURL(url: URL) {
         let webVC = HomeWebViewController.init(url: url)
         webVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(webVC, animated:true)
+        self.navigationController?.delegate = self; self.navigationController?.pushViewController(webVC, animated:true)
     }
+    
 }
-
+extension StatusTableViewController : UINavigationControllerDelegate
+{
+    
+}
 extension StatusTableViewController : ClickUserIconProtocol
 {
     func clickUserIcon(viewModel: StatusViewModel) {

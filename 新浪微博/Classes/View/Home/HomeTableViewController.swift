@@ -22,6 +22,16 @@ class HomeTableViewController: VisitorViewController {
 //        }
 //    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.titleCollectionView.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+          self.titleCollectionView.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if !UserAccountViewModel.shared.userLoginStatus {

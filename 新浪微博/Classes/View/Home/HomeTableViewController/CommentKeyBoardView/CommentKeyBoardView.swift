@@ -182,7 +182,6 @@ class CommentKeyBoardView: UIView {
 //    btn.sizeToFit()
     return btn
     }()
-    
     private let margin = 13
     
 }

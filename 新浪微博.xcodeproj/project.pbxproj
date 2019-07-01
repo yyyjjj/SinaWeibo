@@ -88,6 +88,7 @@
 		69A306D622618AC900180F5A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A306D522618AC900180F5A /* UIColor+Extension.swift */; };
 		69A306D8226193A800180F5A /* PictureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A306D7226193A800180F5A /* PictureCollectionViewCell.swift */; };
 		69B0B3DC222EB3290020014B /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B0B3DB222EB3290020014B /* NetworkTool.swift */; };
+		69BC2EC022C9FDB3006DC001 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC2EBF22C9FDB3006DC001 /* CommentViewController.swift */; };
 		69C5C0D0224A0B270000D39D /* StatusPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C5C0CF224A0B270000D39D /* StatusPictureView.swift */; };
 		69DFBD6322360B57007AF947 /* NewFeatureCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DFBD6222360B57007AF947 /* NewFeatureCollectionViewController.swift */; };
 		69E59F4522296D1C00497ECF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E59F4422296D1C00497ECF /* AppDelegate.swift */; };
@@ -206,6 +207,7 @@
 		69A306D522618AC900180F5A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		69A306D7226193A800180F5A /* PictureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCollectionViewCell.swift; sourceTree = "<group>"; };
 		69B0B3DB222EB3290020014B /* NetworkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
+		69BC2EBF22C9FDB3006DC001 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		69C5C0CF224A0B270000D39D /* StatusPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPictureView.swift; sourceTree = "<group>"; };
 		69DFBD6222360B57007AF947 /* NewFeatureCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeatureCollectionViewController.swift; sourceTree = "<group>"; };
 		69E59F4122296D1B00497ECF /* 新浪微博.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -362,6 +364,7 @@
 		692F083222C4ABD500641A26 /* HomeTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				69BC2EBE22C9FD89006DC001 /* CommentViewController */,
 				690FD87522C8A33900388A6F /* CommentKeyBoardView */,
 				692F083622C4AC0E00641A26 /* StatusTableViewController.swift */,
 			);
@@ -639,6 +642,14 @@
 				697078C722B24B9B00EECF84 /* DetailTableViewCell.swift */,
 			);
 			path = ProfileCells;
+			sourceTree = "<group>";
+		};
+		69BC2EBE22C9FD89006DC001 /* CommentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				69BC2EBF22C9FDB3006DC001 /* CommentViewController.swift */,
+			);
+			path = CommentViewController;
 			sourceTree = "<group>";
 		};
 		69DFBD6122360B3C007AF947 /* NewFeature */ = {
@@ -963,6 +974,7 @@
 				6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */,
 				692F083122C4AAB700641A26 /* PageViewController.swift in Sources */,
 				69365E5B226D41E600E6E53E /* FMResultSet.m in Sources */,
+				69BC2EC022C9FDB3006DC001 /* CommentViewController.swift in Sources */,
 				697078C622B24B8800EECF84 /* InfoTableViewCell.swift in Sources */,
 				692F083722C4AC0E00641A26 /* StatusTableViewController.swift in Sources */,
 				6952C53A225F655300A8DC97 /* EmoticonPackage.swift in Sources */,

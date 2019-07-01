@@ -109,7 +109,7 @@ extension StatusBottomView {
       let point = self.convert(CGPoint.init(x: 0, y: self.frame.size.height-20), to: UIApplication.shared.keyWindow)
         
         //1.给HomeTable发送评论按钮点击通知
-        NotificationCenter.default.post(name: .init(rawValue: WBCellCommentBottomClickedNotification), object: self, userInfo: [WBCellCommentCountsNotification:viewModel!.status.comments_count,CurrentCommentBottonPoint:point])
+        NotificationCenter.default.post(name: .init(rawValue: WBCellCommentBottomClickedNotification), object: self, userInfo: [WBCellCommentCountsNotification:viewModel!.status.comments_count,CurrentCommentBottonPoint:point,"StatusID":self.tag])
     }
     //分割线
     func sepLine() -> UIView{
