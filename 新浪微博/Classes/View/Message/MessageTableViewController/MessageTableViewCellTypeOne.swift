@@ -10,9 +10,9 @@ import UIKit
 /*
  *tableView前三行的cell，固定存在
  */
-let cellHeight = screenHeight*0.115
+private let cellHeight = screenHeight*0.115
 
-let cellMargin = screenWidth*0.04
+private let cellMargin = screenWidth*0.04
 
 class MessageTableViewCellTypeOne: UITableViewCell {
     

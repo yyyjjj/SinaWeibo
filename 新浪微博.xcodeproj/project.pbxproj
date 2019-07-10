@@ -26,6 +26,12 @@
 		692C173E2272E60C00438774 /* QorumLogs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692C173D2272E60C00438774 /* QorumLogs.framework */; };
 		692C17402273259800438774 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692C173F2273259800438774 /* DateExtension.swift */; };
 		692E0D072265B4D9002F84C2 /* PhotoBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0D062265B4D9002F84C2 /* PhotoBrowserTransitioningDelegate.swift */; };
+		692EF4A722D453FF008A2F81 /* CommentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF4A622D453FF008A2F81 /* CommentTableView.swift */; };
+		692EF4A922D4541D008A2F81 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF4A822D4541D008A2F81 /* CommentCell.swift */; };
+		692EF4AD22D4667F008A2F81 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF4AC22D4667F008A2F81 /* CommentModel.swift */; };
+		692EF4AF22D46689008A2F81 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF4AE22D46689008A2F81 /* CommentViewModel.swift */; };
+		692EF4B122D47D92008A2F81 /* CommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF4B022D47D92008A2F81 /* CommentListViewModel.swift */; };
+		692EF4B322D4810A008A2F81 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF4B222D4810A008A2F81 /* CommentTableViewCell.swift */; };
 		692F083022C4AAB700641A26 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F082E22C4AAB700641A26 /* TitleCollectionViewCell.swift */; };
 		692F083122C4AAB700641A26 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F082F22C4AAB700641A26 /* PageViewController.swift */; };
 		692F083722C4AC0E00641A26 /* StatusTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F083622C4AC0E00641A26 /* StatusTableViewController.swift */; };
@@ -61,6 +67,7 @@
 		6939D95F2233660F004E7623 /* UserAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939D95E2233660F004E7623 /* UserAccountViewModel.swift */; };
 		693FCF232291A75D0048B4AE /* RTHook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FCF222291A75D0048B4AE /* RTHook.swift */; };
 		693FCF25229237360048B4AE /* UIViewController+Hook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FCF24229237360048B4AE /* UIViewController+Hook.swift */; };
+		694E528322D0DB8F0010A7C7 /* UIImage + downsample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694E528222D0DB8F0010A7C7 /* UIImage + downsample.swift */; };
 		6952C51E225E3A3B00A8DC97 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C51D225E3A3B00A8DC97 /* ComposeViewController.swift */; };
 		6952C522225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C521225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift */; };
 		6952C528225F646000A8DC97 /* EmoticonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C524225F646000A8DC97 /* EmoticonView.swift */; };
@@ -135,6 +142,12 @@
 		692C173D2272E60C00438774 /* QorumLogs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QorumLogs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		692C173F2273259800438774 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		692E0D062265B4D9002F84C2 /* PhotoBrowserTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserTransitioningDelegate.swift; sourceTree = "<group>"; };
+		692EF4A622D453FF008A2F81 /* CommentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableView.swift; sourceTree = "<group>"; };
+		692EF4A822D4541D008A2F81 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		692EF4AC22D4667F008A2F81 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		692EF4AE22D46689008A2F81 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		692EF4B022D47D92008A2F81 /* CommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListViewModel.swift; sourceTree = "<group>"; };
+		692EF4B222D4810A008A2F81 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		692F082E22C4AAB700641A26 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
 		692F082F22C4AAB700641A26 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		692F083622C4AC0E00641A26 /* StatusTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +191,7 @@
 		6939D95E2233660F004E7623 /* UserAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewModel.swift; sourceTree = "<group>"; };
 		693FCF222291A75D0048B4AE /* RTHook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTHook.swift; sourceTree = "<group>"; };
 		693FCF24229237360048B4AE /* UIViewController+Hook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Hook.swift"; sourceTree = "<group>"; };
+		694E528222D0DB8F0010A7C7 /* UIImage + downsample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + downsample.swift"; sourceTree = "<group>"; };
 		6952C51D225E3A3B00A8DC97 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		6952C521225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
 		6952C524225F646000A8DC97 /* EmoticonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonView.swift; sourceTree = "<group>"; };
@@ -313,6 +327,7 @@
 				692C173F2273259800438774 /* DateExtension.swift */,
 				69327F632273EEF200D699CA /* String + Regex .swift */,
 				693FCF24229237360048B4AE /* UIViewController+Hook.swift */,
+				694E528222D0DB8F0010A7C7 /* UIImage + downsample.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -344,6 +359,23 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		692EF4AA22D46636008A2F81 /* CommentModel */ = {
+			isa = PBXGroup;
+			children = (
+				692EF4AC22D4667F008A2F81 /* CommentModel.swift */,
+			);
+			path = CommentModel;
+			sourceTree = "<group>";
+		};
+		692EF4AB22D46646008A2F81 /* CommentViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				692EF4AE22D46689008A2F81 /* CommentViewModel.swift */,
+				692EF4B022D47D92008A2F81 /* CommentListViewModel.swift */,
+			);
+			path = CommentViewModel;
+			sourceTree = "<group>";
+		};
 		692F082C22C4AAB700641A26 /* PageViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +396,8 @@
 		692F083222C4ABD500641A26 /* HomeTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				692EF4AB22D46646008A2F81 /* CommentViewModel */,
+				692EF4AA22D46636008A2F81 /* CommentModel */,
 				69BC2EBE22C9FD89006DC001 /* CommentViewController */,
 				690FD87522C8A33900388A6F /* CommentKeyBoardView */,
 				692F083622C4AC0E00641A26 /* StatusTableViewController.swift */,
@@ -648,6 +682,9 @@
 			isa = PBXGroup;
 			children = (
 				69BC2EBF22C9FDB3006DC001 /* CommentViewController.swift */,
+				692EF4A622D453FF008A2F81 /* CommentTableView.swift */,
+				692EF4A822D4541D008A2F81 /* CommentCell.swift */,
+				692EF4B222D4810A008A2F81 /* CommentTableViewCell.swift */,
 			);
 			path = CommentViewController;
 			sourceTree = "<group>";
@@ -971,7 +1008,10 @@
 				69396A7D2248F3F30005E981 /* StatusTopView.swift in Sources */,
 				6931F234222F6A07008B4948 /* OAuthLoginViewController.swift in Sources */,
 				6936FC66222B72B2002B9A19 /* ProfileViewController.swift in Sources */,
+				692EF4AF22D46689008A2F81 /* CommentViewModel.swift in Sources */,
+				692EF4A922D4541D008A2F81 /* CommentCell.swift in Sources */,
 				6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */,
+				692EF4B322D4810A008A2F81 /* CommentTableViewCell.swift in Sources */,
 				692F083122C4AAB700641A26 /* PageViewController.swift in Sources */,
 				69365E5B226D41E600E6E53E /* FMResultSet.m in Sources */,
 				69BC2EC022C9FDB3006DC001 /* CommentViewController.swift in Sources */,
@@ -994,6 +1034,7 @@
 				692F083022C4AAB700641A26 /* TitleCollectionViewCell.swift in Sources */,
 				693FCF232291A75D0048B4AE /* RTHook.swift in Sources */,
 				69215C092276E43C00962D46 /* HomeWebViewController.swift in Sources */,
+				692EF4AD22D4667F008A2F81 /* CommentModel.swift in Sources */,
 				69215C052276DA9C00962D46 /* FFLabel.swift in Sources */,
 				6962709522B6260A00E9B8D5 /* MessageTableViewCellTypeOne.swift in Sources */,
 				69396A7A2248F3930005E981 /* StatusCell.swift in Sources */,
@@ -1013,8 +1054,10 @@
 				692A01602252494500131A21 /* RefreshControl.swift in Sources */,
 				6936FC64222B72A1002B9A19 /* DiscoverViewController.swift in Sources */,
 				693FCF25229237360048B4AE /* UIViewController+Hook.swift in Sources */,
+				692EF4B122D47D92008A2F81 /* CommentListViewModel.swift in Sources */,
 				6929BD7D222CD00E00EE13FA /* VisitorView.swift in Sources */,
 				69693BEA22584D0F001EB21B /* FPSLabel.swift in Sources */,
+				692EF4A722D453FF008A2F81 /* CommentTableView.swift in Sources */,
 				6936FC5E222B724C002B9A19 /* MainViewController.swift in Sources */,
 				6952C52B225F646000A8DC97 /* TextViewExtension.swift in Sources */,
 				6939D95F2233660F004E7623 /* UserAccountViewModel.swift in Sources */,
@@ -1034,6 +1077,7 @@
 				69396A7222487A020005E981 /* Status.swift in Sources */,
 				692C17402273259800438774 /* DateExtension.swift in Sources */,
 				6952C52A225F646000A8DC97 /* EmoticonAttachment.swift in Sources */,
+				694E528322D0DB8F0010A7C7 /* UIImage + downsample.swift in Sources */,
 				6952C53B225F655300A8DC97 /* EmoticonsViewModel.swift in Sources */,
 				69DFBD6322360B57007AF947 /* NewFeatureCollectionViewController.swift in Sources */,
 				6927D5F222BC8E5D005FDAB9 /* LHJSearchBar.swift in Sources */,

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+internal typealias commentsCompletion = (_ commentViewModels : [CommentViewModel]) -> Void
 class StatusViewModel: NSObject {
     ///微博数据
     var status : Status
@@ -77,7 +77,7 @@ class StatusViewModel: NSObject {
     }
     
     var cellID : String {
-        return status.retweeted_status != nil ? RetweeetedStatusCellID : OriginStatusCellID
+        return status.retweeted_status != nil ? RetweetedStatusCellID : OriginStatusCellID
     }
     
     //缓存行高
@@ -87,7 +87,7 @@ class StatusViewModel: NSObject {
         
         if status.retweeted_status != nil{
             //转发cell
-            cell = RetweetedStatusCell.init(style: .default, reuseIdentifier: RetweeetedStatusCellID)
+            cell = RetweetedStatusCell.init(style: .default, reuseIdentifier: RetweetedStatusCellID)
         }else{
             //原创cell
             cell = OriginStatusCell.init(style: .default, reuseIdentifier: OriginStatusCellID)
@@ -106,6 +106,35 @@ class StatusViewModel: NSObject {
             urls.forEach({
                 thumbnails!.append(URL.init(string: $0["thumbnail_pic"]!)!)
             })
+        }
+    }
+}
+//MARK: - 加载评论
+extension StatusViewModel
+{
+    func loadComments(_ completion :@escaping commentsCompletion)
+    {
+        NetworkTool.sharedTool.loadComments(status: self.status.id) { (data, error) in
+            
+            if error != nil
+            {
+                print("微博评论数据加载错误")
+                return
+            }
+            
+            guard let dict = data as? [String : AnyObject] , let commentDict = dict["comments"] as? [[String : AnyObject]] else
+            {
+                print("数据格式有问题")
+                return
+            }
+            
+            var commentVMs = [CommentViewModel]()
+            commentDict.forEach({ (comment) in
+                let cm = CommentModel.init(dict: comment)
+               commentVMs.append(CommentViewModel.init(commentModel : cm))
+            })
+            
+           completion(commentVMs)
         }
     }
 }

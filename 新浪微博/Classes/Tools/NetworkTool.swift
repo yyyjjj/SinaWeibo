@@ -45,7 +45,7 @@ class NetworkTool
 //MARK: - 获取用户信息
 extension NetworkTool
 {
-    func LoadUserInfo(uid:String,success:@escaping completion)  {
+    func loadUserInfo(uid:String,success:@escaping completion)  {
         
 //        guard var params = AFNetworkTool.tokenDict else{
 //            success(nil, NSError(domain:"cn.itcast.error",code:-1001,userInfo:["message":"token 为空"]))
@@ -102,7 +102,7 @@ extension NetworkTool{
     }
 }
 
-//MARK: - 获取用户关注的动态
+//MARK: - 获取用户的微博
 extension NetworkTool{
     
     /// 加载微博数据
@@ -110,16 +110,14 @@ extension NetworkTool{
     /// - Parameter max_id:若指定此参数，上拉的话返回max_id小于等于原来数据最新的数据,默认是0
     /// - Parameter finished: 成功与否
     /// - [查看接口返回key详情](https://open.weibo.com/wiki/2/statuses/home_timeline)
-    func LoadStatus(since_id : Int , max_id : Int,finished:@escaping completion){
-//        guard var params = AFNetworkTool.tokenDict else{
-//            finished(nil, NSError(domain:"cn.itcast.error",code:-1001,userInfo:["message":"token 为空"]))
-//            return
-//        }
+    func loadStatus(since_id : Int , max_id : Int,finished:@escaping completion){
         
         var params = [String : Any]()
         
         if since_id != 0 {
+            
             params["since_id"] = since_id
+            
         }
         else if
             max_id != 0{
@@ -132,15 +130,28 @@ extension NetworkTool{
         tokenRequest(RequestMethod: .get, URLString: urlStrings, parameters: params, progress: nil, finished: finished)
     }
     
+    func loadComments(status id : Int,finished:@escaping completion) {
+        
+        var params = [String : Any]()
+        let url = "https://api.weibo.com/2/comments/show.json"
+        if id != 0
+        {
+            params["id"] = id
+        }
+        
+        tokenRequest(RequestMethod: .get, URLString: url, parameters: params, progress: nil, finished: finished)
+        
+    }
+    
 }
 
 //MARK: - 获取accesst_token
 extension NetworkTool
 {
-    func LoadTokenAccess(code : String , success : @escaping completion)
+    func loadTokenAccess(code : String , success : @escaping completion)
     {
 
-        var paras = ["client_id":NetworkTool.AppKey,
+        let paras = ["client_id":NetworkTool.AppKey,
                      "client_secret":NetworkTool.AppSecret,
                      "grant_type":"authorization_code",
                      "code":code,
@@ -153,25 +164,7 @@ extension NetworkTool
 
 //MARK: - 封装AFNetwork请求方法
 extension NetworkTool{
-    
-    func appendToken(parameters :inout [String:Any]?) -> Bool {
-        
-        guard let token = UserAccountViewModel.shared.accessToken else {
-            
-            return false
-        }
-        
-        if parameters == nil
-        {
-            parameters = [String : Any]()
-        }
-        
-        parameters!["access_token"] = token
-        
-        return true
-    }
-    
-    /// token网络请求
+    /// Token网络请求，请求微博相关数据直接使用该方法，里面已经封装好token
     ///
     /// - Parameters:
     ///   - RequestMethod: GET/POST
@@ -188,8 +181,23 @@ extension NetworkTool{
         }
         request(RequestMethod: RequestMethod, URLString: URLString, parameters: para, progress: progress, finished: finished)
     }
-    
-    
+    ///从用户模型中拿到token并拼接到parameters中
+    func appendToken(parameters :inout [String:Any]?) -> Bool {
+        
+        guard let token = UserAccountViewModel.shared.accessToken else {
+            
+            return false
+        }
+        
+        if parameters == nil
+        {
+            parameters = [String : Any]()
+        }
+        
+        parameters!["access_token"] = token
+        
+        return true
+    }
     /// 网络请求
     ///
     /// - Parameters:

@@ -22,7 +22,6 @@ class PictureCollectionViewCell: UICollectionViewCell {
     
     //MARK: - 图片点击事件
     @objc func touchImage() {
-        
         pictureDelegate?.touchPicture()
     }
     
@@ -47,7 +46,7 @@ class PictureCollectionViewCell: UICollectionViewCell {
             {
                  QL2(bigurl)
             }
-                
+        
             self.imageview.sd_setImage(with: bigurl, placeholderImage: tmpimage, options: [SDWebImageOptions.refreshCached,SDWebImageOptions.retryFailed], progress: { (current, total, _) in
                 
                 DispatchQueue.main.async {

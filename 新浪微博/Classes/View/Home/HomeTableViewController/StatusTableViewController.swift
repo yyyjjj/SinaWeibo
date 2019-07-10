@@ -11,7 +11,7 @@ import SVProgressHUD
 import QorumLogs
 
 let OriginStatusCellID = "OriginStatusCellID"
-let RetweeetedStatusCellID = "RetweeetedStatusCellID"
+let RetweetedStatusCellID = "RetweetedStatusCellID"
 
 class StatusTableViewController: UIViewController {
     
@@ -21,7 +21,7 @@ class StatusTableViewController: UIViewController {
     //MARK: - 生命周期
     override func viewWillAppear(_ animated: Bool) {
         //键盘高度改变的通知
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeTVCKeyBoardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        super.viewWillAppear(animated); NotificationCenter.default.addObserver(self, selector: #selector(HomeTVCKeyBoardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     override func viewDidLoad() {
@@ -42,7 +42,7 @@ class StatusTableViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
+        super.viewWillDisappear(animated); NotificationCenter.default.removeObserver(self)
     }
     //MARK: - 控件初始化和布局
     func prepareNotification()
@@ -77,41 +77,6 @@ class StatusTableViewController: UIViewController {
                 , completion: nil)
             
         }
-        //接收微博中评论按钮点击通知
-        NotificationCenter.default.addObserver(forName: .init(rawValue: WBCellCommentBottomClickedNotification), object: nil, queue: nil) {[weak self] (notification) in
-            
-            guard let commentCount = notification.userInfo?[WBCellCommentCountsNotification] as? Int else
-            {
-                return
-            }
-            
-            guard let commentViewPositionToWindows = notification.userInfo?[CurrentCommentBottonPoint] as? CGPoint else
-            {
-                return
-            }
-            
-            guard let statusTag = notification.userInfo?["StatusID"] as? Int else
-            {
-                return
-            }
-            //评论区没有人数
-            if commentCount <= 0
-            {
-            //1.创建文本框
-            self?.commentViewPosition = commentViewPositionToWindows
-            
-            self?.lastTextViewTag = statusTag
-            ///如果在表中找到上次编辑的评论内容，那么就赋值
-            self?.commentView.textView.text = self?.commentTable.keys.contains(statusTag) ?? false ? self?.commentTable[statusTag] : nil
-            self?.lastTextViewTag = statusTag
-            self?.viewAboveTableView.isHidden = false
-            self?.commentView.textView.becomeFirstResponder()
-            }else
-            {//评论有人评论，进入对于当前微博的评论View
-                self?.navigationController?.pushViewController(CommentViewController(), animated: true)
-            }
-            
-        }
     }
     
     @objc func tapViewOutSideOfKeyBoard() {
@@ -132,49 +97,37 @@ class StatusTableViewController: UIViewController {
         //第一次打开键盘输入字母会再次进入这个方法，即使rect没有改变
         if rect != lastKeyBoardRect
         {
-        lastKeyBoardRect = rect
-        
-        var contentOffset : CGPoint!
-        
-        if rect.origin.y == screenHeight
-        {
-            //键盘收回到屏幕下方
-            contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y-(commentViewPosition.y -  (screenHeight-rect.size.height-commentView.frame.height)))
-            //更新文字
-            commentTable[lastTextViewTag] = commentView.textView.text
-        }else
-        {
-            //键盘弹出
-            contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y+(commentViewPosition.y -  (screenHeight-rect.size.height-commentView.frame.height)))
-        }
-        //滚动tableView到被textView遮挡
-        self.tableView.setContentOffset(contentOffset, animated: true)
-        
-        UIView.animate(withDuration: duration) {
-            self.commentView.snp.updateConstraints { (make) in
-            make.bottom.equalTo(self.viewAboveTableView.snp.bottom).offset(-rect.size.height)
+            lastKeyBoardRect = rect
+            
+            var contentOffset : CGPoint!
+            
+            if rect.origin.y == screenHeight
+            {
+                //键盘收回到屏幕下方
+                contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y-(commentViewPosition.y -  (screenHeight-rect.size.height-commentView.frame.height)))
+                //更新文字
+                commentTable[lastTextViewTag] = commentView.textView.text
+            }else
+            {
+                //键盘弹出
+                contentOffset = CGPoint.init(x:0 , y: self.tableView.contentOffset.y+(commentViewPosition.y -  (screenHeight-rect.size.height-commentView.frame.height)))
             }
-        }
-        
-        UIView.animate(withDuration: duration) {
-        UIView.setAnimationCurve(UIView.AnimationCurve.init(rawValue: curve)!)
-            self.view.layoutIfNeeded()
-        }
+            //滚动tableView到被textView遮挡
+            self.tableView.setContentOffset(contentOffset, animated: true)
+            
+            UIView.animate(withDuration: duration) {
+                self.commentView.snp.updateConstraints { (make) in
+                    make.bottom.equalTo(self.viewAboveTableView.snp.bottom).offset(-rect.size.height)
+                }
+            }
+            
+            UIView.animate(withDuration: duration) {
+                UIView.setAnimationCurve(UIView.AnimationCurve.init(rawValue: curve)!)
+                self.view.layoutIfNeeded()
+            }
         }
     }
     
-    //func prepareFPSLabel(){
-    //                let fpslabel = FPSLabel()
-    //                //view.addSubview(fpslabel)
-    //                //view.bringSubviewToFront(fpslabel)
-    //
-    //                UIApplication.shared.keyWindow?.addSubview(fpslabel)
-    //                fpslabel.snp.makeConstraints { (make) in
-    //                    make.center.equalTo(UIApplication.shared.keyWindow!.snp.center)
-    //                    make.height.equalTo(30)
-    //                    make.width.equalTo(60)
-    //                }
-    //    }
     ///准备ReloadButton
     func prepareReloadButton() {
         
@@ -221,12 +174,14 @@ class StatusTableViewController: UIViewController {
             make.width.equalTo(screenWidth)
             make.height.equalTo(130)
         }
+        
         tableView.delegate = self
+        
         tableView.dataSource = self
         
         tableView.register(OriginStatusCell.self, forCellReuseIdentifier: OriginStatusCellID)
         
-        tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: RetweeetedStatusCellID)
+        tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier: RetweetedStatusCellID)
         
         tableView.separatorStyle = .none
         
@@ -240,18 +195,26 @@ class StatusTableViewController: UIViewController {
         //        refreshControl?.addSubview(redView)
         //        refreshControl?.addTarget(self, action: #selector(LoadStatus), for: .valueChanged)
         //        UIControl.Event.touchDragExit
+        viewAboveTableView.addGestureRecognizer(UISwipeGestureRecognizer.init(target: self, action: #selector(tapViewOutSideOfKeyBoard)))
+        viewAboveTableView.addGestureRecognizer(UIPanGestureRecognizer.init(target: self, action: #selector(tapViewOutSideOfKeyBoard)))
+        viewAboveTableView.addGestureRecognizer(UILongPressGestureRecognizer.init(target: self, action: #selector(tapViewOutSideOfKeyBoard)))
         
+        viewAboveTableView.addGestureRecognizer(self.tapGesture)
         
         viewAboveTableView.isHidden = true
         
+        tapGesture.delegate = self.viewAboveTableView
+        
         tableView.refreshControl?.addTarget(self, action: #selector(startRefreshing), for: .valueChanged)
+        
     }
     
     //MARK: - 功能函数
     ///加载微博数据，里面会进行本地缓存判断。
     @objc func LoadStatus(){
+        lockForLoadStatus.lock()
         tableView.refreshControl?.beginRefreshing()
-        statuslistviewModel.LoadStatus(isPullUp: indicator.isAnimating)
+        statusListViewModel.LoadStatus(isPullUp: indicator.isAnimating)
         { (isSuccess) in
             
             self.indicator.stopAnimating()
@@ -266,13 +229,15 @@ class StatusTableViewController: UIViewController {
             self.addRefreshStatusLabel()
             
             self.reloadButton.isHidden = true
-            
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
             
             Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false
                 , block: { (_) in
                     self.tableView.refreshControl?.endRefreshing()
             })
+            self.lockForLoadStatus.unlock()
         }
         
     }
@@ -283,7 +248,7 @@ class StatusTableViewController: UIViewController {
     
     func addRefreshStatusLabel()  {
         
-        guard let refreshCount = statuslistviewModel.pullDownStatusCount else {
+        guard let refreshCount = statusListViewModel.pullDownStatusCount else {
             return
         }
         //QL1("刷新到\(refreshCount)条数据")
@@ -316,15 +281,35 @@ class StatusTableViewController: UIViewController {
     //MARK: - 懒加载控件
     lazy var tableView : UITableView = UITableView.init()
     
-    lazy var viewAboveTableView : UIView = {
-        let view = UIView.init()
-        view.addGestureRecognizer(self.tapGesture)
-        view.backgroundColor = UIColor.init(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 0.3)
+    lazy var viewAboveTableView : BackGroundView = {
+        let view = BackGroundView.init()
+        
+        view.backgroundColor = UIColor.init(red: 246.0/255.0,green: 246.0/255.0, blue: 246.0/255.0, alpha: 0.3)
         
         return view
     }()
     
-    var statuslistviewModel = StatusListViewModel()
+    class BackGroundView: UIView,UIGestureRecognizerDelegate {
+        //        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //            QL1("---")
+        //        }
+        //        override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //           QL1("---")
+        //        }
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+            //让其他手势
+            return true
+        }
+    }
+    
+    var statusListViewModel = StatusListViewModel()
     
     lazy var photoTransitionDelegate = PhotoBrowserTransitioningDelegate()
     ///刷新时的小转轮
@@ -356,7 +341,12 @@ class StatusTableViewController: UIViewController {
         return tf
     }()
     ///键盘出现时的外部点击手势
-    lazy var tapGesture : UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(tapViewOutSideOfKeyBoard))
+    lazy var tapGesture : UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer.init(target: self, action: #selector(tapViewOutSideOfKeyBoard))
+        
+        gesture.numberOfTapsRequired = 1
+        return gesture
+    }()
     ///评论View的位置
     var commentViewPosition = CGPoint.init(x: 0, y: 0)
     ///评论记录表，key为微博的id，下一次评论该微博可以找到之前编辑的内容
@@ -366,9 +356,8 @@ class StatusTableViewController: UIViewController {
     ///防止键盘弹出后打字再次改变高度
     var lastKeyBoardRect : CGRect = CGRect.init()
     
+    var lockForLoadStatus = NSLock.init()
 }
-
-//extension HomeTableViewController :
 
 //MARK: - tableView代理方法
 extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
@@ -377,12 +366,12 @@ extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        QL1("调用了numberOfRowsInSection")
-        return statuslistviewModel.StatusList.count
+        //QL1("调用了numberOfRowsInSection")
+        return statusListViewModel.StatusList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let vm = statuslistviewModel.StatusList[indexPath.row]
+        let vm = statusListViewModel.StatusList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
         
@@ -392,18 +381,29 @@ extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
         
         cell.bottomView.tag = vm.status.id
         
+        cell.bottomViewDelegate = self
+        
         cell.clickLabelDelegate = self
         
         cell.topView.clickdelegate = self
         
-        if indexPath.row == statuslistviewModel.StatusList.count-1 && !indicator.isAnimating{
+        if indexPath.row == statusListViewModel.StatusList.count-1 && !indicator.isAnimating{
             indicator.startAnimating()
             LoadStatus()
         }
         
-        //        QL1("调用了cellForRowAt")
+        //QL1("调用了cellForRowAt")
         return cell
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        QL1("---")
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        QL1("---")
+    }
+    
     //MARK: - TODORowHeight
     //完成RowHeight的一次计算，由于我们设置了estimatedRowHeight，系统会根据每次能填满屏幕高度的cell去调用几次rowHeight，我们可以提前计算好所以rowHeight，而不是用户去滑动到下一页的时候再去计算。
     //思路：我们可以通过runloop判断当前的ScrollView是处于UITrackingRunLoopMode还是NSDefaultRunLoopMode，如果是第二个及空闲状态，用户什么也不点击也不加载网络，那么就去把剩下的cell高度全部计算出来。
@@ -427,7 +427,7 @@ extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
         //            statuslistviewModel.StatusList[indexPath.row].rowHeight = (cell as! StatusCell).bottomView.frame.maxY
         //        }
         
-        return statuslistviewModel.StatusList[indexPath.row].rowHeight
+        return statusListViewModel.StatusList[indexPath.row].rowHeight
         
     }
     
@@ -435,6 +435,63 @@ extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
         return indicator
     }
     
+}
+//MARK: - 转发，评论，点赞点击代理
+extension StatusTableViewController : StatusCellBottomViewDelegate
+{
+    func didClickCommentButton(pointToWindow: CGPoint, statusViewModel: StatusViewModel) {
+        //评论区没有人数
+        if statusViewModel.status.comments_count <= 0
+        {
+            //1.创建文本框
+            self.commentViewPosition = pointToWindow
+            self.lastTextViewTag = statusViewModel.status.id
+            ///如果在表中找到上次编辑的评论内容，那么就赋值
+            self.commentView.textView.text = self.commentTable.keys.contains(statusViewModel.status.id) ? self.commentTable[statusViewModel.status.id] : nil
+            self.lastTextViewTag = statusViewModel.status.id
+            self.viewAboveTableView.isHidden = false
+            self.commentView.textView.becomeFirstResponder()
+        }else
+        {//评论有人评论，进入对于当前微博的评论View
+            let commentVC = CommentViewController()
+            //传入当前status的ViewModel,下面的一定有值,我们强行解包
+            commentVC.hidesBottomBarWhenPushed = true
+            statusListViewModel.StatusList.forEach({ (vm) in
+                if vm.status.id == statusViewModel.status.id
+                {
+                    commentVC.statusViewModel = vm
+                }
+            })
+            self.navigationController?.pushViewController(commentVC, animated: true)
+        }
+    }
+    
+    func didClickCommentButton(pointToWindow: CGPoint, commentCount: Int, statusID: Int) {
+        //评论区没有人数
+        if commentCount <= 0
+        {
+            //1.创建文本框
+            self.commentViewPosition = pointToWindow
+            self.lastTextViewTag = statusID
+            ///如果在表中找到上次编辑的评论内容，那么就赋值
+            self.commentView.textView.text = self.commentTable.keys.contains(statusID) ? self.commentTable[statusID] : nil
+            self.lastTextViewTag = statusID
+            self.viewAboveTableView.isHidden = false
+            self.commentView.textView.becomeFirstResponder()
+        }else
+        {//评论有人评论，进入对于当前微博的评论View
+            let commentVC = CommentViewController()
+            //传入当前status的ViewModel,下面的一定有值,我们强行解包
+            commentVC.hidesBottomBarWhenPushed = true
+            statusListViewModel.StatusList.forEach({ (vm) in
+                if vm.status.id == statusID
+                {
+                    commentVC.statusViewModel = vm
+                }
+            })
+            self.navigationController?.pushViewController(commentVC, animated: true)
+        }
+    }
 }
 //MAKR: - 正文蓝色Label点击代理
 extension StatusTableViewController : ClickLabelDelegate
@@ -453,6 +510,6 @@ extension StatusTableViewController : UINavigationControllerDelegate
 extension StatusTableViewController : ClickUserIconProtocol
 {
     func clickUserIcon(viewModel: StatusViewModel) {
-        //        QL1("点击了\(viewModel.status.user!.screen_name)的头像")
     }
 }
+

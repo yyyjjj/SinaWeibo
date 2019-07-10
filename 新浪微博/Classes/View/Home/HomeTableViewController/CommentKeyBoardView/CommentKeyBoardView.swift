@@ -53,13 +53,13 @@ class CommentKeyBoardView: UIView {
         toolBar.snp.makeConstraints { (make) in
         make.left.equalTo(repostButton.snp.right).offset(margin)
             make.top.equalTo(textView.snp.bottom)
-            make.width.equalTo(200)
+            make.right.equalTo(self.snp.right)
             
             make.height.equalTo(40)
         }
         
         sendButton.snp.makeConstraints { (make) in
-            make.left.equalTo(textView.snp.right).offset(margin)
+        make.left.equalTo(textView.snp.right).offset(margin-5)
             make.bottom.equalTo(textView.snp.bottom)
             make.height.equalTo(20)
             make.width.equalTo(50)

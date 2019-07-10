@@ -20,9 +20,12 @@ class User: NSObject {
     ///会员等级 0-6
     @objc var mbrank : Int = 0
     
-    init(dict:[String:AnyObject]) {
-        super.init()
+    convenience init(dict:[String:AnyObject]) {
+        self.init()
         setValuesForKeys(dict)
+    }
+    override func setValue(_ value: Any?, forKey key: String) {
+    super.setValue(value, forKey: key)
     }
     override func setValue(_ value: Any?, forUndefinedKey key: String) {}
 }

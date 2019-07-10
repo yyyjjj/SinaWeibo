@@ -37,7 +37,9 @@ extension StatusListViewModel{
             
             //2,拼接每一个status的图片URL
             statuses.forEach({
-                List.append(StatusViewModel.init(status: Status.init(dict: $0 as [String : AnyObject]) ))
+                let s = Status.init(dict: $0 as [String : AnyObject])
+                 
+                List.append(StatusViewModel.init(status: s))
             })
             //赋值下拉刷新到的数据，用于显示刷新条数
             if since_id > 0
@@ -55,6 +57,9 @@ extension StatusListViewModel{
             //print("刷新了\(List.count)条微博 ，总微博为\(self.StatusList.count)")
             //4,我们要保证finish闭包要在缓存完单图后
             self.cacheSinglePic(StatusList: List,finished: finished)
+        //注意：如果不再缓存结束再去调用finish闭包，这边单图的cell会出现布局错误，比如我原本的图片长度是100，这时候调用reloadData，大小被确认下来了，这时候我再剪切图片成60，由于自动布局，bottomView也跟着上去.
+        //比如图片高度是90，然后我们在单图缓存完后调用图片size调整函数，我们默认的size是120，在磁盘中找到该图片时候再去更新size，如果没找到就120，这时候就会产生30的高度差。
+            
         }
     }
 }
@@ -102,8 +107,9 @@ extension StatusListViewModel{
         
         group.notify(queue: DispatchQueue.main) {
             //print("缓存完成")
-            print("数据长度\(dataLength/1024)")
+            print("加载的微博中单图数据长度\(dataLength/1024)")
             //print("缓存图像的地址:\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)")
+            
             finished(true)
         }
     }

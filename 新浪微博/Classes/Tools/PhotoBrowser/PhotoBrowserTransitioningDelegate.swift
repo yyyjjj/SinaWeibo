@@ -40,7 +40,6 @@ class PhotoBrowserTransitioningDelegate : NSObject, UIViewControllerTransitionin
         self.PhotoPresentDelegate = presentDelegate
         self.PhotoDismissDelegate = dismissDelegate
         self.indexPath = indexPath
-        
     }
     
     var forPresented = false

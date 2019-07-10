@@ -8,7 +8,25 @@
 
 import UIKit
 import QorumLogs
+protocol StatusBottomViewClickDelegate : NSObjectProtocol {
+    func commentButtonClick(pointToWindows:CGPoint)
+    func retweetButtonClick()
+    func likeButtonClick()
+}
 class StatusBottomView: UIView {
+    //MARK: - 生命周期
+    override init(frame: CGRect) {
+        super.init(frame:frame)
+        setupUI()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - 成员属性
+    weak var delegate : StatusBottomViewClickDelegate?
+    
     var viewModel : StatusViewModel?{
         didSet
         {
@@ -17,6 +35,9 @@ class StatusBottomView: UIView {
             if reports_count != 0
             {
                 retweetedButton.setTitle(" "+String(reports_count), for: .normal)
+            }else
+            {
+                 retweetedButton.setTitle("", for: .normal)
             }
             
             let comments_count = viewModel!.status.comments_count
@@ -24,6 +45,9 @@ class StatusBottomView: UIView {
             if comments_count != 0
             {
                 commentButton.setTitle(" "+String(comments_count), for: .normal)
+            }else
+            {
+                 commentButton.setTitle("", for: .normal)
             }
             
             let attitudes_count =  viewModel!.status.attitudes_count
@@ -31,6 +55,9 @@ class StatusBottomView: UIView {
             if attitudes_count != 0
             {
                 likeButton.setTitle(" "+String(attitudes_count), for: .normal)
+            }else
+            {
+                likeButton.setTitle("", for: .normal)
             }
         }
     }
@@ -40,15 +67,6 @@ class StatusBottomView: UIView {
     private lazy var commentButton = UIButton.init(text: " 评论", textColor: UIColor.darkGray, backImage: "timeline_icon_comment", textSize: 12,isBack:false);
     ///点赞按钮
     private lazy var likeButton = UIButton.init(text: " 点赞", textColor: UIColor.darkGray, backImage: "timeline_icon_unlike", textSize: 12,isBack:false);
-    
-    override init(frame: CGRect) {
-        super.init(frame:frame)
-        setupUI()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
 }
 extension StatusBottomView {
@@ -107,7 +125,7 @@ extension StatusBottomView {
     @objc func commentClicked(){
         
       let point = self.convert(CGPoint.init(x: 0, y: self.frame.size.height-20), to: UIApplication.shared.keyWindow)
-        
+        delegate?.commentButtonClick(pointToWindows: point)
         //1.给HomeTable发送评论按钮点击通知
         NotificationCenter.default.post(name: .init(rawValue: WBCellCommentBottomClickedNotification), object: self, userInfo: [WBCellCommentCountsNotification:viewModel!.status.comments_count,CurrentCommentBottonPoint:point,"StatusID":self.tag])
     }

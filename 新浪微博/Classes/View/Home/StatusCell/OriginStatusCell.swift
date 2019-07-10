@@ -21,6 +21,7 @@ class OriginStatusCell: StatusCell {
             }
         }
     }
+
     //重写父类方法，通过父类init调用这个
     override func SetUpUI() {
         super.SetUpUI()

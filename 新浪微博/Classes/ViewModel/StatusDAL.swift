@@ -41,12 +41,12 @@ class StatusDAL {
         // 2,有的话从本地加载并返回字典数组
         
         if array != nil  {
-            print("使用了本地数据")
+            print("使用了数据库数据")
             finished(array!)
             return
         }
         // 3,没有的话从网络加载
-        NetworkTool.sharedTool.LoadStatus(since_id: since_id, max_id: max_id)
+        NetworkTool.sharedTool.loadStatus(since_id: since_id, max_id: max_id)
         { (result, error) in
             if error != nil
             {
@@ -111,6 +111,7 @@ class StatusDAL {
             print("用户没登录无法拿到数据库内容")
             return
         }
+        print(String.init(format: "写入%i条微博进数据库", array.count))
         //1,准备SQL
         //SQLITE特殊语法INSERT OR REPLACE,当获得相同id的微博就进行替换
     //由于我们每次刷新都会获得20条数据，可能刷新后没有获得新的数据，而是获得原来的数据，那么这时候我们要替换了,可能点赞数和评论数出现了不同

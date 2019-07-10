@@ -16,6 +16,10 @@ protocol ClickLabelDelegate : NSObjectProtocol{
     func didClickURL(url:URL)
 }
 
+protocol StatusCellBottomViewDelegate : NSObjectProtocol {
+    func didClickCommentButton(pointToWindow: CGPoint, statusViewModel : StatusViewModel )
+}
+
 class StatusCell: UITableViewCell {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -71,6 +75,7 @@ class StatusCell: UITableViewCell {
     
     weak var clickLabelDelegate : ClickLabelDelegate?
     
+    weak var bottomViewDelegate : StatusCellBottomViewDelegate?
 }
 
 extension StatusCell{
@@ -84,6 +89,7 @@ extension StatusCell{
         contentView.addSubview(contentLabel)
         contentView.addSubview(bottomView)
         contentView.addSubview(pictureView)
+        
         bottomView.backgroundColor = UIColor.white
         //2,布局
         topView.snp.makeConstraints { (make) in
@@ -95,7 +101,7 @@ extension StatusCell{
         
         contentLabel.snp.makeConstraints { (make) in
             make.top.equalTo(topView.snp.bottom).offset(StatusCellMargins)
-           make.left.equalTo(contentView.snp.left).offset(StatusCellMargins)
+            make.left.equalTo(contentView.snp.left).offset(StatusCellMargins)
         }
         
         bottomView.snp.makeConstraints { (make) in
@@ -106,9 +112,28 @@ extension StatusCell{
         }
         //3，设置代理
         contentLabel.labelDelegate = self
+        bottomView.delegate = self
     }
 }
-
+extension StatusCell : StatusBottomViewClickDelegate
+{
+    func commentButtonClick(pointToWindows: CGPoint) {
+        guard let vm = viewModel else {
+            return
+        };
+        bottomViewDelegate?.didClickCommentButton(pointToWindow: pointToWindows, statusViewModel: vm)
+    }
+    
+    func retweetButtonClick() {
+        
+    }
+    
+    func likeButtonClick() {
+        
+    }
+    
+    
+}
 extension StatusCell : FFLabelDelegate{
     func labelDidSelectedLinkText(label: FFLabel, text: String) {
         QL1(text)
@@ -116,5 +141,6 @@ extension StatusCell : FFLabelDelegate{
             //由于我们在微博中点击的链接为短链接(节省资源)，都为httpl开头
             clickLabelDelegate?.didClickURL(url: URL.init(string: text)!)
         }
+        
     }
 }

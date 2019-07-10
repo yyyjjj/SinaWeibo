@@ -95,7 +95,7 @@ extension UserAccountViewModel {
     ///   - code: 调用authorize获得的code值。
     ///   - finished: Succeed or not
     func loadAccessToken( code:String , finished: @escaping (_ isSuccess : Bool)->()){
-        NetworkTool.sharedTool.LoadTokenAccess(code: code) { (data, error) in
+        NetworkTool.sharedTool.loadTokenAccess(code: code) { (data, error) in
             if error != nil{
                 return
             }
@@ -118,7 +118,7 @@ extension UserAccountViewModel {
     }
     
     func loadUserInfo(uid:String,finished : @escaping (_ isSuccess : Bool)->())  {
-        NetworkTool.sharedTool.LoadUserInfo( uid: uid){ (data, error) in
+        NetworkTool.sharedTool.loadUserInfo( uid: uid){ (data, error) in
             if error != nil
             {
                 finished(false)

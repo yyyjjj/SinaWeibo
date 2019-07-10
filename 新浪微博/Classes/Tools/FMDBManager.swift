@@ -74,5 +74,4 @@ class FMDBManager: NSObject {
         })
         return array
     }
-    
 }

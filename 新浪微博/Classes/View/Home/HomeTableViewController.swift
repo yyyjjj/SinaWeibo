@@ -59,8 +59,7 @@ class HomeTableViewController: VisitorViewController {
         pageViewController.delegate = self
         pageViewController.dataSource = self
         self.addChild(pageViewController)
-    self.view.addSubview(pageViewController.view)
-        
+        self.view.addSubview(pageViewController.view)
     }
     override func viewSafeAreaInsetsDidChange() {
         
@@ -89,7 +88,7 @@ class HomeTableViewController: VisitorViewController {
         titleCollectionView.addSubview(bottomTail)
         titleCollectionView.delegate = self
         titleCollectionView.dataSource = self
-        titleCollectionView.register(TitleCollectionCell.self, forCellWithReuseIdentifier: titleCellID)
+       titleCollectionView.register(TitleCollectionCell.self, forCellWithReuseIdentifier: titleCellID)
         //        titleCollectionView.scrollToItem(at: IndexPath.init(row: 1, section: 0), at: .centeredHorizontally, animated: true)
     }
     func setFirstViewController(){
