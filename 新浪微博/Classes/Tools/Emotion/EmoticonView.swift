@@ -28,8 +28,11 @@ class EmoticonView: UIView {
     lazy var packages = EmoticonsViewModel.shared.packages
     //添加表情到最近分组
     func addFavourite(em:Emoticon) {
+        if em.isRemoved || em.isEmpty{
+            return
+        }
         //数组是结构体类型，会进行值拷贝，而不是指针拷贝
-        var ems = packages[0].emoticons
+        let ems = packages[0].emoticons
         //1,判断表情包数组是否有该表情,
         if packages[0].emoticons.contains(em)
         {
@@ -182,7 +185,6 @@ extension EmoticonView : UICollectionViewDataSource,UICollectionViewDelegate{
             //默认分组包进行表情热度排序，否则边点边刷新表情位置影响用户体验
             addFavourite(em: emoticon)
         }
-        print("indexpath = \(indexPath.section)")
     }
 }
 

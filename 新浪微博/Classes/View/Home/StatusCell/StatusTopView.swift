@@ -10,13 +10,13 @@ import UIKit
 import SnapKit
 import QorumLogs
 
-protocol ClickUserIconProtocol : NSObjectProtocol {
-    func clickUserIcon(viewModel:StatusViewModel)
+protocol ClickTopViewProtocol : NSObjectProtocol {
+    func clickClickTopView(viewModel:StatusViewModel)
 }
 
 class StatusTopView: UIView {
     
-    weak var clickdelegate : ClickUserIconProtocol?
+    weak var clickdelegate : ClickTopViewProtocol?
     
     //MARK: - 生命周期
     var viewModel : StatusViewModel?{
@@ -72,7 +72,7 @@ extension StatusTopView
     self.addSubview(vipIconView)
     self.addSubview(timeLabel)
     self.addSubview(sourceLabel)
-    //2,布局
+    //2.布局
     sepView.snp.makeConstraints { (make) in
         make.top.equalTo(self.snp.top)
         make.left.equalTo(self.snp.left)
@@ -112,13 +112,29 @@ extension StatusTopView
     make.left.equalTo(timeLabel.snp.right).offset(StatusCellMargins)
     }
     
-    //设置监听
-    let tabGesture = UITapGestureRecognizer.init(target: self, action: #selector(clickIconView))
-        iconView.addGestureRecognizer(tabGesture)
+    //3.添加手势
+    let tabGesture1 = UITapGestureRecognizer.init(target: self, action: #selector(clickTopView))
+    let tabGesture2 = UITapGestureRecognizer.init(target: self, action: #selector(clickTopView))
+    let tabGesture3 = UITapGestureRecognizer.init(target: self, action: #selector(clickTopView))
+    let tabGesture4 = UITapGestureRecognizer.init(target: self, action: #selector(clickTopView))
+    let tabGesture5 = UITapGestureRecognizer.init(target: self, action: #selector(clickTopView))
+    let tabGesture6 = UITapGestureRecognizer.init(target: self, action: #selector(clickTopView))
+//    tabGesture.
+    iconView.addGestureRecognizer(tabGesture1)
+    nameLabel.addGestureRecognizer(tabGesture2)
+    memberIconView.addGestureRecognizer(tabGesture3)
+    sourceLabel.addGestureRecognizer(tabGesture4)
+    vipIconView.addGestureRecognizer(tabGesture5)
+    timeLabel.addGestureRecognizer(tabGesture6)
     iconView.isUserInteractionEnabled = true
+    nameLabel.isUserInteractionEnabled = true
+    memberIconView.isUserInteractionEnabled = true
+    sourceLabel.isUserInteractionEnabled = true
+    vipIconView.isUserInteractionEnabled = true
+    timeLabel.isUserInteractionEnabled = true
     }
     
-    @objc func clickIconView(){
-        clickdelegate?.clickUserIcon(viewModel: self.viewModel!)
+    @objc func clickTopView(){
+        clickdelegate?.clickClickTopView(viewModel: self.viewModel!)
     }
 }

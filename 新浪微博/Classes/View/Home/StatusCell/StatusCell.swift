@@ -17,7 +17,7 @@ protocol ClickLabelDelegate : NSObjectProtocol{
 }
 
 protocol StatusCellBottomViewDelegate : NSObjectProtocol {
-    func didClickCommentButton(pointToWindow: CGPoint, statusViewModel : StatusViewModel )
+    func didClickCommentButton(pointToWindow: CGPoint, statusViewModel : StatusViewModel)
 }
 
 class StatusCell: UITableViewCell {
@@ -89,8 +89,8 @@ extension StatusCell{
         contentView.addSubview(contentLabel)
         contentView.addSubview(bottomView)
         contentView.addSubview(pictureView)
-        
         bottomView.backgroundColor = UIColor.white
+        
         //2,布局
         topView.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.snp.top)
@@ -131,8 +131,6 @@ extension StatusCell : StatusBottomViewClickDelegate
     func likeButtonClick() {
         
     }
-    
-    
 }
 extension StatusCell : FFLabelDelegate{
     func labelDidSelectedLinkText(label: FFLabel, text: String) {

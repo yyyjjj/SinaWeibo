@@ -27,7 +27,7 @@ class OriginStatusCell: StatusCell {
         super.SetUpUI()
         ///添加图片布局
         pictureView.snp.makeConstraints { (make) in
-            make.top.equalTo(contentLabel.snp.bottom).offset(StatusCellMargins)
+        make.top.equalTo(contentLabel.snp.bottom).offset(StatusCellMargins)
             make.left.equalTo(contentLabel.snp.left)
             make.height.equalTo(200)
             make.width.equalTo(90)

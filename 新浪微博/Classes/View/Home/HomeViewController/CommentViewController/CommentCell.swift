@@ -8,6 +8,11 @@
 
 import UIKit
 private let cellMargin :CGFloat = 12
+protocol clickBlueLinkDelegate : NSObjectProtocol
+{
+    func didClickURL(url: URL)
+}
+
 class CommentCell: UITableViewCell {
     
     var commentViewModel : CommentViewModel?
@@ -15,8 +20,9 @@ class CommentCell: UITableViewCell {
         didSet
         {
             screenName.setTitle(commentViewModel?.commentModel?.user?.screen_name, for: .normal)
+            let text = commentViewModel?.commentModel?.text ?? ""
             
-            contentLabel.text = commentViewModel?.commentModel?.text
+            contentLabel.attributedText = EmoticonsViewModel.shared.emoticonText(string: text, font: contentLabel.font)
             if commentViewModel?.commentModel?.user?.profile_image_url != nil
             {
                 let url = URL.init(string: commentViewModel!.commentModel!.user!.profile_image_url!)
@@ -34,7 +40,9 @@ class CommentCell: UITableViewCell {
     
     //MARK: - 生命周期
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         setUpUI()
     }
     
@@ -68,10 +76,12 @@ class CommentCell: UITableViewCell {
         }
         
         //3.设置控件
-        
+        contentLabel.labelDelegate = self
     }
     
     //MARK: - 懒加载控件
+    weak var clickLabelDelegate : clickBlueLinkDelegate?
+    
     lazy var screenName : UIButton = {
         let btn = UIButton.init()
         btn.setTitleColor(.lightGray, for: .normal)
@@ -80,6 +90,19 @@ class CommentCell: UITableViewCell {
         return btn
     }()
     lazy var iconImageView : UIImageView = UIImageView()
-    lazy var contentLabel : UILabel = UILabel.init(size: 15, content: "", color: .black, alignment: .left, lines: 0, breakMode: .byTruncatingTail)
+    
+    lazy var contentLabel : FFLabel = FFLabel.init(size: 15, content: "", color: .black, alignment: .left, lines: 0, breakMode: .byTruncatingTail)
     
 }
+
+extension CommentCell : FFLabelDelegate
+{
+    func labelDidSelectedLinkText(label: FFLabel, text: String)
+    {
+    if text.hasPrefix("http"){
+    //由于我们在微博中点击的链接为短链接(节省资源)，都为httpl开头
+        clickLabelDelegate?.didClickURL(url: URL.init(string: text)!)
+    }
+    }
+}
+

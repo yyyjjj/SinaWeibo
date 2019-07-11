@@ -507,9 +507,14 @@ extension StatusTableViewController : UINavigationControllerDelegate
 {
     
 }
-extension StatusTableViewController : ClickUserIconProtocol
+extension StatusTableViewController : ClickTopViewProtocol
 {
-    func clickUserIcon(viewModel: StatusViewModel) {
+    func clickClickTopView(viewModel: StatusViewModel) {
+        let userDetailVC = UserDetailViewController()
+        userDetailVC.statusViewModel = viewModel
+        userDetailVC.hidesBottomBarWhenPushed = true
+        
+        self.navigationController?.pushViewController(userDetailVC, animated: true)
     }
 }
 

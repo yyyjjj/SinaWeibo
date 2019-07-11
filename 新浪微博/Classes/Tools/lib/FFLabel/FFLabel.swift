@@ -17,7 +17,9 @@ public protocol FFLabelDelegate: NSObjectProtocol {
 public class FFLabel: UILabel {
     
     public var linkTextColor = UIColor.blue
+    
     public var selectedBackgroudColor = UIColor.lightGray
+    
     public weak var labelDelegate: FFLabelDelegate?
     
     // MARK: - override properties

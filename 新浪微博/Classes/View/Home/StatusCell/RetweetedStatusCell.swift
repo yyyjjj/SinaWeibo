@@ -71,7 +71,7 @@ extension RetweetedStatusCell{
         }
         
         pictureView.snp.makeConstraints { (make) in
-            make.top.equalTo(retweetlabel.snp.bottom).offset(StatusCellMargins)
+        make.top.equalTo(retweetlabel.snp.bottom).offset(StatusCellMargins)
             make.left.equalTo(retweetlabel.snp.left)
             make.height.equalTo(200)
             make.width.equalTo(90)

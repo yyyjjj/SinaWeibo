@@ -98,7 +98,8 @@ extension CommentViewController : StatusCellBottomViewDelegate
 {
     func didClickCommentButton(pointToWindow: CGPoint, statusViewModel: StatusViewModel) {
         
+        let testView = UITextView.init(frame: CGRect.init(x: 0, y: 300, width: screenWidth, height: 100))
+        self.view.addSubview(testView)
+        testView.becomeFirstResponder()
     }
-    
-    
 }
