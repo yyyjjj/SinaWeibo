@@ -11,8 +11,8 @@ pod 'SnapKit'
 pod 'SDWebImage', '~> 4.0'
 pod 'SDWebImage/GIF'
 pod 'SVProgressHUD'
-
 pod 'Alamofire'
+
 #pod 'FMDB'
   # Pods for 新浪微博
 

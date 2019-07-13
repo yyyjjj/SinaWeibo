@@ -36,7 +36,7 @@ class UserStatusTableView: UITableView {
         self.register(OriginStatusCell.self, forCellReuseIdentifier: OriginStatusCellID)
         self.register(UITableViewCell.self, forCellReuseIdentifier: PlaceHolderCellID)
         self.estimatedRowHeight = 400
-        self.contentInset = UIEdgeInsets.init(top: screenHeight*0.377, left: 0, bottom: 0, right: 0)
+        self.tableFooterView = UIView()
     }
     
     var scrollDelegate : ScrollViewDelegate?
@@ -48,6 +48,15 @@ class UserStatusTableView: UITableView {
             self.reloadData()
         }
     }
+    
+    deinit {
+        listViewDidScrollCallback = nil
+    }
+    
+    var listViewDidScrollCallback: ((UIScrollView) -> ())?
+    
+    var lastSelectedIndexPath: IndexPath?
+    
 }
 
 extension UserStatusTableView : UITableViewDelegate,UITableViewDataSource
@@ -70,6 +79,22 @@ extension UserStatusTableView : UITableViewDelegate,UITableViewDataSource
         return cell
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.scrollDelegate?.tableViewDidScroll(offSet: self.contentOffset)
+        self.listViewDidScrollCallback?(scrollView)
     }
+}
+
+extension UserStatusTableView : JXPagingViewListViewDelegate
+{
+    func listView() -> UIView {
+        return self
+    }
+    
+    func listScrollView() -> UIScrollView {
+        return self
+    }
+    
+    func listViewDidScrollCallback(callback: @escaping (UIScrollView) -> ()) {
+        self.listViewDidScrollCallback = callback
+    }
+    
 }

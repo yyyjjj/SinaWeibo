@@ -22,8 +22,8 @@ class HomeTableViewController: VisitorViewController {
 //        }
 //    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.titleCollectionView.isHidden = false
     }
     
@@ -56,6 +56,7 @@ class HomeTableViewController: VisitorViewController {
     
     func preparePageViewController()
     {
+        
         pageViewController.delegate = self
         pageViewController.dataSource = self
         self.addChild(pageViewController)

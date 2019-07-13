@@ -6,3 +6,4 @@
 //  Copyright © 2019 梁华建. All rights reserved.
 //
 #import "FMDB.h"
+#import "JXCategoryView.h"
