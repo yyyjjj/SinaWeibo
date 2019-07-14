@@ -8,8 +8,19 @@
 
 import UIKit
 
+private let margin = 13
+protocol CommentKeyBoardViewDelegate : NSObjectProtocol
+{   ///注意一定要给该view的statusViewModel赋值，否则评论会无法找到该微博而崩溃
+    func didClickSend(commentKeyBoardView:CommentKeyBoardView , content : String)
+}
+///评论的键盘view 注意一定要给该view的statusViewModel赋值，否则评论会崩溃
 class CommentKeyBoardView: UIView {
+
+    static let recommendHeight :CGFloat = 116.5
     
+    var statusViewModel : StatusViewModel?
+   
+    //MARK: - 生命周期
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpUI()
@@ -19,8 +30,9 @@ class CommentKeyBoardView: UIView {
         super.init(coder: aDecoder)
         setUpUI()
     }
-    
+    //MARK: - 初始化控件及布局
     func setUpUI(){
+        self.backgroundColor = backColor
         //1.添加子控件
         self.addSubview(textView)
         self.addSubview(sendButton)
@@ -94,7 +106,14 @@ class CommentKeyBoardView: UIView {
         toolBar.clipsToBounds = true
         toolBar.items = items
         
+        sendButton.addTarget(self, action: #selector(didClickSend), for: .touchUpInside)
+        
     }
+    
+    @objc func didClickSend() {
+        delegate?.didClickSend(commentKeyBoardView: self, content: self.textView.emoticonText())
+    }
+
     @objc private func clickEmoticon()
     {
         
@@ -118,9 +137,6 @@ class CommentKeyBoardView: UIView {
         }
         textView.becomeFirstResponder()
     }
-    
-    //MARK: - 懒加载属性
-    var tickTimes = 2
     @objc func clickTickbutton(){
         tickTimes += 1
         if tickTimes%2 == 0
@@ -131,6 +147,9 @@ class CommentKeyBoardView: UIView {
             tickButton.isTick = true
         }
     }
+    
+    //MARK: - 懒加载属性
+    var tickTimes = 2
     lazy var textView : UITextView = {
         let tv = UITextView()
         tv.font = UIFont.systemFont(ofSize: 15)
@@ -154,6 +173,7 @@ class CommentKeyBoardView: UIView {
     btn.titleLabel?.lineBreakMode = NSLineBreakMode.byTruncatingTail
         return btn
     }()
+    weak var delegate : CommentKeyBoardViewDelegate?
     
     lazy var toolBar = UIToolbar()
     
@@ -166,24 +186,16 @@ class CommentKeyBoardView: UIView {
     
     lazy var repostButton : UIButton = {
     let btn = UIButton()
-//        UIButton.init(text: "Also repost", textColor: .black, backImage: nil, isBack: false)
-        btn.setTitleColor(.black, for: .normal)
-//        UIButton.init()
-        btn.setTitle("Also repost", for: .normal)
-//        btn.titleLabel?.textColor = .black
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-//        btn.backgroundColor = .blue
-        
 
-//    btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-//    btn.titleLabel?.textColor = .black
-//    btn.setTitle("Also repost", for: .normal)
-//    btn.titleLabel?.lineBreakMode = NSLineBreakMode.byTruncatingTail
-//    btn.sizeToFit()
+        btn.setTitleColor(.black, for: .normal)
+
+        btn.setTitle("Also repost", for: .normal)
+
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+
     return btn
     }()
-    private let margin = 13
-    
+   
 }
 extension CommentKeyBoardView : UITextViewDelegate
 {

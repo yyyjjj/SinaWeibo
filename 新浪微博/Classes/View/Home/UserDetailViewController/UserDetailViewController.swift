@@ -48,7 +48,6 @@ class UserDetailViewController: UIViewController {
         self.view.addSubview(tableView)
       
         //2.自定义布局
-//        
 //        tableView.snp.makeConstraints { (make) in
 //            make.top.equalTo(self.view.snp.top)
 //            make.left.equalTo(self.view.snp.left)
@@ -63,6 +62,7 @@ class UserDetailViewController: UIViewController {
         ///初始化分类下各容器视图
         preparePagingView()
     }
+    
     func prepareCategoryView() {
         categoryView.titles = titles
         categoryView.backgroundColor = UIColor.white
@@ -82,6 +82,7 @@ class UserDetailViewController: UIViewController {
         bottomLineView.autoresizingMask = .flexibleWidth
         categoryView.addSubview(bottomLineView)
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         

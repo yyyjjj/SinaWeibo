@@ -7,7 +7,9 @@
 //
 
 import UIKit
+
 internal let CommentCellID = "CommentCellID"
+
 class CommentTableView: UITableView {
     
     var commentListViewModel : CommentListViewModel?
@@ -36,6 +38,7 @@ class CommentTableView: UITableView {
         self.backgroundColor = .lightGray
         self.register(CommentCell.self, forCellReuseIdentifier: CommentCellID)
     }
+    
 }
 //MARK: - 数据源及代理
 extension CommentTableView : UITableViewDelegate,UITableViewDataSource

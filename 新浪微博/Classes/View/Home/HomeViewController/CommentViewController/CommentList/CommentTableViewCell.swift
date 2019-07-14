@@ -10,6 +10,7 @@
 import UIKit
 
 class CommentTableViewCell: UITableViewCell {
+    
     var commentListViewModel : CommentListViewModel?
     {
         didSet
@@ -17,6 +18,7 @@ class CommentTableViewCell: UITableViewCell {
             tableView.commentListViewModel = commentListViewModel
         }
     }
+    
     //MARK: - 生命周期
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,6 +41,7 @@ class CommentTableViewCell: UITableViewCell {
             make.height.equalTo(self.contentView.snp.height)
         }
     }
+    
     //MARK: - 成员属性
     lazy var tableView = CommentTableView()
 }

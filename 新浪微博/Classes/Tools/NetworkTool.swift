@@ -130,7 +130,15 @@ extension NetworkTool{
         tokenRequest(RequestMethod: .get, URLString: urlStrings, parameters: params, progress: nil, finished: finished)
     }
     
-    func loadComments(status id : Int,finished:@escaping completion) {
+}
+
+//MARK: - 微博评论相关
+
+extension NetworkTool
+{
+    ///加载一条微博评论 https://open.weibo.com/wiki/2/comments/show
+//    id    true    int64    需要查询的微博ID。
+    func loadComments(statusID id : Int,finished:@escaping completion) {
         
         var params = [String : Any]()
         let url = "https://api.weibo.com/2/comments/show.json"
@@ -142,7 +150,25 @@ extension NetworkTool{
         tokenRequest(RequestMethod: .get, URLString: url, parameters: params, progress: nil, finished: finished)
         
     }
-    
+    ///评论一条微博 https://open.weibo.com/wiki/2/comments/create
+//    comment    true    string    评论内容，必须做URLencode，内容不超过140个汉字。
+//    id    true    int64    需要评论的微博ID。
+    func postAComments(statusID id : Int,comment : String,finished:@escaping completion){
+        
+        let url = "https://api.weibo.com/2/comments/create.json"
+        
+        var params = [String:Any]()
+        
+        if id != 0
+        {
+            params["id"] = id
+        }
+        
+        params["comment"] = comment
+        
+        tokenRequest(RequestMethod: .post, URLString: url, parameters: params, progress: nil, finished: finished)
+        
+    }
 }
 
 //MARK: - 获取accesst_token

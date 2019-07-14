@@ -114,7 +114,7 @@ extension StatusViewModel
 {
     func loadComments(_ completion :@escaping commentsCompletion)
     {
-        NetworkTool.sharedTool.loadComments(status: self.status.id) { (data, error) in
+        NetworkTool.sharedTool.loadComments(statusID: self.status.id) { (data, error) in
             
             if error != nil
             {

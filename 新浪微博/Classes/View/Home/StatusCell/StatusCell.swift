@@ -117,6 +117,14 @@ extension StatusCell{
 }
 extension StatusCell : StatusBottomViewClickDelegate
 {
+    func retweetButtonClick(pointToWindows: CGPoint) {
+        
+    }
+    
+    func likeButtonClick(pointToWindows: CGPoint) {
+        
+    }
+    
     func commentButtonClick(pointToWindows: CGPoint) {
         guard let vm = viewModel else {
             return
@@ -124,13 +132,6 @@ extension StatusCell : StatusBottomViewClickDelegate
         bottomViewDelegate?.didClickCommentButton(pointToWindow: pointToWindows, statusViewModel: vm)
     }
     
-    func retweetButtonClick() {
-        
-    }
-    
-    func likeButtonClick() {
-        
-    }
 }
 extension StatusCell : FFLabelDelegate{
     func labelDidSelectedLinkText(label: FFLabel, text: String) {

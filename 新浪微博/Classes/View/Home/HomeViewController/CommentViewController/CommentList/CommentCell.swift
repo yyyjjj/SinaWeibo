@@ -7,18 +7,21 @@
 //
 
 import UIKit
+
 private let cellMargin :CGFloat = 12
+
 protocol clickBlueLinkDelegate : NSObjectProtocol
 {
     func didClickURL(url: URL)
 }
+
 class CommentCell: UITableViewCell {
     
     var commentViewModel : CommentViewModel?
     {
         didSet
         {
-            screenName.setTitle(commentViewModel?.commentModel?.user?.screen_name, for: .normal)
+        screenName.setTitle(commentViewModel?.commentModel?.user?.screen_name, for: .normal)
             let text = commentViewModel?.commentModel?.text ?? ""
             
             contentLabel.attributedText = EmoticonsViewModel.shared.emoticonText(string: text, font: contentLabel.font)
