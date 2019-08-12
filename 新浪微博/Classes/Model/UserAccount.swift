@@ -86,6 +86,9 @@ import UIKit
                 names.append(key)
             }
         }
+        
+        free(properties)
+        
         return names
     }
     //MARK: - 数据持久化(归档)

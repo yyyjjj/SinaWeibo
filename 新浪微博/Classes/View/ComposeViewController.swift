@@ -127,11 +127,12 @@ class ComposeViewController: UIViewController {
         super.viewDidLoad()
         //添加键盘通知
         NotificationCenter.default.addObserver(self, selector: #selector(ComposeKeyBoardChanged), name: UIResponder.keyboardWillChangeFrameNotification , object: nil)
+        
     }
     
     deinit
     {
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     ///监听键盘
     @objc func ComposeKeyBoardChanged(notification : NSNotification) {

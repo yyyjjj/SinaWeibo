@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 let EmoticonCellID = "EmoticonCellID"
 
 class EmoticonView: UIView {

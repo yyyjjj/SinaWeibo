@@ -99,7 +99,7 @@ class CommentKeyBoardView: UIView {
             items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
             
         }
-        
+        items.first?.isEnabled = false
         items.removeLast()
         toolBar.setShadowImage(nil, forToolbarPosition: .top)
         toolBar.setBackgroundImage(nil, forToolbarPosition: .top, barMetrics: .default)
@@ -109,11 +109,14 @@ class CommentKeyBoardView: UIView {
         sendButton.addTarget(self, action: #selector(didClickSend), for: .touchUpInside)
         
     }
-    
+    @objc func clickAddPhoto()
+    {
+        
+    }
     @objc func didClickSend() {
         delegate?.didClickSend(commentKeyBoardView: self, content: self.textView.emoticonText())
     }
-
+    
     @objc private func clickEmoticon()
     {
         
@@ -196,6 +199,9 @@ class CommentKeyBoardView: UIView {
     return btn
     }()
    
+    
+    
+    
 }
 extension CommentKeyBoardView : UITextViewDelegate
 {
@@ -211,7 +217,9 @@ extension CommentKeyBoardView : UITextViewDelegate
             sendButton.setTitleColor(.black , for: .normal)
            textViewPlaceHolder.isHidden = false
         }
+    
     }
+   
 }
 class PickButton: UIButton {
     

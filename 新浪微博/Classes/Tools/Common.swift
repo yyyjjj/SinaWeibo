@@ -8,9 +8,9 @@
 //类似与OC的pch文件
 import UIKit
 
-let screenHeight : CGFloat = UIApplication.shared.keyWindow!.frame.height
+let screenHeight : CGFloat = UIScreen.main.bounds.size.height
 
-let screenWidth : CGFloat = UIApplication.shared.keyWindow!.frame.width
+let screenWidth : CGFloat = UIScreen.main.bounds.size.width
 
 let spaHeight = screenHeight * 0.017
 //window切换MainVC通知

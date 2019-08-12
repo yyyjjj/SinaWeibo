@@ -25,10 +25,6 @@
 		692B74A022647B5600C1030B /* ProgressImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692B749F22647B5600C1030B /* ProgressImageView.swift */; };
 		692C173E2272E60C00438774 /* QorumLogs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692C173D2272E60C00438774 /* QorumLogs.framework */; };
 		692C17402273259800438774 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692C173F2273259800438774 /* DateExtension.swift */; };
-		692C77D522D89E7D00F81637 /* JXPagingMainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692C77D122D89E7D00F81637 /* JXPagingMainTableView.swift */; };
-		692C77D622D89E7D00F81637 /* JXPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692C77D222D89E7D00F81637 /* JXPagingView.swift */; };
-		692C77D722D89E7D00F81637 /* JXPagingListRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692C77D322D89E7D00F81637 /* JXPagingListRefreshView.swift */; };
-		692C77D822D89E7D00F81637 /* JXPagingListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692C77D422D89E7D00F81637 /* JXPagingListContainerView.swift */; };
 		692C783522D89E8500F81637 /* JXCategoryTitleVerticalZoomCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 692C77DE22D89E8500F81637 /* JXCategoryTitleVerticalZoomCellModel.m */; };
 		692C783622D89E8500F81637 /* JXCategoryTitleVerticalZoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 692C77DF22D89E8500F81637 /* JXCategoryTitleVerticalZoomCell.m */; };
 		692C783722D89E8500F81637 /* JXCategoryTitleVerticalZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 692C77E022D89E8500F81637 /* JXCategoryTitleVerticalZoomView.m */; };
@@ -112,6 +108,10 @@
 		6939D95F2233660F004E7623 /* UserAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939D95E2233660F004E7623 /* UserAccountViewModel.swift */; };
 		693FCF232291A75D0048B4AE /* RTHook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FCF222291A75D0048B4AE /* RTHook.swift */; };
 		693FCF25229237360048B4AE /* UIViewController+Hook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FCF24229237360048B4AE /* UIViewController+Hook.swift */; };
+		6940845622E970C900A7CC86 /* JXPagingMainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6940845222E970C900A7CC86 /* JXPagingMainTableView.swift */; };
+		6940845722E970C900A7CC86 /* JXPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6940845322E970C900A7CC86 /* JXPagingView.swift */; };
+		6940845822E970C900A7CC86 /* JXPagingListRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6940845422E970C900A7CC86 /* JXPagingListRefreshView.swift */; };
+		6940845922E970C900A7CC86 /* JXPagingListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6940845522E970C900A7CC86 /* JXPagingListContainerView.swift */; };
 		694E528322D0DB8F0010A7C7 /* UIImage + downsample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694E528222D0DB8F0010A7C7 /* UIImage + downsample.swift */; };
 		6952C51E225E3A3B00A8DC97 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C51D225E3A3B00A8DC97 /* ComposeViewController.swift */; };
 		6952C522225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6952C521225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift */; };
@@ -190,10 +190,6 @@
 		692C173F2273259800438774 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		692C77C722D89DA300F81637 /* JXCategoryView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JXCategoryView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		692C77C922D89DA300F81637 /* JXPagingView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JXPagingView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		692C77D122D89E7D00F81637 /* JXPagingMainTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingMainTableView.swift; sourceTree = "<group>"; };
-		692C77D222D89E7D00F81637 /* JXPagingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingView.swift; sourceTree = "<group>"; };
-		692C77D322D89E7D00F81637 /* JXPagingListRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListRefreshView.swift; sourceTree = "<group>"; };
-		692C77D422D89E7D00F81637 /* JXPagingListContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListContainerView.swift; sourceTree = "<group>"; };
 		692C77DB22D89E8500F81637 /* JXCategoryTitleVerticalZoomCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleVerticalZoomCellModel.h; sourceTree = "<group>"; };
 		692C77DC22D89E8500F81637 /* JXCategoryTitleVerticalZoomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleVerticalZoomCell.h; sourceTree = "<group>"; };
 		692C77DD22D89E8500F81637 /* JXCategoryTitleVerticalZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleVerticalZoomView.h; sourceTree = "<group>"; };
@@ -327,6 +323,10 @@
 		6939D95E2233660F004E7623 /* UserAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewModel.swift; sourceTree = "<group>"; };
 		693FCF222291A75D0048B4AE /* RTHook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTHook.swift; sourceTree = "<group>"; };
 		693FCF24229237360048B4AE /* UIViewController+Hook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Hook.swift"; sourceTree = "<group>"; };
+		6940845222E970C900A7CC86 /* JXPagingMainTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingMainTableView.swift; sourceTree = "<group>"; };
+		6940845322E970C900A7CC86 /* JXPagingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingView.swift; sourceTree = "<group>"; };
+		6940845422E970C900A7CC86 /* JXPagingListRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListRefreshView.swift; sourceTree = "<group>"; };
+		6940845522E970C900A7CC86 /* JXPagingListContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListContainerView.swift; sourceTree = "<group>"; };
 		694E528222D0DB8F0010A7C7 /* UIImage + downsample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + downsample.swift"; sourceTree = "<group>"; };
 		6952C51D225E3A3B00A8DC97 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		6952C521225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extension.swift"; sourceTree = "<group>"; };
@@ -498,18 +498,6 @@
 				69365E3F226CBF1300E6E53E /* fmdb */,
 			);
 			path = lib;
-			sourceTree = "<group>";
-		};
-		692C77D022D89E7D00F81637 /* JXPagingView-Swift */ = {
-			isa = PBXGroup;
-			children = (
-				692C77D122D89E7D00F81637 /* JXPagingMainTableView.swift */,
-				692C77D222D89E7D00F81637 /* JXPagingView.swift */,
-				692C77D322D89E7D00F81637 /* JXPagingListRefreshView.swift */,
-				692C77D422D89E7D00F81637 /* JXPagingListContainerView.swift */,
-			);
-			name = "JXPagingView-Swift";
-			path = "../../../../../../../../Library/Autosave Information/1 LeetCode-Swift/JXPagingView练习/JXPagingView练习/JXPagingView-Swift";
 			sourceTree = "<group>";
 		};
 		692C77D922D89E8500F81637 /* JXCategoryView */ = {
@@ -813,7 +801,7 @@
 		6936FC54222B7066002B9A19 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				692C77D022D89E7D00F81637 /* JXPagingView-Swift */,
+				6940845122E970C900A7CC86 /* JXPagingView-Swift */,
 				692C77D922D89E8500F81637 /* JXCategoryView */,
 				692F082C22C4AAB700641A26 /* PageViewController */,
 				692C173C2272E58A00438774 /* lib */,
@@ -926,6 +914,18 @@
 				69C5C0CF224A0B270000D39D /* StatusPictureView.swift */,
 			);
 			path = StatusCell;
+			sourceTree = "<group>";
+		};
+		6940845122E970C900A7CC86 /* JXPagingView-Swift */ = {
+			isa = PBXGroup;
+			children = (
+				6940845222E970C900A7CC86 /* JXPagingMainTableView.swift */,
+				6940845322E970C900A7CC86 /* JXPagingView.swift */,
+				6940845422E970C900A7CC86 /* JXPagingListRefreshView.swift */,
+				6940845522E970C900A7CC86 /* JXPagingListContainerView.swift */,
+			);
+			name = "JXPagingView-Swift";
+			path = "../../../../../../../../Downloads/JXPagingView-master-2/JXPagingView-Swift";
 			sourceTree = "<group>";
 		};
 		6952C51C225E3A1B00A8DC97 /* Compose */ = {
@@ -1347,6 +1347,7 @@
 			files = (
 				6952C522225EEBC100A8DC97 /* UIBarButtonItem+Extension.swift in Sources */,
 				692C785822D89E8500F81637 /* UIColor+JXAdd.m in Sources */,
+				6940845822E970C900A7CC86 /* JXPagingListRefreshView.swift in Sources */,
 				692C785622D89E8500F81637 /* JXCategoryViewAnimator.m in Sources */,
 				692C785522D89E8500F81637 /* JXCategoryIndicatorParamsModel.m in Sources */,
 				69A306D8226193A800180F5A /* PictureCollectionViewCell.swift in Sources */,
@@ -1359,7 +1360,6 @@
 				692EF4A922D4541D008A2F81 /* CommentCell.swift in Sources */,
 				6936FC60222B7284002B9A19 /* HomeTableViewController.swift in Sources */,
 				692C784E22D89E8500F81637 /* JXCategoryImageCellModel.m in Sources */,
-				692C77D522D89E7D00F81637 /* JXPagingMainTableView.swift in Sources */,
 				692EF4B322D4810A008A2F81 /* CommentTableViewCell.swift in Sources */,
 				692F083122C4AAB700641A26 /* PageViewController.swift in Sources */,
 				69365E5B226D41E600E6E53E /* FMResultSet.m in Sources */,
@@ -1373,11 +1373,11 @@
 				6952C51E225E3A3B00A8DC97 /* ComposeViewController.swift in Sources */,
 				692C784F22D89E8500F81637 /* JXCategoryNumberView.m in Sources */,
 				6929BD7F222CE5E900EE13FA /* UILabel+Extension.swift in Sources */,
+				6940845922E970C900A7CC86 /* JXPagingListContainerView.swift in Sources */,
 				69E59F4522296D1C00497ECF /* AppDelegate.swift in Sources */,
 				692C784322D89E8500F81637 /* JXCategoryDotCell.m in Sources */,
 				692A01592251A58500131A21 /* RetweetedStatusCell.swift in Sources */,
 				692C783F22D89E8500F81637 /* JXCategoryIndicatorBackgroundView.m in Sources */,
-				692C77D622D89E7D00F81637 /* JXPagingView.swift in Sources */,
 				69365E41226CBF8100E6E53E /* FMDBManager.swift in Sources */,
 				69365E5F226D6BE800E6E53E /* StatusDAL.swift in Sources */,
 				692C783B22D89E8500F81637 /* JXCategoryIndicatorImageView.m in Sources */,
@@ -1397,6 +1397,7 @@
 				69215C052276DA9C00962D46 /* FFLabel.swift in Sources */,
 				6962709522B6260A00E9B8D5 /* MessageTableViewCellTypeOne.swift in Sources */,
 				69396A7A2248F3930005E981 /* StatusCell.swift in Sources */,
+				6940845622E970C900A7CC86 /* JXPagingMainTableView.swift in Sources */,
 				69327F642273EEF200D699CA /* String + Regex .swift in Sources */,
 				69396A7F2248F4C20005E981 /* StatusBottomView.swift in Sources */,
 				6931F237222FB335008B4948 /* String+Extension.swift in Sources */,
@@ -1411,7 +1412,6 @@
 				692C784222D89E8500F81637 /* JXCategoryIndicatorView.m in Sources */,
 				692C784822D89E8500F81637 /* JXCategoryTitleImageCellModel.m in Sources */,
 				69566A5D22D6EC2100F15932 /* Int + toString.swift in Sources */,
-				692C77D822D89E7D00F81637 /* JXPagingListContainerView.swift in Sources */,
 				6976DA3C2236834D009E17EC /* WelcomeViewController.swift in Sources */,
 				692C783722D89E8500F81637 /* JXCategoryTitleVerticalZoomView.m in Sources */,
 				6929BD7A222CC9B300EE13FA /* VisitorViewController.swift in Sources */,
@@ -1423,6 +1423,7 @@
 				6962709822B6262700E9B8D5 /* MessageTableViewCellTypeTwo.swift in Sources */,
 				692C784C22D89E8500F81637 /* JXCategoryImageView.m in Sources */,
 				692C784422D89E8500F81637 /* JXCategoryDotView.m in Sources */,
+				6940845722E970C900A7CC86 /* JXPagingView.swift in Sources */,
 				692C783522D89E8500F81637 /* JXCategoryTitleVerticalZoomCellModel.m in Sources */,
 				6962709A22B62F9400E9B8D5 /* NotifyTableViewController.swift in Sources */,
 				692A01602252494500131A21 /* RefreshControl.swift in Sources */,
@@ -1465,7 +1466,6 @@
 				694E528322D0DB8F0010A7C7 /* UIImage + downsample.swift in Sources */,
 				6952C53B225F655300A8DC97 /* EmoticonsViewModel.swift in Sources */,
 				69DFBD6322360B57007AF947 /* NewFeatureCollectionViewController.swift in Sources */,
-				692C77D722D89E7D00F81637 /* JXPagingListRefreshView.swift in Sources */,
 				6927D5F222BC8E5D005FDAB9 /* LHJSearchBar.swift in Sources */,
 				692C785D22D8A00000F81637 /* UserHeadView.swift in Sources */,
 				692C785922D89E8500F81637 /* JXCategoryBaseView.m in Sources */,

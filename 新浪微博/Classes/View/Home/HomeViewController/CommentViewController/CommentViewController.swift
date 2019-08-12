@@ -28,9 +28,9 @@ class CommentViewController: UIViewController {
     var commentListViewModel = CommentListViewModel()
     
     //MARK: - 生命周期
-    override func viewWillAppear(_ animated: Bool) {
-        //键盘高度改变的通知
-        super.viewWillAppear(animated); NotificationCenter.default.addObserver(self, selector: #selector(CommentViewControllerKeyBoardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewControllerKeyBoardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,10 +45,11 @@ class CommentViewController: UIViewController {
             }
         })
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
+   
     //MARK: - 初始化控件及模型
     func prepareTableView()
     {
@@ -218,7 +219,7 @@ class CommentViewController: UIViewController {
     }
     
 }
-
+//MARK: tableView数据源
 extension CommentViewController : UITableViewDataSource,UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -261,7 +262,7 @@ extension CommentViewController : StatusBottomViewClickDelegate
     func commentButtonClick(pointToWindows: CGPoint) {
      
     viewAboveTableView.isHidden = false
-        
+    commentKeyBoardView.isHidden = false
     commentKeyBoardView.textView.becomeFirstResponder()
     }
     
@@ -271,6 +272,7 @@ extension CommentViewController : StatusBottomViewClickDelegate
         
     self.commentKeyBoardView.textView.resignFirstResponder()
         
+    self.commentKeyBoardView.isHidden = true
     }
     
     func retweetButtonClick(pointToWindows: CGPoint) {
