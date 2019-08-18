@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+//import 
 class StatusDAL {
     //七天一清
     static let maxExpiredTime : TimeInterval = 7*24*60*60
@@ -36,16 +36,22 @@ class StatusDAL {
     //MARK: - 数据加载(本地->网络)
     ///数据加载(本地->网络)
     class func loadStatus(since_id: Int, max_id: Int,finished:@escaping (([[String:Any]]?)->Void)){
-        // 1,判断本地是否有缓存
-        var array = loadFromDatabase(since_id: since_id, max_id: max_id)
-        // 2,有的话从本地加载并返回字典数组
-        
-        if array != nil  {
-            print("使用了数据库数据")
-            finished(array!)
-            return
+        var array : [[String : Any]]!
+        // 0,判断是否有网络
+        if !NetworkTool.hasNetwork()
+        {
+            // 1,判断本地是否有缓存
+            array = loadFromDatabase(since_id: since_id, max_id: max_id)
+            // 2,有的话从本地加载并返回字典数组
+            if array != nil  {
+                print("使用了数据库数据")
+                finished(array!)
+                return
+            }
         }
-        // 3,没有的话从网络加载
+        else
+        {
+        // 3,从网络加载
         NetworkTool.sharedTool.loadStatus(since_id: since_id, max_id: max_id)
         { (result, error) in
             if error != nil
@@ -67,7 +73,7 @@ class StatusDAL {
             // 5,返回网络加载内容
             finished(array!)
         }
-      
+        }
     }
     ///从本地加载数据
     private class func loadFromDatabase(since_id: Int, max_id: Int) -> [[String:Any]]?{

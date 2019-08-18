@@ -10,7 +10,7 @@ import UIKit
 
 import SVProgressHUD
 
-internal enum CellID : String
+fileprivate enum CellID : String
 {
    case OriginStatusCellID
    case RetweetedStatusCellID
@@ -38,7 +38,10 @@ class CommentViewController: UIViewController {
         prepareTableView()
         prepareCommentKeyBoard()
         statusViewModel?.loadComments({[weak self] (viewModels) in
-        
+            guard let viewModels = viewModels else
+            {
+                return
+            }
             self?.commentListViewModel.viewModels = viewModels
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -68,19 +71,25 @@ class CommentViewController: UIViewController {
         tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: CellID.CommentTableViewCellID.rawValue)
         tableView.register(OriginStatusCell.self, forCellReuseIdentifier: CellID.OriginStatusCellID.rawValue)
         tableView.register(RetweetedStatusCell.self, forCellReuseIdentifier:CellID.RetweetedStatusCellID.rawValue)
-        tableView.refreshControl = RefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(refreshCommentTableView), for: .valueChanged)
+        tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: refreshCommentTableView)
+        (tableView.mj_header as? MJRefreshStateHeader)?.lastUpdatedTimeLabel.isHidden = true
+//        tableView.mj_footer = MJRefreshBackNormalFooter.init(refreshingBlock: loadStatus)
     }
+    
     @objc func refreshCommentTableView()
     {
         
         self.statusViewModel?.loadComments({[weak self] (viewModels) in
-            
+            guard let viewModels = viewModels else
+            {
+                return 
+            }
             self?.commentListViewModel.viewModels = viewModels
-            
+            self?.tableView.mj_header.endRefreshing()
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
+            
         })
         
     }

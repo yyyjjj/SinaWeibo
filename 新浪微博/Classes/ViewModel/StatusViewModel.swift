@@ -7,7 +7,8 @@
 //
 
 import UIKit
-internal typealias commentsCompletion = (_ commentViewModels : [CommentViewModel]) -> Void
+typealias commentsCompletion = (_ commentViewModels : [CommentViewModel]?) -> Void
+typealias loadAStatusCompletion = (_ statusViewModel : StatusViewModel?) -> Void
 class StatusViewModel: NSObject {
     ///微博数据
     var status : Status
@@ -119,12 +120,14 @@ extension StatusViewModel
             if error != nil
             {
                 print("微博评论数据加载错误")
+                completion(nil)
                 return
             }
             
             guard let dict = data as? [String : AnyObject] , let commentDict = dict["comments"] as? [[String : AnyObject]] else
             {
                 print("数据格式有问题")
+                completion(nil)
                 return
             }
             
@@ -136,5 +139,30 @@ extension StatusViewModel
             
            completion(commentVMs)
         }
+    }
+    
+    class func loadAStatus(statusID : Int,_ completion :@escaping loadAStatusCompletion) {
+        NetworkTool.sharedTool.loadAStatus(statusID: statusID) { (data, error) in
+            if error != nil
+            {
+                print("单条微博加载错误")
+                completion(nil)
+                return
+            }
+            
+            guard let dict = data as? [String : AnyObject] else
+            {
+                print("数据格式有问题")
+                completion(nil)
+                return
+            }
+            
+            let status = Status.init(dict: dict)
+            
+            let vm = StatusViewModel.init(status: status)
+            
+            completion(vm)
+        }
+       
     }
 }

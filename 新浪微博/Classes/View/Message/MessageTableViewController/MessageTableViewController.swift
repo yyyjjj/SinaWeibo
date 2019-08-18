@@ -10,7 +10,7 @@ import UIKit
 
 //let TypeOnecellID = "TypeOnecellID"
 //let TypeTwocellID = "TypeTwocellID"
-class MessageTableViewController: UITableViewController {
+class MessageTableViewController: UIViewController {
     enum CellID : String{
         case TypeOneCellID = "TypeOneCellID",TypeTwoCellID = "TypeTwoCellID"
     }
@@ -23,39 +23,58 @@ class MessageTableViewController: UITableViewController {
     //MARK: - 准备控件
     func prepareRefreshControl()
     {
-        self.refreshControl = RefreshControl.init()
-        
-        self.refreshControl?.backgroundColor = backColor
-        refreshControl?.addTarget(self, action: #selector(startRefreshing), for: .valueChanged)
+        tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: startRefreshing)
+        (tableView.mj_header as? MJRefreshStateHeader)?.lastUpdatedTimeLabel.isHidden = true
     }
     @objc func startRefreshing() {
-          refreshControl?.beginRefreshing()
+        
         Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false) { (_) in
-            self.refreshControl?.endRefreshing()
+            self.tableView.mj_header.endRefreshing()
         }
     }
     
     func prepareTableView(){
+        
+        self.tableView.frame = CGRect.init(x: 0, y: 0, width: screenWidth, height: self.view.frame.height - tabBarController!.tabBar.frame.height)
+
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollView.ContentInsetAdjustmentBehavior.always
         //把多余的cell去掉
         self.tableView.tableHeaderView = topSearchBar
         self.tableView.tableHeaderView?.frame = CGRect.init(x: 0, y: 0, width: screenWidth, height: screenHeight*0.08)
         topSearchBar.frame = CGRect.init(x: 0, y: 0, width: screenWidth, height: 44)
-        
+        self.tableView.estimatedSectionFooterHeight = 0
         topSearchBar.contentInset = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-        self.tableView.tableFooterView = UIView.init(frame: CGRect.zero)
+        self.tableView.tableFooterView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: screenWidth, height: 46))
         self.tableView.backgroundColor = backColor
         self.tableView.rowHeight = screenHeight*0.115
         self.tableView.register(MessageTableViewCellTypeOne.self, forCellReuseIdentifier: CellID.TypeOneCellID.rawValue)
         self.tableView.register(MessageTableViewCellTypeTwo.self, forCellReuseIdentifier: CellID.TypeTwoCellID.rawValue)
-        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.view.addSubview(tableView)
     }
+   
+    //MARK: - 懒加载属性
+    lazy var topSearchBar : LHJSearchBar = {
+        let sb = LHJSearchBar.init()
+        sb.placeholder = "Search"
+        sb.backgroundColor = backColor
+        return sb
+    }()
     
+    lazy var tableView = UITableView.init(frame: CGRect.zero, style: .plain)
+    
+    
+}
+
+extension MessageTableViewController :UITableViewDataSource,UITableViewDelegate
+{
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : UITableViewCell!
         switch indexPath.row {
         case 0...2:
@@ -67,14 +86,5 @@ class MessageTableViewController: UITableViewController {
         }
         return cell
     }
-   
-    //MARK: - 懒加载属性
-    lazy var topSearchBar : LHJSearchBar = {
-        let sb = LHJSearchBar.init()
-        sb.placeholder = "Search"
-        sb.backgroundColor = backColor
-        return sb
-    }()
-    
     
 }

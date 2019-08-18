@@ -7,3 +7,5 @@
 //
 #import "FMDB.h"
 #import "JXCategoryView.h"
+#import "Classes/Tools/NetworkStatus/Reachability.h"
+#import "MJRefresh.h"

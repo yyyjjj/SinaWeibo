@@ -15,13 +15,7 @@ class DiscoverViewController: VisitorViewController {
         super.viewDidLoad()
 
             visitorview?.SetUpInfo(imagename: "visitordiscover_image_message", text: "登录后，最新和最热微博尽在掌握，不再会与实事潮流擦肩而过。")
-        
-//        print("\(String(describing: visitorview))")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+ 
     }
 
     // MARK: - Table view data sourc

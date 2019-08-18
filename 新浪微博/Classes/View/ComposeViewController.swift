@@ -93,6 +93,7 @@ class ComposeViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }
         }else {
+            
             textview.snp.remakeConstraints { (make) in
             make.top.equalTo(topLayoutGuide.snp.bottom)
                 make.left.equalTo(view.snp.left)

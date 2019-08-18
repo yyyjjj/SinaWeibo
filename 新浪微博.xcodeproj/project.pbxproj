@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -96,6 +96,7 @@
 		6936FC62222B7294002B9A19 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC61222B7294002B9A19 /* MessageViewController.swift */; };
 		6936FC64222B72A1002B9A19 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC63222B72A1002B9A19 /* DiscoverViewController.swift */; };
 		6936FC66222B72B2002B9A19 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936FC65222B72B2002B9A19 /* ProfileViewController.swift */; };
+		693877A323089EFD00CFF68A /* MJRefresh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693877A223089EFD00CFF68A /* MJRefresh.framework */; };
 		6938D1F322389130004390DE /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6938D1F222389130004390DE /* SDWebImage.framework */; };
 		6938D1F72238B2E0004390DE /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6938D1F62238B2E0004390DE /* SVProgressHUD.framework */; };
 		69396A7222487A020005E981 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69396A7122487A020005E981 /* Status.swift */; };
@@ -106,6 +107,7 @@
 		69396A7D2248F3F30005E981 /* StatusTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69396A7C2248F3F30005E981 /* StatusTopView.swift */; };
 		69396A7F2248F4C20005E981 /* StatusBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69396A7E2248F4C20005E981 /* StatusBottomView.swift */; };
 		6939D95F2233660F004E7623 /* UserAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939D95E2233660F004E7623 /* UserAccountViewModel.swift */; };
+		693CA84A2302AC5300984DC0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 693CA8492302AC5200984DC0 /* Reachability.m */; };
 		693FCF232291A75D0048B4AE /* RTHook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FCF222291A75D0048B4AE /* RTHook.swift */; };
 		693FCF25229237360048B4AE /* UIViewController+Hook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FCF24229237360048B4AE /* UIViewController+Hook.swift */; };
 		6940845622E970C900A7CC86 /* JXPagingMainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6940845222E970C900A7CC86 /* JXPagingMainTableView.swift */; };
@@ -311,6 +313,7 @@
 		6936FC61222B7294002B9A19 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		6936FC63222B72A1002B9A19 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		6936FC65222B72B2002B9A19 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		693877A223089EFD00CFF68A /* MJRefresh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MJRefresh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6938D1F222389130004390DE /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6938D1F62238B2E0004390DE /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69396A7122487A020005E981 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 		69396A7C2248F3F30005E981 /* StatusTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTopView.swift; sourceTree = "<group>"; };
 		69396A7E2248F4C20005E981 /* StatusBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBottomView.swift; sourceTree = "<group>"; };
 		6939D95E2233660F004E7623 /* UserAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewModel.swift; sourceTree = "<group>"; };
+		693CA8482302AC5200984DC0 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		693CA8492302AC5200984DC0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		693FCF222291A75D0048B4AE /* RTHook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTHook.swift; sourceTree = "<group>"; };
 		693FCF24229237360048B4AE /* UIViewController+Hook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Hook.swift"; sourceTree = "<group>"; };
 		6940845222E970C900A7CC86 /* JXPagingMainTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingMainTableView.swift; sourceTree = "<group>"; };
@@ -387,6 +392,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				693877A323089EFD00CFF68A /* MJRefresh.framework in Frameworks */,
 				692ACBC8228F0F4D00BC2804 /* FLAnimatedImage.framework in Frameworks */,
 				692C173E2272E60C00438774 /* QorumLogs.framework in Frameworks */,
 				69E65799227058EE002E2450 /* Alamofire.framework in Frameworks */,
@@ -419,6 +425,7 @@
 		4210C259D91CBD42A09CC072 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				693877A223089EFD00CFF68A /* MJRefresh.framework */,
 				692C77C722D89DA300F81637 /* JXCategoryView.framework */,
 				692C77C922D89DA300F81637 /* JXPagingView.framework */,
 				692ACBC7228F0F4D00BC2804 /* FLAnimatedImage.framework */,
@@ -801,6 +808,7 @@
 		6936FC54222B7066002B9A19 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				693CA84B2302AC5800984DC0 /* NetworkStatus */,
 				6940845122E970C900A7CC86 /* JXPagingView-Swift */,
 				692C77D922D89E8500F81637 /* JXCategoryView */,
 				692F082C22C4AAB700641A26 /* PageViewController */,
@@ -914,6 +922,15 @@
 				69C5C0CF224A0B270000D39D /* StatusPictureView.swift */,
 			);
 			path = StatusCell;
+			sourceTree = "<group>";
+		};
+		693CA84B2302AC5800984DC0 /* NetworkStatus */ = {
+			isa = PBXGroup;
+			children = (
+				693CA8482302AC5200984DC0 /* Reachability.h */,
+				693CA8492302AC5200984DC0 /* Reachability.m */,
+			);
+			path = NetworkStatus;
 			sourceTree = "<group>";
 		};
 		6940845122E970C900A7CC86 /* JXPagingView-Swift */ = {
@@ -1268,30 +1285,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-新浪微博/Pods-新浪微博-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
-				"${BUILT_PRODUCTS_DIR}/QorumLogs/QorumLogs.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-新浪微博/Pods-新浪微博-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QorumLogs.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-新浪微博/Pods-新浪微博-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-新浪微博/Pods-新浪微博-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-新浪微博/Pods-新浪微博-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D01D58729F65A57504F920D7 /* [CP] Check Pods Manifest.lock */ = {
@@ -1460,6 +1462,7 @@
 				692C783922D89E8500F81637 /* JXCategoryIndicatorTriangleView.m in Sources */,
 				6952C5D92260FF0C00A8DC97 /* PhotoBrowserViewController.swift in Sources */,
 				69396A7222487A020005E981 /* Status.swift in Sources */,
+				693CA84A2302AC5300984DC0 /* Reachability.m in Sources */,
 				692C17402273259800438774 /* DateExtension.swift in Sources */,
 				692C785722D89E8500F81637 /* JXCategoryListCollectionContainerView.m in Sources */,
 				6952C52A225F646000A8DC97 /* EmoticonAttachment.swift in Sources */,

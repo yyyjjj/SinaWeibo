@@ -8,22 +8,24 @@
 
 import UIKit
 import SDWebImage
+import Alamofire
+
 class StatusListViewModel
 {
     ///StatusViewModel的数组
-    var StatusList = [StatusViewModel]()
+    var statusList = [StatusViewModel]()
     
     //下拉刷新得到的数据
     var pullDownStatusCount : Int?
 }
 //MARK :-封装网络获取发布的动态
 extension StatusListViewModel{
-    func LoadStatus(isPullUp : Bool,finished:@escaping (_ isSuccess : Bool) -> Void)
+    func loadStatus(isPullUp : Bool,finished:@escaping (_ isSuccess : Bool) -> Void)
     {
         //获得第一条数据的since_id 如果是下拉
-        let since_id = isPullUp ? 0 : (StatusList.first?.status.id ?? 0)
+        let since_id = isPullUp ? 0 : (statusList.first?.status.id ?? 0)
         //获得最后一条数据的max_id 如果是上拉
-        let max_id = isPullUp ? (StatusList.last?.status.id ?? 0) : 0
+        let max_id = isPullUp ? (statusList.last?.status.id ?? 0) : 0
         
         StatusDAL.loadStatus(since_id: since_id, max_id: max_id) { (statuses) in
             
@@ -49,10 +51,10 @@ extension StatusListViewModel{
             //3,赋值StatusList,刷新的数据直接拼接
             if isPullUp {
                 //上拉获得旧的数据 尾部拼接
-                self.StatusList += List
+                self.statusList += List
             }else{
                 //下拉获得新的数据 头部拼接
-                self.StatusList = List + self.StatusList
+                self.statusList = List + self.statusList
             }
             //print("刷新了\(List.count)条微博 ，总微博为\(self.StatusList.count)")
             //4,我们要保证finish闭包要在缓存完单图后
@@ -62,6 +64,33 @@ extension StatusListViewModel{
             
         }
     }
+    
+    func replaceStatusIn(statusId : Int , statusViewModel : StatusViewModel)
+    {
+        var start = 0
+        
+        var end = statusList.count - 1
+        
+        var mid = (start + end) / 2
+        
+        while start <= end {
+            mid = (start + end) / 2
+            if statusList[mid].status.id > statusId
+            {
+                end = mid - 1
+            }else if statusList[mid].status.id < statusId
+            {
+                start = mid + 1
+            }else
+            {
+                statusList[mid] = statusViewModel
+                break
+            }
+            
+        }
+        
+    }
+    
 }
 
 //MARK: -单图缓存

@@ -33,8 +33,6 @@ class StatusTableViewController: UIViewController {
         
         prepareCommentKeyBoardView()
         
-        loadStatus()
-        
         prepareReloadButton()
         
         //prepareFPSLabel()
@@ -89,9 +87,7 @@ class StatusTableViewController: UIViewController {
     
     @objc func HomeTVCKeyBoardWillChange(_ notification : NSNotification)
     {
-//        let convertedRect = self.view.convert(commentKeyBoardView.frame, to: UIApplication.shared.keyWindow)
-//        print(convertedRect)
-        print(commentKeyBoardView.frame)
+ 
         //拿到键盘改变前后的高度,相对于window
         let rect = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration = (notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
@@ -118,7 +114,7 @@ class StatusTableViewController: UIViewController {
             
             if rect.origin.y == screenHeight
             {
-                print("收键盘")
+              
                 //键盘收回到屏幕下方
                 //contentOffset = originalContentOffSet
                 contentOffset = CGPoint.init(x:0, y: self.tableView.contentOffset.y - (commentViewPosition.y - commentKeyBoardView.frame.origin.y))
@@ -132,11 +128,10 @@ class StatusTableViewController: UIViewController {
                 //键盘弹出
                 if commentKeyBoardView.textView.inputView == nil
                 {
-                    print("弹键盘")
+                  
                     if isUsingKeyBoard
                     {
                         
-                        //                        let otherKeyBoardRect =  commentKeyBoardView.textView.inputView!.bounds.size
                         contentOffset = CGPoint.init(x: 0, y: originalContentOffSet.y + commentViewPosition.y - (rect.origin.y - commentKeyBoardView.bounds.size.height))
                     
                     }else
@@ -199,10 +194,9 @@ class StatusTableViewController: UIViewController {
         self.view.addSubview(tableView)
      
         //2.设置布局
-        
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.snp.top)
-            make.bottom.equalTo(self.view.snp.bottom)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-self.tabBarController!.tabBar.frame.size.height)
             make.left.equalTo(self.view.snp.left)
             make.right.equalTo(self.view.snp.right)
         }
@@ -218,12 +212,13 @@ class StatusTableViewController: UIViewController {
         
         tableView.estimatedRowHeight = 400
         
-        tableView.refreshControl = RefreshControl()
-        
+
+        tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: loadStatus)
+       (tableView.mj_header as? MJRefreshStateHeader)?.lastUpdatedTimeLabel.isHidden = true
+        tableView.mj_footer = MJRefreshBackNormalFooter.init(refreshingBlock: loadStatus)
+
+        tableView.mj_header.beginRefreshing()
         tapGesture.delegate = self.viewAboveTableView
-        
-        tableView.refreshControl?.addTarget(self, action: #selector(startRefreshing), for: .valueChanged)
-        
     }
     
     func prepareCommentKeyBoardView()
@@ -262,12 +257,11 @@ class StatusTableViewController: UIViewController {
     //MARK: - 功能函数
     ///加载微博数据，里面会进行本地缓存判断。
     @objc func loadStatus(){
-        lockForLoadStatus.lock()
-        tableView.refreshControl?.beginRefreshing()
-        statusListViewModel.LoadStatus(isPullUp: indicator.isAnimating)
+ 
+//        tableView.refreshControl?.beginRefreshing()
+       
+        statusListViewModel.loadStatus(isPullUp:  !tableView.mj_header.isRefreshing)
         { (isSuccess) in
-            
-            self.indicator.stopAnimating()
             
             if isSuccess == false
             {
@@ -276,25 +270,26 @@ class StatusTableViewController: UIViewController {
                 return
             }
             
-            self.addRefreshStatusLabel()
+//            self.addRefreshStatusLabel()
             
             self.reloadButton.isHidden = true
+            self.tableView.mj_header.endRefreshing()
+            self.tableView.mj_footer.endRefreshing()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
             
-            Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false
-                , block: { (_) in
-                    self.tableView.refreshControl?.endRefreshing()
-            })
-            self.lockForLoadStatus.unlock()
+//            Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false
+//                , block: { (_) in
+//                    self.tableView.refreshControl?.endRefreshing()
+//            })
         }
         
     }
     ///TargetAction通知
-    @objc func startRefreshing() {
-        loadStatus()
-    }
+//    @objc func startRefreshing() {
+//        loadStatus()
+//    }
     
     func addRefreshStatusLabel()  {
         
@@ -310,7 +305,7 @@ class StatusTableViewController: UIViewController {
         
         self.refreshStatusLabel.frame = rect.offsetBy(dx: 0, dy: -2*labelY)
         
-        self.navigationController?.navigationBar.insertSubview(self.refreshStatusLabel, at: 0)
+    self.navigationController?.navigationBar.insertSubview(self.refreshStatusLabel, at: 0)
         
         //我们在这里添加label在navibar上面还是下面
         UIView.animate(withDuration: 1.5, animations: {
@@ -331,7 +326,7 @@ class StatusTableViewController: UIViewController {
     
     func finishComment()  {
         self.commentKeyBoardView.textView.resignFirstResponder()
-       self.commentKeyBoardView.textView.inputView = nil
+        self.commentKeyBoardView.textView.inputView = nil
         (self.commentKeyBoardView.toolBar.items?[self.commentKeyBoardView.toolBar.items!.count-3].customView as! UIButton).setImage(UIImage.init(named: "compose_emoticonbutton_background"), for: .normal)
         self.isUsingKeyBoard = false
         self.viewAboveTableView.isHidden = true
@@ -426,11 +421,11 @@ extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //QL1("调用了numberOfRowsInSection")
-        return statusListViewModel.StatusList.count
+        return statusListViewModel.statusList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let vm = statusListViewModel.StatusList[indexPath.row]
+        let vm = statusListViewModel.statusList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: vm.cellID, for: indexPath) as! StatusCell
         
@@ -446,10 +441,9 @@ extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
         
         cell.topView.clickdelegate = self
         
-        if indexPath.row == statusListViewModel.StatusList.count-1 && !indicator.isAnimating{
-            indicator.startAnimating()
-            loadStatus()
-        }
+//        if indexPath.row == statusListViewModel.statusList.count-1{
+//            self.tableView.mj_footer
+//        }
         
         //QL1("调用了cellForRowAt")
         return cell
@@ -486,7 +480,7 @@ extension StatusTableViewController : UITableViewDelegate,UITableViewDataSource
         //            statuslistviewModel.StatusList[indexPath.row].rowHeight = (cell as! StatusCell).bottomView.frame.maxY
         //        }
         
-        return statusListViewModel.StatusList[indexPath.row].rowHeight
+        return statusListViewModel.statusList[indexPath.row].rowHeight
         
     }
     
@@ -520,7 +514,7 @@ extension StatusTableViewController : StatusCellBottomViewDelegate
             let commentVC = CommentViewController()
             //传入当前status的ViewModel,下面的一定有值,我们强行解包
             commentVC.hidesBottomBarWhenPushed = true
-            statusListViewModel.StatusList.forEach({ (vm) in
+            statusListViewModel.statusList.forEach({ (vm) in
                 if vm.status.id == statusViewModel.status.id
                 {
                     commentVC.statusViewModel = vm
@@ -548,7 +542,7 @@ extension StatusTableViewController : StatusCellBottomViewDelegate
             let commentVC = CommentViewController()
             //传入当前status的ViewModel,下面的一定有值,我们强行解包
             commentVC.hidesBottomBarWhenPushed = true
-            statusListViewModel.StatusList.forEach({ (vm) in
+            statusListViewModel.statusList.forEach({ (vm) in
                 if vm.status.id == statusID
                 {
                     commentVC.statusViewModel = vm
@@ -568,10 +562,24 @@ extension StatusTableViewController : CommentKeyBoardViewDelegate
             {
                 self.finishComment()
                 SVProgressHUD.showSuccess(withStatus: String.init(format: "成功评论%@的微博",commentKeyBoardView.statusViewModel!.status.user!.screen_name!))
+                
+//                self.tableView.reloadData()
+              //更新评论
+//                StatusViewModel.loadAStatus(statusID:commentKeyBoardView.statusViewModel!.status.id , { (statusViewModel) in
+//                    guard let statusViewModel = statusViewModel else
+//                    {
+//                        return
+//                    }
+//                    self.statusListViewModel.replaceStatusIn(statusId: statusViewModel.status.id, statusViewModel:statusViewModel)
+                
+//                    self.statusListViewModel.StatusList
+//                })
+               
             }
             
         }
     }
+    
 }
 //MAKR: - 正文蓝色Label点击代理
 extension StatusTableViewController : ClickLabelDelegate

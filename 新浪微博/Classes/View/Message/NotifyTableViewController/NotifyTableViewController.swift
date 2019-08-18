@@ -8,12 +8,11 @@
 
 import UIKit
 
-class NotifyTableViewController: UITableViewController {
+class NotifyViewController: UIViewController {
     
-    override func loadView() {
-        view = UIView.init(frame: CGRect.init(x: 0, y: 20, width: screenWidth, height: screenHeight))
-    }
+    let cellID = "NotifyTableViewCellID"
     
+    //MARK: - 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,83 +25,71 @@ class NotifyTableViewController: UITableViewController {
         self.view.backgroundColor = backColor
         
         self.view.addSubview(label)
-        
-        self.refreshControl = RefreshControl()
-        self.refreshControl?.addTarget(self, action: #selector(startRefreshing), for: .valueChanged)
+        prepareTableView()
+        preparePlaceHodlerView()
+        prepareRefreshControl()
     }
-    @objc func startRefreshing()
+    lazy var placeHolderView = UIView()
+    lazy var tableView = UITableView()
+    //MARK: - 控件初始化和布局
+    func preparePlaceHodlerView() {
+        
+        self.tableView.addSubview(label)
+        
+        label.snp.makeConstraints { (make) in
+            make.centerX.equalTo(tableView.snp.centerX)
+            make.top.equalTo(tableView.snp.top).offset((self.view.frame.height - label.frame.size.height - self.tabBarController!.tabBar.frame.size.height)/2)
+        }
+       
+        label.isUserInteractionEnabled = false
+    }
+    func prepareTableView()  {
+        
+        self.view.addSubview(tableView)
+        tableView.separatorStyle = .none
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-self.tabBarController!.tabBar.frame.size.height)
+            make.left.equalTo(self.view.snp.left)
+            make.right.equalTo(self.view.snp.right)
+        }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+    }
+    func prepareRefreshControl()
     {
-        self.refreshControl?.beginRefreshing()
+        tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: startRefreshing)
+        (tableView.mj_header as? MJRefreshStateHeader)?.lastUpdatedTimeLabel.isHidden = true
+    }
+    @objc func startRefreshing() {
+        
         Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false) { (_) in
-            self.refreshControl?.endRefreshing()
+            self.tableView.mj_header.endRefreshing()
         }
     }///中间提示label，注意该Label的布局放到pageViewController中布局
     lazy var label = UILabel.init(size: 18, content: "还没有收到消息哦", color: .lightGray, alignment: .center, lines: 0, breakMode: .byTruncatingTail)
-    // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+}
+extension NotifyViewController : UITableViewDelegate,UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        
+        return cell
     }
-    
-    /*
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-     
-     // Configure the cell...
-     
-     return cell
-     }
-     */
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }    
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

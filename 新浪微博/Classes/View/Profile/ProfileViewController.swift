@@ -28,6 +28,7 @@ class ProfileViewController: VisitorViewController {
     override func viewDidLoad() {
     
         super.viewDidLoad()
+        
         QL1(userAccountViewModel.accountPath)
         
         if !UserAccountViewModel.shared.userLoginStatus {

@@ -8,8 +8,8 @@
 
 import UIKit
 //var currenPage = 1
-private let titleCellID = "titleCellID"
-private let titleItemSize = CGSize.init(width: screenWidth*0.25, height: 30)
+fileprivate let titleCellID = "titleCellID"
+fileprivate let titleItemSize = CGSize.init(width: screenWidth*0.25, height: 30)
 
 let backColor = UIColor.init(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
 
@@ -52,7 +52,7 @@ class MessageViewController: VisitorViewController {
 //            }else {
 //            tbv.tableView.backgroundColor = backColor
 //            }
-            controllers.append(NotifyTableViewController())
+            controllers.append(NotifyViewController())
             controllers.append(MessageTableViewController())
     }
     
@@ -75,7 +75,7 @@ class MessageViewController: VisitorViewController {
 
         self.pageViewController.view.frame = CGRect.init(x: 0, y: insets.top, width: screenWidth, height:screenHeight -  insets.bottom + insets.top)
         //让notifyTableViewControllerd的label在safeArea中间
-        (controllers.first as! NotifyTableViewController).label.frame =  CGRect.init(x: screenWidth/2-80, y: (screenHeight-insets.top-insets.bottom)/2-10,width: 160 ,height:20)
+        (controllers.first as! NotifyViewController).label.frame =  CGRect.init(x: screenWidth/2-80, y: (screenHeight-insets.top-insets.bottom)/2-10,width: 160 ,height:20)
         
         
     }

@@ -40,6 +40,8 @@ class NetworkTool
        
         return url!
     }()
+    
+    lazy var reachabilityManager = Alamofire.NetworkReachabilityManager.init()
 }
 
 //MARK: - 获取用户信息
@@ -66,7 +68,7 @@ extension NetworkTool
     }
 }
 
-//MARK: - 发送微博
+//MARK: - 发送API
 extension NetworkTool{
     
     /// 发布微博
@@ -102,7 +104,7 @@ extension NetworkTool{
     }
 }
 
-//MARK: - 获取用户的微博
+//MARK: - 加载API
 extension NetworkTool{
     
     /// 加载微博数据
@@ -128,6 +130,20 @@ extension NetworkTool{
         let urlStrings = "https://api.weibo.com/2/statuses/home_timeline.json"
         
         tokenRequest(RequestMethod: .get, URLString: urlStrings, parameters: params, progress: nil, finished: finished)
+    }
+    //https://api.weibo.com/2/statuses/show.json
+    func loadAStatus(statusID:Int,finished:@escaping completion)
+    {
+        var params = [String : Any]()
+        
+        if statusID != 0
+        {
+            params["id"] = statusID
+        }
+        
+        let urlString = "https://api.weibo.com/2/statuses/show.json"
+        
+        tokenRequest(RequestMethod: .get, URLString: urlString, parameters: params, progress: nil, finished: finished)
     }
     
 }
@@ -324,3 +340,25 @@ extension NetworkTool{
     
 }
 
+//MARK: - 获取网络状态
+extension NetworkTool
+{
+    static func hasNetwork() -> Bool{
+        guard let rm = sharedTool.reachabilityManager  else {
+            return false
+        }
+    return rm.isReachable
+    }
+    static func usingWiFi() -> Bool{
+        guard let rm = sharedTool.reachabilityManager  else {
+            return false
+        }
+        return rm.isReachableOnEthernetOrWiFi
+    }
+    static func usingWWAN() -> Bool{
+        guard let rm = sharedTool.reachabilityManager  else {
+            return false
+        }
+        return rm.isReachableOnWWAN
+    }
+}
